@@ -2,7 +2,7 @@
  * repos.js — Configure your GitHub repositories here.
  *
  * Easiest setup (recommended):
- *   repository      — "owner/repo" (string, required)
+ *   repository      — "owner/repo" or "repo" (string, required)
  *
  * Optional overrides:
  *   displayName     — Custom title (otherwise derived from repo name)
@@ -10,6 +10,7 @@
  *   githubPagesUrl  — Custom live URL (otherwise uses repo homepage when available)
  *   icon            — Emoji icon (default "📦")
  *   tags            — String[] labels shown on the card
+ *   animation       — Sidebar animation component (import from ./components/animations/)
  *
  * Legacy fields still supported:
  *   owner, repo
@@ -17,30 +18,33 @@
  * To add a new project, copy one object and change only `repository`.
  */
 
+import PathfindingAnim from './components/animations/PathfindingAnim'
+import GraphAnim from './components/animations/GraphAnim'
+import SortingAnim from './components/animations/SortingAnim'
+
 export const repos = [
   {
-    repository: 'wesleyzjones1/Pathfinding-Visualizer',
-    icon: '🗺️',
+    repository: 'Pathfinding-Visualizer',
+    animation: PathfindingAnim,
     tags: ['React', 'Algorithms', 'Visualization', 'Vite'],
   },
 
   {
-    repository: 'wesleyzjones1/Graph_Plotter',
-    icon: '📈',
+    repository: 'Graph_Plotter',
+    animation: GraphAnim,
     tags: ['Javascript', 'Equations', 'Visualization', 'Graphing'],
   },
 
   {
-    repository: 'wesleyzjones1/Sorting-Algorithm-Visualizer',
-    icon: '🔀',
+    repository: 'Sorting-Algorithm-Visualizer',
+    animation: SortingAnim,
     tags: ['Javascript', 'Algorithms', 'Visualization', 'Sorting'],
   },
 
-
   // ── Add more repos below ──────────────────────────────────────────────────
   // {
-  //   repository: 'your-github-username/your-other-project',
-  //   icon: '🚀',
+  //   repository: 'your-repo-name',
+  //   animation: MyAnim,   // import from ./components/animations/
   //   tags: ['JavaScript', 'HTML'],
   // },
 ]

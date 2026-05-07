@@ -4,18 +4,47 @@ const SearchIcon = () => (
   </svg>
 )
 
-const HomeIcon = () => (
-  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-    <polyline points="9 22 9 12 15 12 15 22" />
-  </svg>
+const NAV_ANIM_STYLES = `
+  .nav-anim {
+    width: 26px; height: 26px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; position: relative;
+  }
+  @keyframes door-pulse {
+    0%, 100% { opacity: 0.35; }
+    50%       { opacity: 1; }
+  }
+  .home-door { animation: door-pulse 2.2s ease-in-out infinite; }
+  .nav-anim-projects {
+    display: grid;
+    grid-template-columns: repeat(2, 10px);
+    grid-template-rows: repeat(2, 10px);
+    gap: 2px;
+  }
+  .nav-anim-projects span { background: currentColor; border-radius: 1px; }
+  @keyframes tile-pop {
+    0%, 55%, 100% { opacity: 0.25; transform: scale(0.82); }
+    27%            { opacity: 1;    transform: scale(1); }
+  }
+  .nav-anim-projects span:nth-child(1) { animation: tile-pop 2s ease-in-out infinite 0s; }
+  .nav-anim-projects span:nth-child(2) { animation: tile-pop 2s ease-in-out infinite 0.5s; }
+  .nav-anim-projects span:nth-child(3) { animation: tile-pop 2s ease-in-out infinite 1s; }
+  .nav-anim-projects span:nth-child(4) { animation: tile-pop 2s ease-in-out infinite 1.5s; }
+`
+
+const HomeAnim = () => (
+  <span className="nav-anim" aria-hidden="true">
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M3 10L11 3l8 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z" />
+      <rect className="home-door" x="8" y="14" width="4.5" height="6" rx="0.5" />
+    </svg>
+  </span>
 )
 
-const GridIcon = () => (
-  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <rect x="3" y="3" width="7" height="7" /><rect x="14" y="3" width="7" height="7" />
-    <rect x="14" y="14" width="7" height="7" /><rect x="3" y="14" width="7" height="7" />
-  </svg>
+const ProjectsAnim = () => (
+  <span className="nav-anim nav-anim-projects" aria-hidden="true">
+    <span /><span /><span /><span />
+  </span>
 )
 
 const ChevronLeft = () => (
@@ -39,6 +68,7 @@ export default function Sidebar({ repos, page, setPage, search, setSearch, open,
 
   return (
     <nav className="sidebar">
+      <style>{NAV_ANIM_STYLES}</style>
       {/* Header */}
       <div className="sidebar-header">
         <button className="sidebar-logo" onClick={() => navigate('home')} title="Home">
@@ -78,7 +108,7 @@ export default function Sidebar({ repos, page, setPage, search, setSearch, open,
           className={`nav-item${page === 'home' ? ' active' : ''}`}
           onClick={() => navigate('home')}
         >
-          <span className="nav-item-icon"><HomeIcon /></span>
+          <span className="nav-item-icon"><HomeAnim /></span>
           <span className="nav-item-label">Home</span>
         </button>
 
@@ -86,7 +116,7 @@ export default function Sidebar({ repos, page, setPage, search, setSearch, open,
           className={`nav-item${page === 'projects' ? ' active' : ''}`}
           onClick={() => navigate('projects')}
         >
-          <span className="nav-item-icon"><GridIcon /></span>
+          <span className="nav-item-icon"><ProjectsAnim /></span>
           <span className="nav-item-label">Projects</span>
         </button>
 
@@ -103,7 +133,7 @@ export default function Sidebar({ repos, page, setPage, search, setSearch, open,
               onClick={() => navigate(id)}
               title={label}
             >
-              <span className="nav-item-icon">{r.icon || '📦'}</span>
+              <span className="nav-item-icon">{r.animation ? <r.animation /> : (r.icon || '📦')}</span>
               <span className="nav-item-label">{label}</span>
             </button>
           )

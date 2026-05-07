@@ -29,13 +29,15 @@ const MailIcon = () => (
 // ── Editable placeholder profile data ─────────────────────────────────────
 // Replace these with your real info.
 const PROFILE = {
-  name: 'Your Name',
-  title: 'Software Developer & Engineer',
-  bio: 'Replace this with a short personal summary. Describe what you build, what technologies excite you, and what you are currently working on. Two to three sentences is ideal.',
-  about: 'Replace this section with a more detailed bio. Describe your background, your projects, and what kinds of problems you enjoy solving. This is your space — make it yours.',
+  name: 'Wesley Jones',
+  title: 'Software Engineer',
+  company: 'Universal Switching',
+  location: 'Thousand Oaks',
+  bio: 'Software Engineer at Universal Switching focused on building practical web applications and interactive engineering tools. I enjoy turning complex ideas into clear, reliable user experiences with React and JavaScript.',
+  about: 'I build portfolio and product-focused applications with a strong emphasis on frontend performance, clean UI, and maintainable code. My recent work includes algorithm and graph visualization projects that demonstrate problem-solving, data modeling, and interactive design.',
   github: 'https://github.com/wesleyzjones1',
   linkedin: 'https://www.linkedin.com/in/wesleyzjones1',
-  email: 'your@email.com',
+  email: 'wesleyzjones1@gmail.com',
   tech: ['React', 'JavaScript', 'Python', 'Node.js', 'HTML/CSS', 'Git', 'Vite', 'GitHub Actions'],
 }
 
@@ -81,6 +83,12 @@ export default function Home({ setPage }) {
       </section>
 
       {/* ── About ── */}
+      <section className="home-section">
+        <h2 className="home-section-title">Profile</h2>
+        <p className="home-section-body"><strong>Current Company:</strong> {PROFILE.company}</p>
+        <p className="home-section-body"><strong>Location:</strong> {PROFILE.location}</p>
+      </section>
+
       <section className="home-section">
         <h2 className="home-section-title">About Me</h2>
         <p className="home-section-body">{PROFILE.about}</p>

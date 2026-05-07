@@ -1,5 +1,6 @@
 import { useEffect, useState, useMemo } from 'react'
 import { repos } from './repos'
+const DEFAULT_OWNER = 'wesleyzjones1'
 import Sidebar from './components/Sidebar'
 import Home from './components/Home'
 import ProjectsGrid from './components/ProjectsGrid'
@@ -19,8 +20,12 @@ function splitRepositoryRef(repository) {
   if (!repository || typeof repository !== 'string') {
     return { owner: '', repo: '' }
   }
-  const [owner = '', repo = ''] = repository.split('/').map(v => v.trim())
-  return { owner, repo }
+  const trimmed = repository.trim()
+  if (trimmed.includes('/')) {
+    const [owner = '', repo = ''] = trimmed.split('/').map(v => v.trim())
+    return { owner, repo }
+  }
+  return { owner: '', repo: trimmed }
 }
 
 function isHttpUrl(value) {
@@ -36,7 +41,7 @@ export default function App() {
     return repos
       .map((entry, index) => {
         const parsed = splitRepositoryRef(entry.repository)
-        const owner = entry.owner || parsed.owner
+        const owner = entry.owner || parsed.owner || DEFAULT_OWNER
         const repo = entry.repo || parsed.repo
 
         if (!owner || !repo) {
