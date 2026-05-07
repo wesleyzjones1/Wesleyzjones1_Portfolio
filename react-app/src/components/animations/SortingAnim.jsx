@@ -1,152 +1,92 @@
 import { useEffect, useState } from 'react'
 
-const sortDelay = 800
+const INITIAL = [22, 10, 18, 8, 20, 12, 16, 6]
+const TICK = 600
+const POST_COMPARE_MS = 50
 
 export default function SortingAnim() {
-  const initialBars = [22, 10, 18, 8, 20, 12, 16, 6].map((h, idx) => ({ id: idx, height: h }))
   const [state, setState] = useState({
-    bars: initialBars,
+    bars: INITIAL,
     i: 0,
     j: 0,
     phase: 'sorting',
+    comparing: false,
+    postCompareWait: false,
     randomIndex: 0,
     waitUntil: 0,
   })
 
-  const shuffleBars = (arr) => {
-    const next = [...arr]
-    for (let k = next.length - 1; k > 0; k--) {
-      const t = Math.floor(Math.random() * (k + 1))
-      const tmp = next[k]
-      next[k] = next[t]
-      next[t] = tmp
-    }
-    return next
-  }
-
   useEffect(() => {
-    const tick = setInterval(() => {
+    const id = setInterval(() => {
       setState((prev) => {
-        const n = prev.bars.length
+        const { bars: b, i, j, phase, postCompareWait, randomIndex, waitUntil } = prev
+        const n = b.length
 
-        if (prev.phase === 'sorting') {
-          const bars = [...prev.bars]
-          const j = prev.j
-          const i = prev.i
-
-          // swap adjacent bar objects when out of order so their DOM positions change
-          if (j < n - 1 - i && bars[j].height > bars[j + 1].height) {
-            const tmp = bars[j]
-            bars[j] = bars[j + 1]
-            bars[j + 1] = tmp
+        if (phase === 'sorting') {
+          if (postCompareWait) {
+            if (Date.now() < waitUntil) return prev
+            let nextI = i, nextJ = j + 1
+            if (nextJ >= n - 1 - i) { nextI += 1; nextJ = 0 }
+            if (nextI >= n - 1) return { ...prev, i: n - 1, j: 0, phase: 'complete-wait', waitUntil: Date.now() + 2000, postCompareWait: false }
+            return { ...prev, i: nextI, j: nextJ, postCompareWait: false }
           }
 
-          let nextI = i
-          let nextJ = j + 1
-          if (nextJ >= n - 1 - i) {
-            nextI += 1
-            nextJ = 0
-          }
+          const needsSwap = j < n - 1 - i && b[j] > b[j + 1]
 
-          if (nextI >= n - 1) {
-            return { ...prev, bars, i: n - 1, j: 0, phase: 'complete-wait', waitUntil: Date.now() + 2000 }
-          }
+          // First tick: set comparing to highlight the pair
+          if (!prev.comparing) return { ...prev, comparing: true }
 
-          return { ...prev, bars, i: nextI, j: nextJ }
+          // Second tick: we've been comparing; perform swap if needed, then short wait
+          const bars = [...b]
+          if (needsSwap) {
+            ;[bars[j], bars[j + 1]] = [bars[j + 1], bars[j]]
+          }
+          return { ...prev, bars, comparing: false, postCompareWait: true, waitUntil: Date.now() + POST_COMPARE_MS }
         }
 
-        if (prev.phase === 'complete-wait') {
-          if (Date.now() < prev.waitUntil) return prev
+        if (phase === 'complete-wait') {
+          if (Date.now() < waitUntil) return prev
           return { ...prev, phase: 'randomizing', randomIndex: 0 }
         }
 
-        if (prev.phase === 'randomizing') {
-          const n = prev.bars.length
-          if (prev.randomIndex >= n) {
-            return { ...prev, phase: 'post-random-wait', waitUntil: Date.now() + 2000 }
-          }
-
-          const bars = [...prev.bars]
-          const newHeight = 6 + Math.floor(Math.random() * 17)
-          bars[prev.randomIndex] = { ...bars[prev.randomIndex], height: newHeight }
-          return { ...prev, bars, randomIndex: prev.randomIndex + 1 }
+        if (phase === 'randomizing') {
+          if (randomIndex >= n) return { ...prev, phase: 'post-random-wait', waitUntil: Date.now() + 2000 }
+          const bars = b.map((h, idx) => idx === randomIndex ? 6 + Math.floor(Math.random() * 17) : h)
+          return { ...prev, bars, randomIndex: randomIndex + 1 }
         }
 
-        if (prev.phase === 'post-random-wait') {
-          if (Date.now() < prev.waitUntil) return prev
+        if (phase === 'post-random-wait') {
+          if (Date.now() < waitUntil) return prev
           return { ...prev, phase: 'sorting', i: 0, j: 0 }
         }
 
         return prev
       })
-    }, sortDelay) 
-
-    return () => clearInterval(tick)
+    }, TICK)
+    return () => clearInterval(id)
   }, [])
 
-  const { bars, i, j, phase } = state
-  const sortedFrom = phase === 'sorting' ? bars.length - i : 0
-  const heights = bars.map((b) => b.height)
-  const min = Math.min(...heights)
-  const max = Math.max(...heights)
+  const { bars, j, phase, comparing, postCompareWait } = state
+  const min = Math.min(...bars), max = Math.max(...bars)
+  const barColor = (h) => `hsl(214 42% ${Math.round(24 + ((max === min ? 1 : (h - min) / (max - min)) * 28))}%)`
 
-  const barColor = (height) => {
-    const t = max === min ? 1 : (height - min) / (max - min)
-    const lightness = Math.round(24 + t * 28)
-    return `hsl(214 42% ${lightness}%)`
-  }
-
-  // layout constants for swap animation (small bars to match nav size)
-  const BAR_WIDTH = 2
-  const GAP = 1
-  const STEP = BAR_WIDTH + GAP
-  const containerWidth = bars.length * BAR_WIDTH + Math.max(0, bars.length - 1) * GAP
+  const BAR_WIDTH = 2, GAP = 1, STEP = BAR_WIDTH + GAP
 
   return (
     <>
       <style>{`
-        .nav-anim-sort {
-          position: relative;
-          display: inline-block;
-          height: ${Math.max(24, max)}px;
-        }
-        .nav-anim-sort span {
-          position: absolute;
-          bottom: 0;
-          width: ${BAR_WIDTH}px;
-          border-radius: 0;
-          shape-rendering: crispedges;
-          transition: left 520ms ease, background-color 360ms linear, height 480ms ease, opacity 360ms linear;
-        }
-        .nav-anim-sort span.sorted {
-        }
-        .nav-anim-sort span.active {
-          background: #b04c4c !important;
-        }
+        .nav-anim-sort { position: relative; display: inline-block; }
+        .nav-anim-sort span { position: absolute; bottom: 0; width: ${BAR_WIDTH}px; transition: height 200ms ease, background-color 400ms ease; }
+        .nav-anim-sort span.active { background: #b04c4c !important; }
       `}</style>
-
-      <span
-        className="nav-anim nav-anim-sort"
-        aria-hidden="true"
-        style={{ width: `${containerWidth}px`, height: `${Math.max(24, max)}px` }}
-      >
-        {bars.map((bar, idx) => {
-          const isActive = phase === 'sorting' && (idx === j || idx === j + 1)
-          const isSorted = sortedFrom > 0 && idx >= sortedFrom
-          const className = `${isActive ? 'active' : ''} ${isSorted ? 'sorted' : ''}`.trim()
-          const left = idx * STEP
-          return (
-            <span
-              key={bar.id}
-              className={className}
-              style={{
-                left: `${left}px`,
-                height: `${bar.height}px`,
-                background: barColor(bar.height),
-              }}
-            />
-          )
-        })}
+      <span className="nav-anim nav-anim-sort" aria-hidden="true" style={{ width: `${bars.length * STEP}px`, height: `${Math.max(max, 24)}px` }}>
+        {bars.map((h, idx) => (
+          <span
+            key={idx}
+            className={phase === 'sorting' && (idx === j || idx === j + 1) && (comparing || postCompareWait) ? 'active' : ''}
+            style={{ left: `${idx * STEP}px`, height: `${h}px`, background: barColor(h) }}
+          />
+        ))}
       </span>
     </>
   )

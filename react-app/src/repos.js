@@ -20,7 +20,7 @@
 
 import PathfindingAnim from './components/animations/PathfindingAnim'
 import GraphAnim from './components/animations/GraphAnim'
-import SortingAnim from './components/animations/SortingAnimFixed'
+import SortingAnim from './components/animations/SortingAnim'
 import FactorioAnim from './components/animations/FactorioAnim'
 
 export const repos = [

@@ -318,7 +318,7 @@ html, body { height: 100%; font-family: 'DM Sans', system-ui, sans-serif; backgr
   overflow-y: auto;
   height: 100vh;
   background: var(--bg);
-  /* subtle dot grid, matches Astar grid aesthetic */
+  /* subtle dot grid */
   background-image: radial-gradient(circle, var(--border-subtle) 1px, transparent 1px);
   background-size: 28px 28px;
   background-attachment: local;

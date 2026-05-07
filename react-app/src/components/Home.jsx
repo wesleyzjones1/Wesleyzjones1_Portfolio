@@ -94,25 +94,6 @@ export default function Home({ setPage }) {
         </div>
       </section>
 
-      {/* ── Featured ── */}
-      <section className="home-section">
-        <h2 className="home-section-title">Featured Projects</h2>
-        <div className="featured-grid">
-          <FeaturedCard
-            icon="🗺️"
-            title="Pathfinding Visualizer"
-            desc="Interactive algorithm visualizer supporting A*, BFS, DFS, Dijkstra, Theta* and more. Draw walls, choose presets, and watch in real time."
-            onClick={() => setPage('projects')}
-          />
-          <FeaturedCard
-            icon="➕"
-            title="Add a Project"
-            desc="Open repos.js, paste in your GitHub owner/repo, and your latest release will appear here automatically."
-            onClick={() => setPage('projects')}
-          />
-        </div>
-      </section>
-
     </div>
   )
 }

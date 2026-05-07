@@ -19,9 +19,9 @@ export default function GraphAnim() {
           stroke-dasharray: 30;
           stroke-dashoffset: 30;
         }
-        .graph-curve.c1 { animation: graph-curve-1 14s ease-in-out infinite; }
-        .graph-curve.c2 { animation: graph-curve-2 14s ease-in-out infinite; }
-        .graph-curve.c3 { animation: graph-curve-3 14s ease-in-out infinite; }
+        .graph-curve.c1 { animation: graph-curve-1 20s ease-in-out infinite; }
+        .graph-curve.c2 { animation: graph-curve-2 20s ease-in-out infinite; }
+        .graph-curve.c3 { animation: graph-curve-3 20s ease-in-out infinite; }
         @keyframes graph-curve-1 {
           0%, 6% { opacity: 0; stroke-dashoffset: 30; }
           12%, 26% { opacity: 1; stroke-dashoffset: 0; }
