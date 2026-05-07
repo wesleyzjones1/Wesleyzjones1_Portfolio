@@ -46,6 +46,8 @@ export default function ProjectCard({ project, onOpenProject }) {
   const { owner, repo, displayName, description, githubPagesUrl, icon, tags } = project
   const { data: repoInfo } = useRepository(owner, repo)
   const { data: release, loading, error } = useRelease(owner, repo)
+  const buildDateIso = repoInfo?.pushed_at || repoInfo?.updated_at || null
+  const Anim = project.animation || null
   const resolvedDisplayName = displayName || repoInfo?.name || repo
   const resolvedDescription = description || repoInfo?.description || 'No description available yet.'
   const repositoryUrl = repoInfo?.html_url || `https://github.com/${owner}/${repo}`
@@ -81,10 +83,14 @@ export default function ProjectCard({ project, onOpenProject }) {
 
         {/* Header */}
         <div className="card-header">
-          <div className="card-icon">{icon || '📦'}</div>
+          <div className="card-icon">
+            {Anim ? <Anim /> : (icon || '📦')}
+          </div>
           <div className="card-title-wrap">
             <div className="card-title">{resolvedDisplayName}</div>
-            <div className="card-owner">{owner}/{repo}</div>
+            {buildDateIso && (
+              <div className="card-owner">{formatDate(buildDateIso)}</div>
+            )}
           </div>
         </div>
 
@@ -98,30 +104,7 @@ export default function ProjectCard({ project, onOpenProject }) {
           </div>
         )}
 
-        {/* Latest Release */}
-        <div className="card-release">
-          {loading && (
-            <div className="release-loading">
-              <span className="spinner" />
-              Fetching latest release…
-            </div>
-          )}
-          {!loading && error && (
-            <div className="release-error">{error}</div>
-          )}
-          {!loading && release && (
-            <>
-              <div className="card-release-header">
-                <span className="release-tag"><TagIcon /> {release.tag_name}</span>
-                <span className="release-date">{formatDate(release.published_at)}</span>
-              </div>
-              {notes && <p className="release-notes">{notes}</p>}
-            </>
-          )}
-          {!loading && !release && !error && (
-            <div className="release-error">Release not found.</div>
-          )}
-        </div>
+        {/* Release block removed per user request */}
 
         {/* Actions */}
         <div className="card-actions">

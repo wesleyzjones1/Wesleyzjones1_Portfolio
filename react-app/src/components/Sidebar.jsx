@@ -14,7 +14,7 @@ const NAV_ANIM_STYLES = `
     0%, 100% { opacity: 0.35; }
     50%       { opacity: 1; }
   }
-  .home-door { animation: door-pulse 2.2s ease-in-out infinite; }
+  .home-door { animation: none; opacity: 1; }
   .nav-anim-projects {
     display: grid;
     grid-template-columns: repeat(2, 10px);
@@ -42,8 +42,20 @@ const HomeAnim = () => (
 )
 
 const ProjectsAnim = () => (
-  <span className="nav-anim nav-anim-projects" aria-hidden="true">
-    <span /><span /><span /><span />
+  <span aria-hidden="true" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 26, height: 26 }}>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <rect x="0" y="0" width="6" height="6" rx="1" fill="currentColor" />
+      <rect x="9" y="0" width="6" height="6" rx="1" fill="currentColor" />
+      <rect x="18" y="0" width="6" height="6" rx="1" fill="currentColor" />
+
+      <rect x="0" y="9" width="6" height="6" rx="1" fill="currentColor" />
+      <rect x="9" y="9" width="6" height="6" rx="1" fill="currentColor" />
+      <rect x="18" y="9" width="6" height="6" rx="1" fill="currentColor" />
+
+      <rect x="0" y="18" width="6" height="6" rx="1" fill="currentColor" />
+      <rect x="9" y="18" width="6" height="6" rx="1" fill="currentColor" />
+      <rect x="18" y="18" width="6" height="6" rx="1" fill="currentColor" />
+    </svg>
   </span>
 )
 
@@ -72,7 +84,9 @@ export default function Sidebar({ repos, page, setPage, search, setSearch, open,
       {/* Header */}
       <div className="sidebar-header">
         <button className="sidebar-logo" onClick={() => navigate('home')} title="Home">
-          <div className="sidebar-logo-icon">◈</div>
+          <div className="sidebar-logo-icon">
+            <img src="profile.jpg" alt="Profile" className="sidebar-logo-avatar" />
+          </div>
           <span className="sidebar-logo-text">My Portfolio</span>
         </button>
         <button

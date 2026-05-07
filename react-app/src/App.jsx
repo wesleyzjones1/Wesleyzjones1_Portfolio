@@ -126,7 +126,18 @@ function ProjectLivePage({ project }) {
   }
 
   if (!resolvedPagesUrl) {
-    return <div className="project-live-state">No live URL found for this project.</div>
+    const Anim = project.animation || null
+    return (
+      <div className="project-live-state">
+        {Anim ? (
+          <div className="project-live-placeholder" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+            <Anim />
+          </div>
+        ) : (
+          <div>No live URL found for this project.</div>
+        )}
+      </div>
+    )
   }
 
   return (

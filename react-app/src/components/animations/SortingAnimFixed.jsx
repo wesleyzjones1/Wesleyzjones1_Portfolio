@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 
-const sortDelay = 800
-
 export default function SortingAnim() {
-  const initialBars = [22, 10, 18, 8, 20, 12, 16, 6].map((h, idx) => ({ id: idx, height: h }))
+  const initialNumbers = [22, 10, 18, 8, 20, 12, 16, 6]
+  const initialBars = initialNumbers.map((h, idx) => ({ id: idx, height: h }))
+
   const [state, setState] = useState({
     bars: initialBars,
     i: 0,
@@ -12,17 +12,6 @@ export default function SortingAnim() {
     randomIndex: 0,
     waitUntil: 0,
   })
-
-  const shuffleBars = (arr) => {
-    const next = [...arr]
-    for (let k = next.length - 1; k > 0; k--) {
-      const t = Math.floor(Math.random() * (k + 1))
-      const tmp = next[k]
-      next[k] = next[t]
-      next[t] = tmp
-    }
-    return next
-  }
 
   useEffect(() => {
     const tick = setInterval(() => {
@@ -34,7 +23,7 @@ export default function SortingAnim() {
           const j = prev.j
           const i = prev.i
 
-          // swap adjacent bar objects when out of order so their DOM positions change
+          // Compare heights and swap whole bar objects so their visual positions update
           if (j < n - 1 - i && bars[j].height > bars[j + 1].height) {
             const tmp = bars[j]
             bars[j] = bars[j + 1]
@@ -49,6 +38,7 @@ export default function SortingAnim() {
           }
 
           if (nextI >= n - 1) {
+            // finished sorting: wait 2s before randomizing
             return { ...prev, bars, i: n - 1, j: 0, phase: 'complete-wait', waitUntil: Date.now() + 2000 }
           }
 
@@ -63,11 +53,13 @@ export default function SortingAnim() {
         if (prev.phase === 'randomizing') {
           const n = prev.bars.length
           if (prev.randomIndex >= n) {
+            // finished randomization: wait 2s then start sorting
             return { ...prev, phase: 'post-random-wait', waitUntil: Date.now() + 2000 }
           }
 
           const bars = [...prev.bars]
           const newHeight = 6 + Math.floor(Math.random() * 17)
+          // replace the bar object to trigger clean updates but keep the same id
           bars[prev.randomIndex] = { ...bars[prev.randomIndex], height: newHeight }
           return { ...prev, bars, randomIndex: prev.randomIndex + 1 }
         }
@@ -79,7 +71,7 @@ export default function SortingAnim() {
 
         return prev
       })
-    }, sortDelay) 
+    }, 300)
 
     return () => clearInterval(tick)
   }, [])
@@ -96,11 +88,12 @@ export default function SortingAnim() {
     return `hsl(214 42% ${lightness}%)`
   }
 
-  // layout constants for swap animation (small bars to match nav size)
+  // layout constants for horizontal sliding
   const BAR_WIDTH = 2
   const GAP = 1
   const STEP = BAR_WIDTH + GAP
-  const containerWidth = bars.length * BAR_WIDTH + Math.max(0, bars.length - 1) * GAP
+  const containerWidth = bars.length * STEP
+  const containerHeight = Math.max(max, 26)
 
   return (
     <>
@@ -108,17 +101,20 @@ export default function SortingAnim() {
         .nav-anim-sort {
           position: relative;
           display: inline-block;
-          height: ${Math.max(24, max)}px;
+          padding-bottom: 1px;
         }
         .nav-anim-sort span {
           position: absolute;
           bottom: 0;
+          left: 0;
           width: ${BAR_WIDTH}px;
           border-radius: 0;
           shape-rendering: crispedges;
-          transition: left 520ms ease, background-color 360ms linear, height 480ms ease, opacity 360ms linear;
+          transition: transform 260ms ease, background-color 180ms linear, height 240ms ease, opacity 180ms linear;
+          will-change: transform, height;
         }
         .nav-anim-sort span.sorted {
+          /* uses computed color */
         }
         .nav-anim-sort span.active {
           background: #b04c4c !important;
@@ -128,20 +124,19 @@ export default function SortingAnim() {
       <span
         className="nav-anim nav-anim-sort"
         aria-hidden="true"
-        style={{ width: `${containerWidth}px`, height: `${Math.max(24, max)}px` }}
+        style={{ width: `${containerWidth}px`, height: `${containerHeight}px` }}
       >
         {bars.map((bar, idx) => {
           const isActive = phase === 'sorting' && (idx === j || idx === j + 1)
           const isSorted = sortedFrom > 0 && idx >= sortedFrom
           const className = `${isActive ? 'active' : ''} ${isSorted ? 'sorted' : ''}`.trim()
-          const left = idx * STEP
           return (
             <span
               key={bar.id}
               className={className}
               style={{
-                left: `${left}px`,
                 height: `${bar.height}px`,
+                transform: `translateX(${idx * STEP}px)`,
                 background: barColor(bar.height),
               }}
             />

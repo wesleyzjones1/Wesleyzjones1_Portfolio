@@ -20,7 +20,8 @@
 
 import PathfindingAnim from './components/animations/PathfindingAnim'
 import GraphAnim from './components/animations/GraphAnim'
-import SortingAnim from './components/animations/SortingAnim'
+import SortingAnim from './components/animations/SortingAnimFixed'
+import FactorioAnim from './components/animations/FactorioAnim'
 
 export const repos = [
   {
@@ -39,6 +40,12 @@ export const repos = [
     repository: 'Sorting-Algorithm-Visualizer',
     animation: SortingAnim,
     tags: ['Javascript', 'Algorithms', 'Visualization', 'Sorting'],
+  },
+
+  {
+    repository: 'Factorio-blueprint-generator',
+    animation: FactorioAnim,
+    tags: ['Javascript', 'Games', 'Visualization'],
   },
 
   // ── Add more repos below ──────────────────────────────────────────────────

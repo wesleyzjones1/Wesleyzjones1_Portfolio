@@ -1,4 +1,4 @@
-import { useState } from 'react'
+// using the public `profile.jpg` directly; no fallback state needed
 
 const GithubIcon = () => (
   <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
@@ -42,7 +42,6 @@ const PROFILE = {
 }
 
 export default function Home({ setPage }) {
-  const [imgFailed, setImgFailed] = useState(false)
 
   return (
     <div className="home-page">
@@ -50,16 +49,7 @@ export default function Home({ setPage }) {
       {/* ── Hero ── */}
       <section className="home-hero">
         <div className="home-avatar-wrap">
-          {imgFailed ? (
-            <div className="home-avatar-fallback">👤</div>
-          ) : (
-            <img
-              src="profile.jpg"
-              alt={PROFILE.name}
-              className="home-avatar"
-              onError={() => setImgFailed(true)}
-            />
-          )}
+          <img src="profile.jpg" alt={PROFILE.name} className="home-avatar" />
         </div>
 
         <div className="home-hero-text">
