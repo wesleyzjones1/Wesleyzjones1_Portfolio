@@ -1,4 +1,5 @@
 // using the public `profile.jpg` directly; no fallback state needed
+import NorthernLights from './animations/NorthernLights'
 
 const GithubIcon = () => (
   <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
@@ -45,6 +46,7 @@ export default function Home({ setPage }) {
 
   return (
     <div className="home-page">
+      <NorthernLights />
 
       {/* ── Hero ── */}
       <section className="home-hero">

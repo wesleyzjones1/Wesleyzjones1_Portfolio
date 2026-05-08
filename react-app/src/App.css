@@ -335,6 +335,8 @@ html, body { height: 100%; font-family: 'DM Sans', system-ui, sans-serif; backgr
   max-width: 900px;
   margin: 0 auto;
   padding: 48px 36px 96px;
+  position: relative;
+  z-index: 1;
 }
 
 /* hero */
@@ -344,11 +346,14 @@ html, body { height: 100%; font-family: 'DM Sans', system-ui, sans-serif; backgr
   gap: 16px;
   margin-bottom: 60px;
   padding: 16px;
-  background: var(--surface);
-  border: 1px solid var(--border);
+  background: rgba(20, 23, 31, 0.62);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
   border-radius: var(--radius);
   position: relative;
   overflow: hidden;
+  z-index: 1;
 }
 
 .home-hero::before {
@@ -477,6 +482,8 @@ html, body { height: 100%; font-family: 'DM Sans', system-ui, sans-serif; backgr
 /* sections */
 .home-section {
   margin-bottom: 44px;
+  position: relative;
+  z-index: 1;
 }
 
 .home-section-title {
@@ -1032,3 +1039,39 @@ html, body { height: 100%; font-family: 'DM Sans', system-ui, sans-serif; backgr
     display: none;
   }
 }
+
+/* ══════════════════════════════════════
+   NORTHERN LIGHTS / AURORA
+══════════════════════════════════════ */
+
+/* Strip main-content background when aurora is active */
+.main-content.aurora-bg {
+  background: transparent;
+  background-image: none;
+}
+
+/* Stars — drawn crisp, sits under the blurred aurora */
+.stars-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+  display: block;
+}
+
+/* Aurora — blurred on top of stars */
+.aurora-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  pointer-events: none;
+  display: block;
+  filter: blur(50px);
+  transform: scale(1.08); /* hide blurred edges */
+}
+
+

@@ -23,6 +23,7 @@ import GraphAnim from './components/animations/GraphAnim'
 import SortingAnim from './components/animations/SortingAnim'
 import FactorioAnim from './components/animations/FactorioAnim'
 import ClockAnim from './components/animations/ClockAnim'
+import WorldMapAnim from './components/animations/WorldMapAnim'
 
 export const repos = [
   {
@@ -53,6 +54,12 @@ export const repos = [
     repository: 'Countdown-Timer',
     animation: ClockAnim,
     tags: ['Javascript', 'Electron', 'Widget'],
+  },
+
+   {
+    repository: 'Interactive-World-Map',
+    animation: WorldMapAnim,
+    tags: ['Angular', 'SVG', 'API'],
   },
 
   // ── Add more repos below ──────────────────────────────────────────────────
