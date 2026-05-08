@@ -22,6 +22,7 @@ import PathfindingAnim from './components/animations/PathfindingAnim'
 import GraphAnim from './components/animations/GraphAnim'
 import SortingAnim from './components/animations/SortingAnim'
 import FactorioAnim from './components/animations/FactorioAnim'
+import ClockAnim from './components/animations/ClockAnim'
 
 export const repos = [
   {
@@ -46,6 +47,12 @@ export const repos = [
     repository: 'Factorio-blueprint-generator',
     animation: FactorioAnim,
     tags: ['Javascript', 'Games', 'Visualization'],
+  },
+
+  {
+    repository: 'Countdown-Timer',
+    animation: ClockAnim,
+    tags: ['Javascript', 'Electron', 'Widget'],
   },
 
   // ── Add more repos below ──────────────────────────────────────────────────
