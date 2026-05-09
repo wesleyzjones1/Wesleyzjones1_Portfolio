@@ -92,6 +92,7 @@ export default function NorthernLights(props) {
       starsData.length = 0
       const count = Math.round(starFreq * 700)
       for (let i = 0; i < count; i++) {
+<<<<<<< HEAD
         // offset rand inputs by the noiseSeed so star layout changes per load
         const seedOffset = Math.floor(noiseSeed)
         starsData.push({
@@ -102,6 +103,16 @@ export default function NorthernLights(props) {
           flickerSpeed: (0.2 + rand(i * 23 + seedOffset) * 0.8) * (p.current.starFlickerSpeed || 1),
           phase: rand(i * 13 + seedOffset) * Math.PI * 2,
           flickerAmp: 0.1 + rand(i * 19 + seedOffset) * 0.4,
+=======
+        starsData.push({
+          x: rand(i * 3) * w,
+          y: rand(i * 3 + 1) * h,
+          size: rand(i * 3 + 2) * 1.6 + 0.3,
+          baseAlpha: rand(i * 5) * 0.6 + 0.12,
+          flickerSpeed: (0.2 + rand(i * 23) * 0.8) * (p.current.starFlickerSpeed || 1),
+          phase: rand(i * 13) * Math.PI * 2,
+          flickerAmp: 0.1 + rand(i * 19) * 0.4,
+>>>>>>> d91c22e700ad7b4b4d0a40d38bfef0dbb82f0c23
         })
       }
       // draw once before animation starts to avoid flash
@@ -174,13 +185,21 @@ export default function NorthernLights(props) {
 
       for (let x = 0; x < cols; x++) {
         for (let y = 0; y < rows; y++) {
+<<<<<<< HEAD
           const rotNoise = simplex3(x / (10 * noiseScale), y / (10 * noiseScale), t + noiseSeed)
+=======
+          const rotNoise = simplex3(x / (10 * noiseScale), y / (10 * noiseScale), t)
+>>>>>>> d91c22e700ad7b4b4d0a40d38bfef0dbb82f0c23
           const rot  = rotateAngle + rotNoise * rotationNoise
           const cosR = Math.cos(rot), sinR = Math.sin(rot)
           const rx = x * cosR - y * sinR
           const ry = x * sinR + y * cosR
 
+<<<<<<< HEAD
           let brightness = clamp((simplex3(rx / (4 * noiseScale), ry / (20 * noiseScale), t + noiseSeed) + 1) * 0.5, 0, 1)
+=======
+          let brightness = clamp((simplex3(rx / (4 * noiseScale), ry / (20 * noiseScale), t) + 1) * 0.5, 0, 1)
+>>>>>>> d91c22e700ad7b4b4d0a40d38bfef0dbb82f0c23
           brightness = clamp(brightness + noiseBias * 0.45, 0, 1)
 
           let r, g, b
@@ -189,10 +208,16 @@ export default function NorthernLights(props) {
             const v = Math.round(brightness * 255)
             r = g = b = v
           } else {
+<<<<<<< HEAD
             // shift the noise sampling offsets by noiseSeed so color bands vary per load
             const rMod = clamp((simplex3(rx * redFreq   / (5 * noiseScale) + 100 + noiseSeed, ry * redFreq   / (22 * noiseScale), t * 0.7 + noiseSeed) + 1) * 0.5, 0, 1)
             const gMod = clamp((simplex3(rx * greenFreq / (5 * noiseScale) + 200 + noiseSeed, ry * greenFreq / (22 * noiseScale), t * 0.5 + noiseSeed) + 1) * 0.5, 0, 1)
             const bMod = clamp((simplex3(rx * blueFreq  / (5 * noiseScale) + 300 + noiseSeed, ry * blueFreq  / (22 * noiseScale), t * 0.8 + noiseSeed) + 1) * 0.5, 0, 1)
+=======
+            const rMod = clamp((simplex3(rx * redFreq   / (5 * noiseScale) + 100, ry * redFreq   / (22 * noiseScale), t * 0.7) + 1) * 0.5, 0, 1)
+            const gMod = clamp((simplex3(rx * greenFreq / (5 * noiseScale) + 200, ry * greenFreq / (22 * noiseScale), t * 0.5) + 1) * 0.5, 0, 1)
+            const bMod = clamp((simplex3(rx * blueFreq  / (5 * noiseScale) + 300, ry * blueFreq  / (22 * noiseScale), t * 0.8) + 1) * 0.5, 0, 1)
+>>>>>>> d91c22e700ad7b4b4d0a40d38bfef0dbb82f0c23
             r = Math.round(brightness * rMod * redAmount   * 255)
             g = Math.round(brightness * gMod * greenAmount * 255)
             b = Math.round(brightness * bMod * blueAmount  * 255)
