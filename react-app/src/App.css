@@ -1070,7 +1070,7 @@ html, body { height: 100%; font-family: 'DM Sans', system-ui, sans-serif; backgr
   z-index: 1;
   pointer-events: none;
   display: block;
-  filter: blur(50px);
+  filter: blur(30px);
   transform: scale(1.08); /* hide blurred edges */
 }
 

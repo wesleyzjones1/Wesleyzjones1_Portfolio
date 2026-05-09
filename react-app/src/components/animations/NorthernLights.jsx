@@ -1,29 +1,30 @@
 import { useEffect, useRef } from 'react'
 
-// ── Tune these ──────────────────────────────────────────────────────────────
-const FREQ         = 0.08  // animation speed
-const TILE_W       = 70     // tile width  — wider = fewer bands
-const TILE_H       = 130    // tile height — tall reinforces vertical curtains
-const ROTATE_ANGLE = -0.6  // tilt in radians (negative = lean left)
-const SKEW         = 0.05   // horizontal skew fraction
-const NOISE_SCALE  = 1.2    // >1 = larger smoother blobs; <1 = finer
-const ROTATION_NOISE = 0.4 // per-tile rotation jitter ± radians around ROTATE_ANGLE
-
-// Color max intensity per channel (0–1). All three hues appear; raise to intensify.
-const GREEN_AMOUNT = 1
-const BLUE_AMOUNT  = 0.5
-const RED_AMOUNT   = 0.2
-
-// Per-color spatial frequency — keep these low (0.4–1.2) to avoid patchiness
-const RED_FREQ   = .4
-const GREEN_FREQ = 2
-const BLUE_FREQ  = .8
-
-// Stars: 0 = none, 1 = dense field
-const STAR_FREQ = .4
-
 // small helpers
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v))
+
+// Default tuning values — these become the slider defaults in AuroraDebugPanel
+export const AURORA_DEFAULTS = {
+  freq: 0.1,
+  tileW: 40,
+  tileH: 40,
+  rotateAngle: 0.1,
+  skew: 0.2,
+  noiseScale: 2.5,
+  rotationNoise: 0.2,
+  greenAmount: 1,
+  blueAmount: 0.6,
+  redAmount: 0.3,
+  redFreq: 0.4,
+  greenFreq: 1,
+  blueFreq: 0.6,
+  starFreq: 0.65,
+  noiseMap: false,
+  noiseBias: 0.8,
+  starGlitter: 0.5,
+  starFlickerSpeed: 1,
+  starFlickerShuffleInterval: 5,
+}
 
 // ── Simplex 3D noise ─────────────────────────────────────────────────────
 const _p = [151,160,137,91,90,15,131,13,201,95,96,53,194,233,7,225,140,36,103,30,69,142,8,99,37,240,21,10,23,190,6,148,247,120,234,75,0,26,197,62,94,252,219,203,117,35,11,32,57,177,33,88,237,149,56,87,174,20,125,136,171,168,68,175,74,165,71,134,139,48,27,166,77,146,158,231,83,111,229,122,60,211,133,230,220,105,92,41,55,46,245,40,244,102,143,54,65,25,63,161,1,216,80,73,209,76,132,187,208,89,18,169,200,196,135,130,116,188,159,86,164,100,109,198,173,186,3,64,52,217,226,250,124,123,5,202,38,147,118,126,255,82,85,212,207,206,59,227,47,16,58,17,182,189,28,42,223,183,170,213,119,248,152,2,44,154,163,70,221,153,101,155,167,43,172,9,129,22,39,253,19,98,108,110,79,113,224,232,178,185,112,104,218,246,97,228,251,34,242,193,238,210,144,12,191,179,162,241,81,51,145,235,249,14,239,107,49,192,214,31,181,199,106,157,184,84,204,176,115,121,50,45,127,4,150,254,138,236,205,93,222,114,67,29,24,72,243,141,128,195,78,66,215,61,156,180]
@@ -64,9 +65,12 @@ function simplex3(xin, yin, zin) {
 // Deterministic pseudo-random from a seed integer
 const rand = n => { const x = Math.sin(n + 1) * 43758.5453123; return x - Math.floor(x) }
 
-export default function NorthernLights() {
+export default function NorthernLights(props) {
   const auroraRef = useRef(null)
   const starsRef  = useRef(null)
+  // Single live-ref: animation loop always reads latest values without remounting
+  const p = useRef(props)
+  p.current = { ...AURORA_DEFAULTS, ...props }
 
   useEffect(() => {
     const aurora = auroraRef.current
@@ -76,30 +80,27 @@ export default function NorthernLights() {
 
     // Precomputed star data used for per-frame flicker
     let starsData = []
+    let lastStarKey = ''
     const drawStars = () => {
+      const { starFreq } = p.current
       const w = stars.width, h = stars.height
       sCtx.clearRect(0, 0, w, h)
       sCtx.fillStyle = '#00000f'
       sCtx.fillRect(0, 0, w, h)
-      // populate starsData on resize
       starsData.length = 0
-      const count = Math.round(STAR_FREQ * 700)
+      const count = Math.round(starFreq * 700)
       for (let i = 0; i < count; i++) {
-        const baseAlpha = rand(i * 5) * 0.6 + 0.15
-        const willFlicker = rand(i * 11) < 0.18 // ~18% of stars flicker
         starsData.push({
           x: rand(i * 3) * w,
           y: rand(i * 3 + 1) * h,
           size: rand(i * 3 + 2) * 1.6 + 0.3,
-          baseAlpha,
-          seed: rand(i * 7) * 10,
-          flicker: willFlicker,
-          flickerPhase: rand(i * 13) * Math.PI * 2,
-          flickerSpeed: 0.2 + rand(i * 17) * 0.5, // 0.2 - 0.7 rad/sec (slow)
-          flickerAmp: 0.25 + rand(i * 19) * 0.6 // amplitude multiplier for flicker
+          baseAlpha: rand(i * 5) * 0.6 + 0.12,
+          flickerSpeed: (0.2 + rand(i * 23) * 0.8) * (p.current.starFlickerSpeed || 1),
+          phase: rand(i * 13) * Math.PI * 2,
+          flickerAmp: 0.1 + rand(i * 19) * 0.4,
         })
       }
-      // draw initial static stars (will be animated each frame in the loop)
+      // draw once before animation starts to avoid flash
       for (let i = 0; i < starsData.length; i++) {
         const s = starsData[i]
         sCtx.beginPath()
@@ -107,6 +108,7 @@ export default function NorthernLights() {
         sCtx.fillStyle = `rgba(255,255,255,${s.baseAlpha.toFixed(2)})`
         sCtx.fill()
       }
+      lastStarKey = p.current.starFreq
     }
 
     const resize = () => {
@@ -126,25 +128,37 @@ export default function NorthernLights() {
       time += (ts - last) || 0
       last = ts
 
-      const w = aurora.width, h = aurora.height
-      const cols = Math.ceil(w / TILE_W)
-      const rows = Math.ceil(h / TILE_H)
-      const tw = w / cols, th = h / rows
-      const t  = time * FREQ / 1000
+      const {
+        freq, tileW, tileH, rotateAngle, skew,
+        noiseScale, rotationNoise,
+        noiseBias,
+        greenAmount, blueAmount, redAmount,
+        redFreq, greenFreq, blueFreq,
+        noiseMap,
+      } = p.current
 
-      // update & draw stars each frame with subtle flicker
+      const w = aurora.width, h = aurora.height
+      const cols = Math.ceil(w / tileW)
+      const rows = Math.ceil(h / tileH)
+      const tw = w / cols, th = h / rows
+      const t  = time * freq / 1000
+
+      // stars
       const sw = stars.width, sh = stars.height
       sCtx.clearRect(0, 0, sw, sh)
       sCtx.fillStyle = '#00000f'
       sCtx.fillRect(0, 0, sw, sh)
+      if (p.current.starFreq !== lastStarKey) drawStars()
+
+      const now = time * 0.001
+      const epoch = Math.floor(now / (p.current.starFlickerShuffleInterval || 4))
+      const glitter = p.current.starGlitter || 0
       for (let i = 0; i < starsData.length; i++) {
         const s = starsData[i]
-        let flick = 1
-        if (s.flicker) {
-          // time is ms; convert to seconds for slow flicker
-          flick = 1 + s.flickerAmp * Math.sin((time * 0.001) * s.flickerSpeed + s.flickerPhase)
-        }
-        const a = clamp(s.baseAlpha * flick, 0, 1)
+        const flick = glitter > 0 && rand(i * 7 + epoch) < glitter
+          ? 1 + s.flickerAmp * Math.sin(now * s.flickerSpeed + s.phase)
+          : 1
+        const a = clamp(s.baseAlpha * flick, 0.02, 1)
         sCtx.beginPath()
         sCtx.arc(s.x, s.y, s.size, 0, Math.PI * 2)
         sCtx.fillStyle = `rgba(255,255,255,${a.toFixed(3)})`
@@ -152,43 +166,42 @@ export default function NorthernLights() {
       }
 
       ctx.clearRect(0, 0, w, h)
-
-      // Use additive blending so bright aurora light blends over stars but doesn't fully occlude them
       ctx.globalCompositeOperation = 'lighter'
+
       for (let x = 0; x < cols; x++) {
         for (let y = 0; y < rows; y++) {
-          // Slight per-tile rotation jitter
-          const rotNoise = simplex3(x / (10 * NOISE_SCALE), y / (10 * NOISE_SCALE), t)
-          const rot  = ROTATE_ANGLE + rotNoise * ROTATION_NOISE
+          const rotNoise = simplex3(x / (10 * noiseScale), y / (10 * noiseScale), t)
+          const rot  = rotateAngle + rotNoise * rotationNoise
           const cosR = Math.cos(rot), sinR = Math.sin(rot)
           const rx = x * cosR - y * sinR
           const ry = x * sinR + y * cosR
 
-          // Overall brightness from a single slow noise sample
-          const brightness = clamp((simplex3(rx / (4 * NOISE_SCALE), ry / (20 * NOISE_SCALE), t) + 1) * 0.5, 0, 1)
+          let brightness = clamp((simplex3(rx / (4 * noiseScale), ry / (20 * noiseScale), t) + 1) * 0.5, 0, 1)
+          brightness = clamp(brightness + noiseBias * 0.45, 0, 1)
 
-          // Per-channel slow noise — each color varies independently, low freq = smooth
-          const rMod = clamp((simplex3(rx * RED_FREQ   / (5 * NOISE_SCALE) + 100, ry * RED_FREQ   / (22 * NOISE_SCALE), t * 0.7) + 1) * 0.5, 0, 1)
-          const gMod = clamp((simplex3(rx * GREEN_FREQ / (5 * NOISE_SCALE) + 200, ry * GREEN_FREQ / (22 * NOISE_SCALE), t * 0.5) + 1) * 0.5, 0, 1)
-          const bMod = clamp((simplex3(rx * BLUE_FREQ  / (5 * NOISE_SCALE) + 300, ry * BLUE_FREQ  / (22 * NOISE_SCALE), t * 0.8) + 1) * 0.5, 0, 1)
+          let r, g, b
+          if (noiseMap) {
+            // Grayscale noise map for tuning
+            const v = Math.round(brightness * 255)
+            r = g = b = v
+          } else {
+            const rMod = clamp((simplex3(rx * redFreq   / (5 * noiseScale) + 100, ry * redFreq   / (22 * noiseScale), t * 0.7) + 1) * 0.5, 0, 1)
+            const gMod = clamp((simplex3(rx * greenFreq / (5 * noiseScale) + 200, ry * greenFreq / (22 * noiseScale), t * 0.5) + 1) * 0.5, 0, 1)
+            const bMod = clamp((simplex3(rx * blueFreq  / (5 * noiseScale) + 300, ry * blueFreq  / (22 * noiseScale), t * 0.8) + 1) * 0.5, 0, 1)
+            r = Math.round(brightness * rMod * redAmount   * 255)
+            g = Math.round(brightness * gMod * greenAmount * 255)
+            b = Math.round(brightness * bMod * blueAmount  * 255)
+          }
 
-          const r = Math.round(brightness * rMod * RED_AMOUNT   * 255)
-          const g = Math.round(brightness * gMod * GREEN_AMOUNT * 255)
-          const b = Math.round(brightness * bMod * BLUE_AMOUNT  * 255)
-
-          // Alpha based on combined intensity so stars show through darker regions
           const intensity = (r + g + b) / (3 * 255)
           const alpha = clamp(0.10 + intensity * 0.9, 0, 0.95)
-
-          const skewPx = ((y / rows) - 0.5) * w * SKEW
+          const skewPx = ((y / rows) - 0.5) * w * skew
           ctx.fillStyle = `rgba(${r},${g},${b},${alpha.toFixed(3)})`
           ctx.fillRect(x * tw + skewPx, y * th, tw, th)
         }
       }
 
-      // restore default composite mode
       ctx.globalCompositeOperation = 'source-over'
-
       raf = requestAnimationFrame(step)
     }
 
