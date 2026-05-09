@@ -14,7 +14,7 @@ export default function WorldMapAnim() {
         }
         @keyframes nav-anim-world-rotate { to { transform: rotate(360deg) } }
       `}</style>
-      <img src="/globe.png" alt="" width="30" height="30" />
+      <img src="globe.png" alt="" width="30" height="30" />
     </span>
   )
 }
