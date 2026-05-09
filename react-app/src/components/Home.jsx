@@ -1,5 +1,7 @@
 // using the public `profile.jpg` directly; no fallback state needed
-import NorthernLights from './animations/NorthernLights'
+import { useState } from 'react'
+import NorthernLights, { AURORA_DEFAULTS } from './animations/NorthernLights'
+import AuroraDebugPanel from './AuroraDebugPanel'
 
 const GithubIcon = () => (
   <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
@@ -42,11 +44,17 @@ const PROFILE = {
   tech: ['React', 'JavaScript', 'Python', 'Node.js', 'HTML/CSS', 'Git', 'Vite', 'GitHub Actions'],
 }
 
+// Set to false to hide the aurora tuner panel
+const SHOW_AURORA_TUNER = false
+
 export default function Home({ setPage }) {
+  const [aurora, setAurora] = useState(AURORA_DEFAULTS)
+  const setParam = (key, val) => setAurora(prev => ({ ...prev, [key]: val }))
 
   return (
     <div className="home-page">
-      <NorthernLights />
+      <NorthernLights {...aurora} />
+      {SHOW_AURORA_TUNER && <AuroraDebugPanel values={aurora} onChange={setParam} />}
 
       {/* ── Hero ── */}
       <section className="home-hero">

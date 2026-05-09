@@ -7,4 +7,5 @@ const pagesBase = repositoryName ? `/${repositoryName}/` : '/'
 export default defineConfig({
   plugins: [react()],
   base: process.env.GITHUB_ACTIONS === 'true' ? pagesBase : '/',
+  server: { open: false },
 })
