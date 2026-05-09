@@ -75,9 +75,9 @@ export default function Home({ setPage }) {
             <a href={PROFILE.linkedin} target="_blank" rel="noopener noreferrer" className="home-link-btn">
               <LinkedInIcon /> LinkedIn <ExternalIcon />
             </a>
-            <a href={`mailto:${PROFILE.email}`} className="home-link-btn">
+            <button type="button" className="home-link-btn" onClick={() => setPage('contact')}>
               <MailIcon /> Contact
-            </a>
+            </button>
           </div>
         </div>
       </section>

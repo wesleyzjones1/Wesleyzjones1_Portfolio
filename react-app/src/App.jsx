@@ -4,6 +4,7 @@ const DEFAULT_OWNER = 'wesleyzjones1'
 import Sidebar from './components/Sidebar'
 import Home from './components/Home'
 import ProjectsGrid from './components/ProjectsGrid'
+import Contact from './components/Contact'
 import { useRepository } from './hooks/useRepository'
 import './App.css'
 
@@ -103,6 +104,7 @@ export default function App() {
           />
         )}
         {selectedProject && <ProjectLivePage project={selectedProject} />}
+        {page === 'contact' && <Contact />}
       </main>
     </div>
   )

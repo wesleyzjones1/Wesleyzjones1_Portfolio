@@ -30,6 +30,11 @@ const NAV_ANIM_STYLES = `
   .nav-anim-projects span:nth-child(2) { animation: tile-pop 2s ease-in-out infinite 0.5s; }
   .nav-anim-projects span:nth-child(3) { animation: tile-pop 2s ease-in-out infinite 1s; }
   .nav-anim-projects span:nth-child(4) { animation: tile-pop 2s ease-in-out infinite 1.5s; }
+  @keyframes mail-flap {
+    0%, 100% { opacity: 0.4; transform: translateY(0); }
+    50%       { opacity: 1;   transform: translateY(-1.5px); }
+  }
+  .contact-mail-line { animation: mail-flap 2.4s ease-in-out infinite; }
 `
 
 const HomeAnim = () => (
@@ -55,6 +60,15 @@ const ProjectsAnim = () => (
       <rect x="0" y="18" width="6" height="6" rx="1" fill="currentColor" />
       <rect x="9" y="18" width="6" height="6" rx="1" fill="currentColor" />
       <rect x="18" y="18" width="6" height="6" rx="1" fill="currentColor" />
+    </svg>
+  </span>
+)
+
+const ContactAnim = () => (
+  <span className="nav-anim" aria-hidden="true">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+      <polyline className="contact-mail-line" points="22,6 12,13 2,6" />
     </svg>
   </span>
 )
@@ -132,6 +146,14 @@ export default function Sidebar({ repos, page, setPage, search, setSearch, open,
         >
           <span className="nav-item-icon"><ProjectsAnim /></span>
           <span className="nav-item-label">Projects</span>
+        </button>
+
+        <button
+          className={`nav-item${page === 'contact' ? ' active' : ''}`}
+          onClick={() => navigate('contact')}
+        >
+          <span className="nav-item-icon"><ContactAnim /></span>
+          <span className="nav-item-label">Contact</span>
         </button>
 
         <div className="nav-divider" />
