@@ -339,6 +339,20 @@ html, body { height: 100%; font-family: 'DM Sans', system-ui, sans-serif; backgr
   z-index: 1;
 }
 
+.home-moon {
+  position: fixed;
+  top: -150px;
+  right: -120px;
+  width: 400px;
+  height: 400px;
+  rotate: 90deg;
+  border-radius: 50%;
+  opacity: 0.2;
+  mix-blend-mode: screen;
+  pointer-events: none;
+  z-index: 0;
+}
+
 /* hero */
 .home-hero {
   display: flex;

@@ -55,6 +55,7 @@ export default function Home({ setPage }) {
     <div className="home-page">
       <NorthernLights {...aurora} />
       {SHOW_AURORA_TUNER && <AuroraDebugPanel values={aurora} onChange={setParam} />}
+      <img src="moon.png" className="home-moon" alt="" aria-hidden="true" />
 
       {/* ── Hero ── */}
       <section className="home-hero">
