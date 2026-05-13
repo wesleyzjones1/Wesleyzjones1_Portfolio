@@ -142,8 +142,13 @@ export default function NorthernLights(props) {
       } = p.current
 
       const w = aurora.width, h = aurora.height
-      const cols = Math.ceil(w / tileW)
-      const rows = Math.ceil(h / tileH)
+      // Scale tile sizes with viewport so aurora doesn't look "zoomed" on small screens
+      const refWidth = 1366
+      const sizeScale = clamp(w / refWidth, 0.45, 1.5)
+      const scaledTileW = Math.max(8, Math.round(tileW * sizeScale))
+      const scaledTileH = Math.max(8, Math.round(tileH * sizeScale))
+      const cols = Math.ceil(w / scaledTileW)
+      const rows = Math.ceil(h / scaledTileH)
       const tw = w / cols, th = h / rows
       const t  = time * freq / 1000
 

@@ -332,11 +332,11 @@ html, body { height: 100%; font-family: 'DM Sans', system-ui, sans-serif; backgr
    HOME PAGE
 ══════════════════════════════════════ */
 .home-page {
-  max-width: 55vw;
+  /* responsive container: cap at 900px but fill small screens */
+  max-width: min(900px, 95vw);
   margin: 0 auto;
   padding: 48px 36px 96px;
   position: relative;
-  z-index: 1;
 }
 
 .home-moon {
@@ -347,10 +347,13 @@ html, body { height: 100%; font-family: 'DM Sans', system-ui, sans-serif; backgr
   height: 400px;
   rotate: 90deg;
   border-radius: 50%;
-  opacity: 0.2;
-  mix-blend-mode: screen;
+  /* ensure moon blocks stars beneath it; avoid blending so stars don't show through */
+  opacity: 1;
+  mix-blend-mode: normal;
   pointer-events: none;
-  z-index: 0;
+  /* place moon above the star layer but below the aurora */
+  z-index: 1;
+  /* simple, no extra variables needed */
 }
 
 /* hero */
@@ -401,7 +404,7 @@ html, body { height: 100%; font-family: 'DM Sans', system-ui, sans-serif; backgr
 
 .home-avatar-fallback {
   width: 220px;
-  height: 220px;
+  z-index: 0;
   border-radius: 50%;
   border: 3px solid var(--border);
   background: var(--surface-raised);
@@ -1022,10 +1025,13 @@ html, body { height: 100%; font-family: 'DM Sans', system-ui, sans-serif; backgr
     box-shadow: 4px 0 32px rgba(0, 0, 0, 0.5);
   }
 
-  .app-layout.sidebar-collapsed .sidebar {
-    width: 0;
-    border-right: none;
-  }
+    /* On small screens, collapsed sidebar should still show icons (minimized)
+       instead of disappearing entirely. Use the collapsed width variable so
+       icons remain visible while text is hidden via existing rules. */
+    .app-layout.sidebar-collapsed .sidebar {
+      width: var(--sidebar-collapsed-w);
+      border-right: none;
+    }
 
   .main-content {
     width: 100%;
@@ -1081,11 +1087,19 @@ html, body { height: 100%; font-family: 'DM Sans', system-ui, sans-serif; backgr
   inset: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 1;
+  /* aurora should sit above the moon so it can glow over it */
+  z-index: 2;
   pointer-events: none;
   display: block;
   filter: blur(30px);
   transform: scale(1.08); /* hide blurred edges */
+}
+
+/* Ensure the actual page content is above the aurora layer while keeping
+   stars and moon below. Keep selector minimal and local to home-page. */
+.home-page > :not(.stars-canvas):not(.aurora-canvas):not(.home-moon) {
+  position: relative;
+  z-index: 3;
 }
 
 /* ══════════════════════════════════════
