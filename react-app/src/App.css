@@ -337,23 +337,7 @@ html, body { height: 100%; font-family: 'DM Sans', system-ui, sans-serif; backgr
   margin: 0 auto;
   padding: 48px 36px 96px;
   position: relative;
-}
-
-.home-moon {
-  position: fixed;
-  top: -150px;
-  right: -120px;
-  width: 400px;
-  height: 400px;
-  rotate: 90deg;
-  border-radius: 50%;
-  /* ensure moon blocks stars beneath it; avoid blending so stars don't show through */
-  opacity: 1;
-  mix-blend-mode: normal;
-  pointer-events: none;
-  /* place moon above the star layer but below the aurora */
-  z-index: 1;
-  /* simple, no extra variables needed */
+  z-index: 1; /* above the fixed aurora backdrop */
 }
 
 /* hero */
@@ -393,27 +377,13 @@ html, body { height: 100%; font-family: 'DM Sans', system-ui, sans-serif; backgr
 }
 
 .home-avatar {
-  width: 220px;
-  height: 220px;
+  width: 168px;
+  height: 168px;
   border-radius: 50%;
   border: 3px solid var(--border);
   object-fit: cover;
   display: block;
   background: var(--surface-raised);
-}
-
-.home-avatar-fallback {
-  width: 220px;
-  z-index: 0;
-  border-radius: 50%;
-  border: 3px solid var(--border);
-  background: var(--surface-raised);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 48px;
-  color: var(--text-muted);
-  flex-shrink: 0;
 }
 
 .home-hero-text {
@@ -444,8 +414,23 @@ html, body { height: 100%; font-family: 'DM Sans', system-ui, sans-serif; backgr
 .home-title {
   font-size: 15px;
   color: var(--text-secondary);
-  margin-bottom: 16px;
+  margin-bottom: 10px;
   font-weight: 400;
+}
+
+.home-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  margin-bottom: 14px;
+}
+
+.home-meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text-muted);
 }
 
 .home-bio {
@@ -521,6 +506,37 @@ html, body { height: 100%; font-family: 'DM Sans', system-ui, sans-serif; backgr
   background: var(--border-subtle);
 }
 
+/* section header row with a trailing action (e.g. "View all") */
+.home-section-head {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+}
+
+.home-section-head .home-section-title {
+  flex: 1;
+}
+
+.home-view-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--accent);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color var(--ease);
+}
+
+.home-view-all:hover {
+  color: var(--accent-hover);
+}
+
 .home-section-body {
   font-size: 14px;
   color: var(--text-secondary);
@@ -558,8 +574,10 @@ html, body { height: 100%; font-family: 'DM Sans', system-ui, sans-serif; backgr
 }
 
 .featured-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
+  background: rgba(20, 23, 31, 0.62);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
   border-radius: var(--radius);
   padding: 18px;
   cursor: pointer;
@@ -604,6 +622,89 @@ html, body { height: 100%; font-family: 'DM Sans', system-ui, sans-serif; backgr
 }
 
 .featured-card-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* experience */
+.experience-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.experience-item {
+  background: rgba(20, 23, 31, 0.62);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+}
+
+.experience-head {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+
+.experience-role {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: -0.2px;
+}
+
+.experience-company {
+  font-size: 13px;
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.experience-location {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.experience-summary {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+/* contact call-to-action band */
+.home-cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 26px 30px;
+  background: rgba(20, 23, 31, 0.62);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: var(--radius);
+  position: relative;
+  z-index: 1;
+}
+
+.home-cta-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.3px;
+  margin-bottom: 4px;
+}
+
+.home-cta-body {
   font-size: 13px;
   color: var(--text-secondary);
   line-height: 1.6;
@@ -921,98 +1022,6 @@ html, body { height: 100%; font-family: 'DM Sans', system-ui, sans-serif; backgr
 }
 
 /* ══════════════════════════════════════
-   EMBED MODAL
-══════════════════════════════════════ */
-.modal-backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.72);
-  z-index: 1000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-  backdrop-filter: blur(4px);
-}
-
-.modal-window {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  width: 100%;
-  max-width: 1140px;
-  height: 86vh;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.7);
-}
-
-.modal-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 16px;
-  border-bottom: 1px solid var(--border-subtle);
-  flex-shrink: 0;
-  gap: 12px;
-}
-
-.modal-title {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--text-primary);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  overflow: hidden;
-}
-
-.modal-title-url {
-  font-size: 11px;
-  color: var(--text-muted);
-  font-family: 'JetBrains Mono', monospace;
-  font-weight: 400;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.modal-actions {
-  display: flex;
-  gap: 6px;
-  align-items: center;
-  flex-shrink: 0;
-}
-
-.modal-close {
-  background: none;
-  border: 1px solid var(--border);
-  color: var(--text-secondary);
-  width: 28px;
-  height: 28px;
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all var(--ease);
-  font-family: inherit;
-}
-
-.modal-close:hover {
-  background: var(--surface-raised);
-  color: var(--danger);
-  border-color: var(--danger);
-}
-
-.modal-iframe {
-  flex: 1;
-  border: none;
-  background: var(--bg);
-}
-
-/* ══════════════════════════════════════
    RESPONSIVE
 ══════════════════════════════════════ */
 @media (max-width: 768px) {
@@ -1064,42 +1073,45 @@ html, body { height: 100%; font-family: 'DM Sans', system-ui, sans-serif; backgr
    NORTHERN LIGHTS / AURORA
 ══════════════════════════════════════ */
 
-/* Strip main-content background when aurora is active */
+/* The whole night sky (stars, moon, aurora curtains) lives in one fixed
+   layer at z-index 0. Page containers sit at z-index 1, so content can
+   never end up behind the aurora. */
 .main-content.aurora-bg {
-  background: transparent;
+  background: #020208; /* match the sky gradient's top color */
   background-image: none;
 }
 
-/* Stars — drawn crisp, sits under the blurred aurora */
-.stars-canvas {
+.aurora-layer {
   position: fixed;
   inset: 0;
-  width: 100vw;
-  height: 100vh;
   z-index: 0;
   pointer-events: none;
-  display: block;
+  overflow: hidden;
 }
 
-/* Aurora — blurred on top of stars */
+.stars-canvas,
 .aurora-canvas {
-  position: fixed;
+  position: absolute;
   inset: 0;
-  width: 100vw;
-  height: 100vh;
-  /* aurora should sit above the moon so it can glow over it */
-  z-index: 2;
-  pointer-events: none;
+  width: 100%;
+  height: 100%;
   display: block;
-  filter: blur(30px);
-  transform: scale(1.08); /* hide blurred edges */
 }
 
-/* Ensure the actual page content is above the aurora layer while keeping
-   stars and moon below. Keep selector minimal and local to home-page. */
-.home-page > :not(.stars-canvas):not(.aurora-canvas):not(.home-moon) {
-  position: relative;
-  z-index: 3;
+/* Aurora curtains — blurred over the stars and moon so they glow */
+.aurora-canvas {
+  filter: blur(12px);
+  transform: scale(1.05); /* hide blurred edges */
+}
+
+.aurora-moon {
+  position: absolute;
+  top: -150px;
+  right: -120px;
+  width: 400px;
+  height: 400px;
+  rotate: 90deg;
+  border-radius: 50%;
 }
 
 /* ══════════════════════════════════════

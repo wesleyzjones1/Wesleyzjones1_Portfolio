@@ -28,15 +28,6 @@ function formatDate(iso) {
   return new Date(iso).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
 }
 
-/** Grab first ~200 chars of release notes, text only, no markdown. */
-function trimNotes(body) {
-  if (!body) return null
-  const plain = body.replace(/#{1,6}\s/g, '').replace(/[*_`[\]]/g, '').trim()
-  const lines = plain.split('\n').map(l => l.trim()).filter(Boolean)
-  const joined = lines.slice(0, 5).join(' ')
-  return joined.length > 220 ? joined.slice(0, 220) + '…' : joined
-}
-
 function isHttpUrl(value) {
   return typeof value === 'string' && /^https?:\/\//i.test(value)
 }
@@ -45,7 +36,7 @@ function isHttpUrl(value) {
 export default function ProjectCard({ project, onOpenProject }) {
   const { owner, repo, displayName, description, githubPagesUrl, icon, tags } = project
   const { data: repoInfo } = useRepository(owner, repo)
-  const { data: release, loading, error } = useRelease(owner, repo)
+  const { data: release } = useRelease(owner, repo)
   const buildDateIso = repoInfo?.pushed_at || repoInfo?.updated_at || null
   const Anim = project.animation || null
   const resolvedDisplayName = displayName || repoInfo?.name || repo
@@ -53,8 +44,6 @@ export default function ProjectCard({ project, onOpenProject }) {
   const repositoryUrl = repoInfo?.html_url || `https://github.com/${owner}/${repo}`
   const readmeUrl = `${repositoryUrl}#readme`
   const resolvedPagesUrl = githubPagesUrl || (isHttpUrl(repoInfo?.homepage) ? repoInfo.homepage : '')
-
-  const notes = release ? trimNotes(release.body) : null
 
   const handleCardClick = () => {
     if (resolvedPagesUrl && onOpenProject) {

@@ -5,6 +5,7 @@ import Sidebar from './components/Sidebar'
 import Home from './components/Home'
 import ProjectsGrid from './components/ProjectsGrid'
 import Contact from './components/Contact'
+import NorthernLights from './components/animations/NorthernLights'
 import { useRepository } from './hooks/useRepository'
 import './App.css'
 
@@ -82,6 +83,10 @@ export default function App() {
     setPage(projectId)
   }
 
+  // The aurora backdrop is rendered once here, behind whichever page is
+  // active, so pages never have to manage (or fight with) its stacking.
+  const showAurora = page === 'home' || page === 'contact'
+
   return (
     <div className={`app-layout${sidebarOpen ? '' : ' sidebar-collapsed'}`}>
       <Sidebar
@@ -93,8 +98,14 @@ export default function App() {
         open={sidebarOpen}
         setOpen={setSidebarOpen}
       />
-      <main className={`main-content${selectedProject ? ' main-content-project' : ''}`}>
-        {page === 'home' && <Home setPage={setPage} />}
+      <main
+        className={
+          `main-content${selectedProject ? ' main-content-project' : ''}` +
+          `${showAurora ? ' aurora-bg' : ''}`
+        }
+      >
+        {showAurora && <NorthernLights />}
+        {page === 'home' && <Home setPage={setPage} repos={normalizedRepos} />}
         {page === 'projects' && (
           <ProjectsGrid
             repos={filteredRepos}

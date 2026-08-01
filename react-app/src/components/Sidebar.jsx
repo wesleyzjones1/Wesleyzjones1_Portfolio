@@ -101,7 +101,7 @@ export default function Sidebar({ repos, page, setPage, search, setSearch, open,
           <div className="sidebar-logo-icon">
             <img src="profile.jpg" alt="Profile" className="sidebar-logo-avatar" />
           </div>
-          <span className="sidebar-logo-text">My Portfolio</span>
+          <span className="sidebar-logo-text">Wesley Jones</span>
         </button>
         <button
           className="sidebar-toggle"

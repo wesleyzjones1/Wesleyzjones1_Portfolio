@@ -1,6 +1,5 @@
 import { useRef, useState } from 'react'
 import emailjs from '@emailjs/browser'
-import NorthernLights, { AURORA_DEFAULTS } from './animations/NorthernLights'
 
 const EMAILJS_SERVICE_ID  = 'service_yiapkfw'
 const EMAILJS_TEMPLATE_ID = 'template_usoo54o'
@@ -107,8 +106,6 @@ export default function Contact() {
 
   return (
     <div className="contact-page">
-      <NorthernLights {...AURORA_DEFAULTS} />
-
       <section className="contact-header">
         <div className="contact-header-icon"><MailIcon /></div>
         <div className="contact-header-text">

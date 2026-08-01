@@ -6,18 +6,19 @@ import { useState, useEffect } from 'react'
  *
  * Uses the public GitHub Releases API — no auth token needed for public repos.
  * Rate limit: 60 unauthenticated requests/hour per IP.
+ *
+ * State is keyed by the owner/repo pair and only written from the fetch
+ * callbacks, so switching repos never needs a synchronous reset inside the
+ * effect — `loading` is derived from whether the stored result is stale.
  */
 export function useRelease(owner, repo) {
-  const [data, setData] = useState(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
+  const key = owner && repo ? `${owner}/${repo}` : null
+  const [result, setResult] = useState({ key: null, data: null, error: null })
 
   useEffect(() => {
-    let cancelled = false
-    setLoading(true)
-    setData(null)
-    setError(null)
+    if (!key) return
 
+    let cancelled = false
     fetch(
       `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/releases/latest`,
       { headers: { Accept: 'application/vnd.github+json' } }
@@ -28,11 +29,25 @@ export function useRelease(owner, repo) {
         if (!r.ok) throw new Error(`GitHub API: ${r.status}`)
         return r.json()
       })
-      .then(d => { if (!cancelled) { setData(d); setLoading(false) } })
-      .catch(e => { if (!cancelled) { setError(e.message); setLoading(false) } })
+      .then(d => {
+        if (!cancelled) setResult({ key, data: d, error: null })
+      })
+      .catch(e => {
+        if (!cancelled) setResult({ key, data: null, error: e.message })
+      })
 
-    return () => { cancelled = true }
-  }, [owner, repo])
+    return () => {
+      cancelled = true
+    }
+  }, [key, owner, repo])
 
-  return { data, loading, error }
+  if (!key) {
+    return { data: null, loading: false, error: 'Invalid repository name' }
+  }
+  const fresh = result.key === key
+  return {
+    data: fresh ? result.data : null,
+    loading: !fresh,
+    error: fresh ? result.error : null,
+  }
 }

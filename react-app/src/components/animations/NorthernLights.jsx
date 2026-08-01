@@ -1,30 +1,24 @@
 import { useEffect, useRef } from 'react'
 
-// small helpers
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v))
 
-// Default tuning values — these become the slider defaults in AuroraDebugPanel
-export const AURORA_DEFAULTS = {
-  freq: 0.1,
-  tileW: 40,
-  tileH: 40,
-  rotateAngle: 0.1,
-  skew: 0.2,
-  noiseScale: 2.5,
-  rotationNoise: 0.2,
-  greenAmount: 1,
-  blueAmount: 0.6,
-  redAmount: 0.3,
-  redFreq: 0.4,
-  greenFreq: 1,
-  blueFreq: 0.6,
+// Default tuning values — spread as props to override any of them
+const AURORA_DEFAULTS = {
+  speed: 1,          // overall drift speed of the curtains
+  intensity: 1,      // overall aurora brightness
   starFreq: 0.65,
-  noiseMap: false,
-  noiseBias: 0.8,
   starGlitter: 0.5,
   starFlickerSpeed: 1,
   starFlickerShuffleInterval: 5,
 }
+
+// Each ribbon is one aurora "curtain": a band of vertical rays whose base
+// undulates across the sky. Several at different heights/speeds give depth.
+const RIBBONS = [
+  { seed: 0,  baseY: 0.55, height: 0.34, drift: 1.0,  alpha: 1.0 },
+  { seed: 37, baseY: 0.72, height: 0.24, drift: 1.35, alpha: 0.55 },
+  { seed: 74, baseY: 0.38, height: 0.22, drift: 0.8,  alpha: 0.4 },
+]
 
 // ── Simplex 3D noise ─────────────────────────────────────────────────────
 const _p = [151,160,137,91,90,15,131,13,201,95,96,53,194,233,7,225,140,36,103,30,69,142,8,99,37,240,21,10,23,190,6,148,247,120,234,75,0,26,197,62,94,252,219,203,117,35,11,32,57,177,33,88,237,149,56,87,174,20,125,136,171,168,68,175,74,165,71,134,139,48,27,166,77,146,158,231,83,111,229,122,60,211,133,230,220,105,92,41,55,46,245,40,244,102,143,54,65,25,63,161,1,216,80,73,209,76,132,187,208,89,18,169,200,196,135,130,116,188,159,86,164,100,109,198,173,186,3,64,52,217,226,250,124,123,5,202,38,147,118,126,255,82,85,212,207,206,59,227,47,16,58,17,182,189,28,42,223,183,170,213,119,248,152,2,44,154,163,70,221,153,101,155,167,43,172,9,129,22,39,253,19,98,108,110,79,113,224,232,178,185,112,104,218,246,97,228,251,34,242,193,238,210,144,12,191,179,162,241,81,51,145,235,249,14,239,107,49,192,214,31,181,199,106,157,184,84,204,176,115,121,50,45,127,4,150,254,138,236,205,93,222,114,67,29,24,72,243,141,128,195,78,66,215,61,156,180]
@@ -69,26 +63,41 @@ export default function NorthernLights(props) {
   const auroraRef = useRef(null)
   const starsRef  = useRef(null)
   // Single live-ref: animation loop always reads latest values without remounting
-  const p = useRef(props)
-  p.current = { ...AURORA_DEFAULTS, ...props }
+  const p = useRef({ ...AURORA_DEFAULTS, ...props })
+  useEffect(() => {
+    p.current = { ...AURORA_DEFAULTS, ...props }
+  })
 
   useEffect(() => {
     const aurora = auroraRef.current
     const stars  = starsRef.current
     const ctx    = aurora.getContext('2d')
     const sCtx   = stars.getContext('2d')
+    // The curtains are drawn on a low-res buffer, then upscaled + CSS-blurred.
+    // Keeps the per-frame ray count small and gives the soft aurora glow for free.
+    const BUFFER_SCALE = 5
+    const buffer = document.createElement('canvas')
+    const bCtx = buffer.getContext('2d')
     // Per-mount random seed so each load looks different
     const noiseSeed = Math.random() * 1000
 
     // Precomputed star data used for per-frame flicker
     let starsData = []
     let lastStarKey = ''
+    const paintSky = () => {
+      const w = stars.width, h = stars.height
+      const sky = sCtx.createLinearGradient(0, 0, 0, h)
+      sky.addColorStop(0, '#020208')
+      sky.addColorStop(0.6, '#050a16')
+      sky.addColorStop(1, '#0a1220')
+      sCtx.fillStyle = sky
+      sCtx.fillRect(0, 0, w, h)
+    }
     const drawStars = () => {
       const { starFreq } = p.current
       const w = stars.width, h = stars.height
       sCtx.clearRect(0, 0, w, h)
-      sCtx.fillStyle = '#00000f'
-      sCtx.fillRect(0, 0, w, h)
+      paintSky()
       starsData.length = 0
       const count = Math.round(starFreq * 700)
       for (let i = 0; i < count; i++) {
@@ -118,45 +127,23 @@ export default function NorthernLights(props) {
     const resize = () => {
       aurora.width  = stars.width  = window.innerWidth
       aurora.height = stars.height = window.innerHeight
+      buffer.width  = Math.max(1, Math.ceil(aurora.width / BUFFER_SCALE))
+      buffer.height = Math.max(1, Math.ceil(aurora.height / BUFFER_SCALE))
       drawStars()
     }
     resize()
     window.addEventListener('resize', resize)
 
-    const el = document.querySelector('.main-content')
-    if (el) el.classList.add('aurora-bg')
-
     let time = 0, last = 0, raf
 
-    const step = ts => {
-      time += (ts - last) || 0
-      last = ts
+    const drawFrame = () => {
+      const { speed, intensity } = p.current
+      const t = time * 0.00006 * speed + noiseSeed
 
-      const {
-        freq, tileW, tileH, rotateAngle, skew,
-        noiseScale, rotationNoise,
-        noiseBias,
-        greenAmount, blueAmount, redAmount,
-        redFreq, greenFreq, blueFreq,
-        noiseMap,
-      } = p.current
-
-      const w = aurora.width, h = aurora.height
-      // Scale tile sizes with viewport so aurora doesn't look "zoomed" on small screens
-      const refWidth = 1366
-      const sizeScale = clamp(w / refWidth, 0.45, 1.5)
-      const scaledTileW = Math.max(8, Math.round(tileW * sizeScale))
-      const scaledTileH = Math.max(8, Math.round(tileH * sizeScale))
-      const cols = Math.ceil(w / scaledTileW)
-      const rows = Math.ceil(h / scaledTileH)
-      const tw = w / cols, th = h / rows
-      const t  = time * freq / 1000
-
-      // stars
+      // ── stars (flicker) ──
       const sw = stars.width, sh = stars.height
       sCtx.clearRect(0, 0, sw, sh)
-      sCtx.fillStyle = '#00000f'
-      sCtx.fillRect(0, 0, sw, sh)
+      paintSky()
       if (p.current.starFreq !== lastStarKey) drawStars()
 
       const now = time * 0.001
@@ -174,60 +161,83 @@ export default function NorthernLights(props) {
         sCtx.fill()
       }
 
-      ctx.clearRect(0, 0, w, h)
-      ctx.globalCompositeOperation = 'lighter'
+      // ── aurora curtains ──
+      const bw = buffer.width, bh = buffer.height
+      bCtx.clearRect(0, 0, bw, bh)
+      bCtx.globalCompositeOperation = 'lighter'
 
-      for (let x = 0; x < cols; x++) {
-        for (let y = 0; y < rows; y++) {
-          const rotNoise = simplex3(x / (10 * noiseScale), y / (10 * noiseScale), t + noiseSeed)
-          const rot  = rotateAngle + rotNoise * rotationNoise
-          const cosR = Math.cos(rot), sinR = Math.sin(rot)
-          const rx = x * cosR - y * sinR
-          const ry = x * sinR + y * cosR
+      for (const ribbon of RIBBONS) {
+        const rt = t * ribbon.drift
+        for (let x = 0; x < bw; x++) {
+          const u = x / bw
+          // Bottom edge of the curtain: a slow large wave plus a smaller ripple
+          const wave  = simplex3(u * 2.2, ribbon.seed, rt)
+          const wave2 = simplex3(u * 5.5, ribbon.seed + 11, rt * 1.6)
+          const baseY = (ribbon.baseY + wave * 0.1 + wave2 * 0.03) * bh
+          // Ray length breathes along the curtain
+          const lenN = 0.5 + 0.5 * simplex3(u * 3.1, ribbon.seed + 23, rt * 1.2)
+          const rayLen = ribbon.height * bh * (0.45 + 0.75 * lenN)
+          // High-frequency folds give the characteristic pleated-curtain bands
+          const fold = 0.5 + 0.5 * simplex3(u * 14, ribbon.seed + 41, rt * 2.2)
+          const a = clamp(Math.pow(fold, 1.8) * ribbon.alpha * intensity, 0, 1)
+          if (a < 0.02) continue
 
-          let brightness = clamp((simplex3(rx / (4 * noiseScale), ry / (20 * noiseScale), t + noiseSeed) + 1) * 0.5, 0, 1)
-          brightness = clamp(brightness + noiseBias * 0.45, 0, 1)
+          // Vertical ray: bright green base → teal → violet, fading upward
+          const g = bCtx.createLinearGradient(0, baseY, 0, baseY - rayLen)
+          g.addColorStop(0,    `rgba(85,255,160,${(a * 0.85).toFixed(3)})`)
+          g.addColorStop(0.3,  `rgba(45,225,170,${(a * 0.5).toFixed(3)})`)
+          g.addColorStop(0.65, `rgba(95,140,235,${(a * 0.26).toFixed(3)})`)
+          g.addColorStop(1,    'rgba(150,80,220,0)')
+          bCtx.fillStyle = g
+          bCtx.fillRect(x, baseY - rayLen, 1, rayLen)
 
-          let r, g, b
-          if (noiseMap) {
-            // Grayscale noise map for tuning
-            const v = Math.round(brightness * 255)
-            r = g = b = v
-          } else {
-            // shift the noise sampling offsets by noiseSeed so color bands vary per load
-            const rMod = clamp((simplex3(rx * redFreq   / (5 * noiseScale) + 100 + noiseSeed, ry * redFreq   / (22 * noiseScale), t * 0.7 + noiseSeed) + 1) * 0.5, 0, 1)
-            const gMod = clamp((simplex3(rx * greenFreq / (5 * noiseScale) + 200 + noiseSeed, ry * greenFreq / (22 * noiseScale), t * 0.5 + noiseSeed) + 1) * 0.5, 0, 1)
-            const bMod = clamp((simplex3(rx * blueFreq  / (5 * noiseScale) + 300 + noiseSeed, ry * blueFreq  / (22 * noiseScale), t * 0.8 + noiseSeed) + 1) * 0.5, 0, 1)
-            r = Math.round(brightness * rMod * redAmount   * 255)
-            g = Math.round(brightness * gMod * greenAmount * 255)
-            b = Math.round(brightness * bMod * blueAmount  * 255)
+          // Faint pink fringe just below the bright lower edge (nitrogen glow)
+          if (a > 0.15) {
+            const fringeLen = bh * 0.045
+            const f = bCtx.createLinearGradient(0, baseY, 0, baseY + fringeLen)
+            f.addColorStop(0, `rgba(255,110,150,${(a * 0.3).toFixed(3)})`)
+            f.addColorStop(1, 'rgba(255,110,150,0)')
+            bCtx.fillStyle = f
+            bCtx.fillRect(x, baseY, 1, fringeLen)
           }
-
-          const intensity = (r + g + b) / (3 * 255)
-          const alpha = clamp(0.10 + intensity * 0.9, 0, 0.95)
-          const skewPx = ((y / rows) - 0.5) * w * skew
-          ctx.fillStyle = `rgba(${r},${g},${b},${alpha.toFixed(3)})`
-          ctx.fillRect(x * tw + skewPx, y * th, tw, th)
         }
       }
+      bCtx.globalCompositeOperation = 'source-over'
 
-      ctx.globalCompositeOperation = 'source-over'
+      // upscale the soft low-res buffer onto the visible canvas
+      const w = aurora.width, h = aurora.height
+      ctx.clearRect(0, 0, w, h)
+      ctx.imageSmoothingEnabled = true
+      ctx.drawImage(buffer, 0, 0, w, h)
+    }
+
+    const step = ts => {
+      time += Math.min((ts - last) || 0, 100)
+      last = ts
+      drawFrame()
       raf = requestAnimationFrame(step)
     }
 
-    raf = requestAnimationFrame(step)
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (reducedMotion) {
+      // Render a single static sky instead of animating
+      time = 1
+      drawFrame()
+    } else {
+      raf = requestAnimationFrame(step)
+    }
 
     return () => {
       cancelAnimationFrame(raf)
       window.removeEventListener('resize', resize)
-      if (el) el.classList.remove('aurora-bg')
     }
   }, [])
 
   return (
-    <>
-      <canvas ref={starsRef}  className="stars-canvas"  />
+    <div className="aurora-layer" aria-hidden="true">
+      <canvas ref={starsRef} className="stars-canvas" />
+      <img src="moon.png" className="aurora-moon" alt="" />
       <canvas ref={auroraRef} className="aurora-canvas" />
-    </>
+    </div>
   )
 }
