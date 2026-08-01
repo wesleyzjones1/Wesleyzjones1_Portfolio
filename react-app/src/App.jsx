@@ -37,7 +37,9 @@ function isHttpUrl(value) {
 export default function App() {
   const [page, setPage] = useState('home')
   const [search, setSearch] = useState('')
-  const [sidebarOpen, setSidebarOpen] = useState(true)
+  // On phones the sidebar overlays the page, so start it collapsed there —
+  // otherwise the first thing a mobile visitor sees is the nav, not the site.
+  const [sidebarOpen, setSidebarOpen] = useState(() => window.innerWidth >= 768)
 
   const normalizedRepos = useMemo(() => {
     return repos

@@ -116,7 +116,9 @@ export default function Home({ setPage, repos = [] }) {
       {/* ── About ── */}
       <section className="home-section">
         <h2 className="home-section-title">About Me</h2>
-        <p className="home-section-body">{PROFILE.about}</p>
+        <div className="home-prose">
+          <p className="home-section-body">{PROFILE.about}</p>
+        </div>
       </section>
 
       {/* ── Featured projects ── */}

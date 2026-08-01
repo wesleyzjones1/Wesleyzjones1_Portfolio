@@ -497,6 +497,8 @@ html, body { height: 100%; font-family: 'DM Sans', system-ui, sans-serif; backgr
   align-items: center;
   gap: 12px;
   letter-spacing: -0.2px;
+  /* headings sit straight on the sky — keep them legible over a bright curtain */
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.85);
 }
 
 .home-section-title::after {
@@ -541,6 +543,17 @@ html, body { height: 100%; font-family: 'DM Sans', system-ui, sans-serif; backgr
   font-size: 14px;
   color: var(--text-secondary);
   line-height: 1.75;
+}
+
+/* Body copy that would otherwise sit directly on the aurora gets the same
+   glass panel as the cards, so it stays readable over a bright curtain. */
+.home-prose {
+  background: rgba(20, 23, 31, 0.62);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: var(--radius);
+  padding: 18px 20px;
 }
 
 /* tech badges */
@@ -1046,6 +1059,12 @@ html, body { height: 100%; font-family: 'DM Sans', system-ui, sans-serif; backgr
     width: 100%;
   }
 
+  /* The mobile sidebar is fixed (it overlays rather than pushes), so the
+     content has to be inset past the collapsed icon rail itself. */
+  .app-layout.sidebar-collapsed .main-content {
+    padding-left: var(--sidebar-collapsed-w);
+  }
+
   .home-hero {
     flex-direction: column;
     align-items: flex-start;
@@ -1087,6 +1106,8 @@ html, body { height: 100%; font-family: 'DM Sans', system-ui, sans-serif; backgr
   z-index: 0;
   pointer-events: none;
   overflow: hidden;
+  /* keep the aurora's screen blend from reaching page content above it */
+  isolation: isolate;
 }
 
 .stars-canvas,
@@ -1098,10 +1119,14 @@ html, body { height: 100%; font-family: 'DM Sans', system-ui, sans-serif; backgr
   display: block;
 }
 
-/* Aurora curtains — blurred over the stars and moon so they glow */
+/* Aurora curtains. The canvas is opaque (black where there is no light), so
+   it is screen-blended to add its light over the stars and moon the way real
+   aurora does — stars stay visible straight through it. The blur is kept small
+   so the fine vertical rays stay crisp. */
 .aurora-canvas {
-  filter: blur(12px);
-  transform: scale(1.05); /* hide blurred edges */
+  mix-blend-mode: screen;
+  filter: blur(3px);
+  transform: scale(1.03); /* hide blurred edges */
 }
 
 .aurora-moon {
