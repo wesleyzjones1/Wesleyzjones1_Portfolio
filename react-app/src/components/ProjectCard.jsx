@@ -1,136 +1,36 @@
-import { useRelease } from '../hooks/useRelease'
-import { useRepository } from '../hooks/useRepository'
+import { Link } from 'react-router-dom'
+import { asset } from '../lib/projects'
+import ProjectMark from './ui/ProjectMark'
+import StatusBadge from './ui/StatusBadge'
+import { ArrowRight } from './ui/Icons'
 
-/* ── Icons ── */
-const RepoIcon = () => (
-  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
-  </svg>
-)
-
-const TagIcon = () => (
-  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z" />
-    <line x1="7" y1="7" x2="7.01" y2="7" />
-  </svg>
-)
-
-const ExternalIcon = () => (
-  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-    <polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" />
-  </svg>
-)
-
-/* ── Helpers ── */
-function formatDate(iso) {
-  if (!iso) return ''
-  return new Date(iso).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
-}
-
-function isHttpUrl(value) {
-  return typeof value === 'string' && /^https?:\/\//i.test(value)
-}
-
-/* ── Component ── */
-export default function ProjectCard({ project, onOpenProject }) {
-  const { owner, repo, displayName, description, githubPagesUrl, icon, tags } = project
-  const { data: repoInfo } = useRepository(owner, repo)
-  const { data: release } = useRelease(owner, repo)
-  const buildDateIso = repoInfo?.pushed_at || repoInfo?.updated_at || null
-  const Anim = project.animation || null
-  const resolvedDisplayName = displayName || repoInfo?.name || repo
-  const resolvedDescription = description || repoInfo?.description || 'No description available yet.'
-  const repositoryUrl = repoInfo?.html_url || `https://github.com/${owner}/${repo}`
-  const readmeUrl = `${repositoryUrl}#readme`
-  const resolvedPagesUrl = githubPagesUrl || (isHttpUrl(repoInfo?.homepage) ? repoInfo.homepage : '')
-
-  const handleCardClick = () => {
-    if (resolvedPagesUrl && onOpenProject) {
-      onOpenProject(`${owner}/${repo}`)
-    }
-  }
-
-  const stopCardClick = (event) => {
-    event.stopPropagation()
-  }
-
+export default function ProjectCard({ project }) {
+  const href = `/projects/${project.slug}`
   return (
-    <>
-      <div
-        className={`project-card${resolvedPagesUrl ? ' project-card-clickable' : ''}`}
-        onClick={handleCardClick}
-        role={resolvedPagesUrl ? 'button' : undefined}
-        tabIndex={resolvedPagesUrl ? 0 : undefined}
-        onKeyDown={resolvedPagesUrl ? (event) => {
-          if (event.key === 'Enter' || event.key === ' ') {
-            event.preventDefault()
-            handleCardClick()
-          }
-        } : undefined}
-      >
-
-        {/* Header */}
-        <div className="card-header">
-          <div className="card-icon">
-            {Anim ? <Anim /> : (icon || '📦')}
-          </div>
-          <div className="card-title-wrap">
-            <div className="card-title">{resolvedDisplayName}</div>
-            {buildDateIso && (
-              <div className="card-owner">{formatDate(buildDateIso)}</div>
-            )}
-          </div>
+    <Link to={href} className="project-card" aria-label={`${project.title}: ${project.tagline}`}>
+      <div className={`project-card__cover${project.cover ? '' : ' project-card__cover--placeholder'}`}>
+        {project.cover
+          ? <img src={asset(project.cover)} alt="" loading="lazy" width="1280" height="800" />
+          : <ProjectMark project={project} />}
+        <span className="project-card__status"><StatusBadge status={project.status} /></span>
+      </div>
+      <div className="project-card__body">
+        <div className="project-card__head">
+          <ProjectMark project={project} />
+          <h3 className="project-card__title">{project.title}</h3>
         </div>
-
-        {/* Description */}
-        <p className="card-description">{resolvedDescription}</p>
-
-        {/* Tags */}
-        {tags?.length > 0 && (
-          <div className="card-tags">
-            {tags.map(t => <span key={t} className="card-tag">{t}</span>)}
+        <p className="project-card__tagline">{project.tagline}</p>
+        {project.tech?.length > 0 && (
+          <div className="chips">
+            {project.tech.slice(0, 4).map(t => <span key={t} className="chip">{t}</span>)}
+            {project.tech.length > 4 && <span className="chip chip--outline">+{project.tech.length - 4}</span>}
           </div>
         )}
-
-        {/* Release block removed per user request */}
-
-        {/* Actions */}
-        <div className="card-actions">
-          <a
-            className="btn"
-            href={readmeUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={stopCardClick}
-          >
-            README <ExternalIcon />
-          </a>
-
-          <a
-            className="btn"
-            href={repositoryUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={stopCardClick}
-          >
-            <RepoIcon /> Repository
-          </a>
-
-          {release && (
-            <a
-              className="btn"
-              href={release.html_url}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={stopCardClick}
-            >
-              <TagIcon /> Release <ExternalIcon />
-            </a>
-          )}
+        <div className="project-card__foot">
+          <span className="muted" style={{ fontSize: 13 }}>{project.year}</span>
+          <span className="project-card__more">View project <ArrowRight size={14} /></span>
         </div>
-
       </div>
-    </>
+    </Link>
   )
 }

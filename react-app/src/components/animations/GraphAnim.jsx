@@ -41,6 +41,7 @@ export default function GraphAnim() {
       <svg className="nav-anim nav-anim-graph" width="26" height="26" viewBox="0 0 26 26" fill="none">
         <line className="graph-axis" x1="3" y1="22" x2="23" y2="22" />
         <line className="graph-axis" x1="3" y1="22" x2="3" y2="4" />
+        <path d="M3 20 Q8 9 13 16 T23 9" fill="none" stroke="currentColor" strokeWidth="1.4" opacity="0.35" strokeLinecap="round" />
         <path className="graph-curve c1" d="M3 20 Q8 9 13 16 T23 9" />
         <path className="graph-curve c2" d="M3 16 C7 22 10 4 14 10 S20 22 23 12" />
         <path className="graph-curve c3" d="M3 14 C7 6 10 24 14 12 S20 4 23 8" />

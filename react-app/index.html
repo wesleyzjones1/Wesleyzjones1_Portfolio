@@ -3,11 +3,30 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Wesley Jones — Software Engineer. Portfolio of web applications, algorithm visualizers, and interactive engineering tools." />
     <title>Wesley Jones · Software Engineer</title>
+    <meta name="description" content="Wesley Jones is a software engineer in Thousand Oaks, CA, building embedded firmware, full-stack web applications and mobile products. Creator of DateTrails." />
+    <meta name="author" content="Wesley Jones" />
+    <meta name="theme-color" content="#f7f6f2" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0f1115" media="(prefers-color-scheme: dark)" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Wesley Jones · Software Engineer" />
+    <meta property="og:description" content="Embedded firmware, full-stack web and mobile products. Creator of DateTrails." />
+    <meta property="og:image" content="%BASE_URL%profile-640.jpg" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" href="%BASE_URL%favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,400..600,0..100;1,9..144,400..600,0..100&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <script>
+      // Apply the saved (or system) theme before first paint to avoid a flash.
+      (function () {
+        try {
+          var t = localStorage.getItem('theme');
+          if (!t) t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          document.documentElement.setAttribute('data-theme', t);
+        } catch (e) { /* ignore */ }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

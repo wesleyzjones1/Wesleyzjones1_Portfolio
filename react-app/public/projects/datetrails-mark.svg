@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- DateTrails brand mark — "Sunset Route" Classic (final, H1). Vector source of
+     truth for heart_mark.png / app_icon.png / app_icon_foreground.png. See README.md.
+     Heart bbox spans x14..86 y14..84 (centre 50,49) in a 0..100 mark box. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="10 9 80 80" width="512" height="512" role="img" aria-label="DateTrails"><defs>
+      <linearGradient id="gmk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FF6B6B"/><stop offset=".5" stop-color="#FF8A80"/><stop offset="1" stop-color="#FFB74D"/></linearGradient>
+      <clipPath id="cmk"><path d="M50 84 C46 78 22 62 14 43 C8 30 14 14 30 14 C41 14 47 21 50 29 C53 21 59 14 70 14 C86 14 92 30 86 43 C78 62 54 78 50 84 Z"/></clipPath>
+    </defs>
+    <path d="M50 84 C46 78 22 62 14 43 C8 30 14 14 30 14 C41 14 47 21 50 29 C53 21 59 14 70 14 C86 14 92 30 86 43 C78 62 54 78 50 84 Z" fill="url(#gmk)"/>
+    <g clip-path="url(#cmk)">
+      <path d="M32 40 C 42 56, 58 30, 68 54" fill="none" stroke="#FFF3E4" stroke-width="3.2" stroke-dasharray="1.4 5.4" stroke-linecap="round"/>
+    </g>
+    <circle cx="32" cy="40" r="3.4" fill="#FFF3E4"/><g transform="translate(56.00 32.00) scale(1.000)">
+    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#E64A4A"/>
+    <circle cx="12" cy="9" r="2.7" fill="#fff"/></g></svg>

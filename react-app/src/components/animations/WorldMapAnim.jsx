@@ -1,20 +1,16 @@
-import React from 'react'
-
 export default function WorldMapAnim() {
   return (
-    <span className="nav-anim nav-anim-world-map" aria-hidden="true">
+    <svg className="nav-anim nav-anim-world" width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" aria-hidden="true">
       <style>{`
-        .nav-anim-world-map { width: 30px; height: 30px; display:inline-block }
-        .nav-anim-world-map img {
-          width:30px; height:30px; display:block; transform-origin:50% 50%;
-          animation: nav-anim-world-rotate 45s linear infinite;
-          will-change: transform;
-          -webkit-backface-visibility: hidden; backface-visibility: hidden;
-          image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges;
-        }
-        @keyframes nav-anim-world-rotate { to { transform: rotate(360deg) } }
+        .nav-anim-world .meridian { animation: world-meridian 14s linear infinite; transform-origin: 13px 13px; }
+        @keyframes world-meridian { 0% { transform: scaleX(1); } 50% { transform: scaleX(-1); } 100% { transform: scaleX(1); } }
+        .nav-anim-world .pin { animation: world-pin 14s ease-in-out infinite; }
+        @keyframes world-pin { 0%, 70%, 100% { opacity: .35; } 20%, 50% { opacity: 1; } }
       `}</style>
-      <img src={import.meta.env.BASE_URL + 'globe.png'} alt="World globe" width="30" height="30" />
-    </span>
+      <circle cx="13" cy="13" r="9.5" />
+      <line x1="3.5" y1="13" x2="22.5" y2="13" opacity=".45" />
+      <ellipse className="meridian" cx="13" cy="13" rx="4.5" ry="9.5" opacity=".6" />
+      <circle className="pin" cx="16" cy="9.5" r="1.6" fill="var(--accent)" stroke="none" />
+    </svg>
   )
 }
