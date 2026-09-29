@@ -23,7 +23,7 @@ export const profile = {
   headline: 'I build software that ships, from firmware to the app store.',
   intro:
     'Software engineer with a Bachelor of Science in Software Engineering and a track record that runs from embedded firmware and network systems to full-stack web and mobile products. Currently at Universal Switching, where I lead software delivery on hardware switching platforms, and about to launch DateTrails, a mobile app I designed, built and shipped end to end.',
-  availability: 'Open to senior software engineering, product engineering and technical leadership roles.',
+  availability: 'Open to senior engineering and technical leadership roles',
 
   /** Short, verifiable facts for the hero strip. */
   facts: [

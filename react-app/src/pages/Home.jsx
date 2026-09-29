@@ -67,7 +67,7 @@ export default function Home() {
           {hero && <Reveal><FeatureProject project={hero} /></Reveal>}
 
           {featured.length > 0 && (
-            <div className="grid grid--3" style={{ marginTop: 20 }}>
+            <div className="grid grid--3 featured-grid" style={{ marginTop: 20 }}>
               {featured.map((p, i) => <Reveal key={p.slug} delay={i * 80}><ProjectCard project={p} /></Reveal>)}
             </div>
           )}

@@ -19,7 +19,7 @@ export default function Reveal({ className = '', delay = 0, children, ...rest })
     if (!el || visible) return undefined
     const io = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting) { setVisible(true); io.disconnect() }
-    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 })
+    }, { rootMargin: '0px 0px -5% 0px', threshold: 0.01 })
     io.observe(el)
     return () => io.disconnect()
   }, [visible])
