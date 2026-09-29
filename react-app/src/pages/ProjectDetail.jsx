@@ -120,10 +120,14 @@ function Detail({ project }) {
               <div className="embed__frame">
                 <div className="embed__bar">
                   <span className="dots" aria-hidden="true"><i /><i /><i /></span>
-                  <span>{embedUrl.replace(/^https?:\/\//, '')}</span>
+                  <span className="embed__url">{embedUrl.replace(/^https?:\/\//, '')}</span>
                   <a href={embedUrl} target="_blank" rel="noopener noreferrer">Open in new tab <ArrowUpRight size={13} /></a>
                 </div>
                 <iframe src={embedUrl} title={`${project.title} live demo`} loading="lazy" sandbox="allow-scripts allow-same-origin allow-forms allow-popups" />
+                <div className="embed__mobile">
+                  <p>This demo is built for a larger screen. Open it full-size in a new tab.</p>
+                  <a className="btn btn--primary" href={embedUrl} target="_blank" rel="noopener noreferrer">Open live demo <ArrowUpRight size={14} /></a>
+                </div>
               </div>
             </Reveal>
           )}

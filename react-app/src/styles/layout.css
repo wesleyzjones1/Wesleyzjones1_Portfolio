@@ -13,7 +13,7 @@
 .header.is-scrolled { border-bottom-color: var(--border); }
 .header__inner { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 
-.brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 600; letter-spacing: -0.01em; }
+.brand { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; font-weight: 600; letter-spacing: -0.01em; }
 .brand__mark {
   width: 30px; height: 30px; border-radius: 8px;
   background: var(--text); color: var(--bg);
@@ -69,7 +69,8 @@
    ═══════════════════════════════════════════════════════════════════ */
 .footer { border-top: 1px solid var(--border); padding: 40px 0; margin-top: clamp(40px, 8vw, 96px); color: var(--text-2); font-size: 14px; }
 .footer__inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; }
-.footer__links { display: flex; gap: 18px; }
-.footer__links a { display: inline-flex; align-items: center; gap: 6px; color: var(--text-2); }
+.footer__links { display: flex; flex-wrap: wrap; gap: 4px 10px; }
+.footer__links a { display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 6px; margin: 0 -6px; border-radius: 8px; color: var(--text-2); }
+.footer__links a:hover { background: var(--accent-soft); }
 .footer__links a:hover { color: var(--text); }
 .footer__meta { font-family: var(--font-mono); font-size: 12px; color: var(--text-3); }
