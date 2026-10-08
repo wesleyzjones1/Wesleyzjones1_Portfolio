@@ -8,7 +8,7 @@ export default {
     'An interactive React tool for visualizing and comparing classic pathfinding algorithms. Draw walls, place the start and end, pick an algorithm and watch it search, then see the shortest path traced back with live iteration, path-length and timing stats.',
 
   status: 'live',
-  featured: true,
+  featured: false,
   year: '2026',
   role: 'Sole developer',
   category: 'Web app',

@@ -7,6 +7,7 @@
 
 import datetrails from './datetrails'
 import universalSwitching from './universal-switching'
+import tradelab from './tradelab'
 import utilityhub from './utilityhub'
 import pathfindingVisualizer from './pathfinding-visualizer'
 import graphPlotter from './graph-plotter'
@@ -18,6 +19,7 @@ import interactiveWorldMap from './interactive-world-map'
 export const projects = [
   datetrails,
   universalSwitching,
+  tradelab,
   utilityhub,
   pathfindingVisualizer,
   graphPlotter,

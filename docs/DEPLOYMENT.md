@@ -15,13 +15,17 @@ Do these in order. Steps 1–4 are about ten minutes; step 5 waits on DNS.
 
 ### 1. Cloudflare API token
 
-1. Cloudflare dashboard → profile icon (top right) → **My Profile** → **API Tokens** → **Create Token** → **Create Custom Token**.
-2. Name: `github-actions-pages`. Permissions: **Account · Cloudflare Pages · Edit**. Account Resources: **Include · your account**. Leave the rest.
-3. **Continue to summary** → **Create Token**. Copy the token now; it is shown once.
+1. Cloudflare dashboard → profile icon (top right) → **My Profile** → **API Tokens** → **Create Token**.
+2. Scroll past the templates to **Custom token** → **Get started**.
+3. **Token name**: `github-actions-pages`.
+4. **Permissions** has one row of three dropdowns. Set them to **Account**, **Cloudflare Pages**, **Edit**. That is the only permission Cloudflare requires for Pages deploys from CI.
+5. If a section named **Account Resources** appears below, leave it at **Include · All accounts** (you have one). If it does not appear, there is nothing to set; the token is already scoped to your account.
+6. Leave **Client IP Address Filtering** and **TTL** empty.
+7. **Continue to summary** → **Create Token**. Copy the token now; it is shown once.
 
 ### 2. Account ID
 
-Dashboard → **Workers & Pages**. The **Account ID** is in the right-hand column of the overview page (it is also the 32-character segment in the dashboard URL after `dash.cloudflare.com/`).
+Dashboard → **Workers & Pages**. On the right, under **Account details**, click the copy icon next to **Account ID**. (Shortcut from any page: press `Ctrl+K`, type `Copy account ID`, choose the result.)
 
 ### 3. GitHub secrets
 
@@ -38,7 +42,7 @@ GitHub repo → **Actions** → **Deploy to wesleyzjones.com** → **Run workflo
 
 ### 5. Attach the domain
 
-1. Cloudflare → **Workers & Pages** → **wesleyzjones** → **Custom domains** → **Set up a custom domain** → enter `wesleyzjones.com` → **Continue** → **Activate domain**. Cloudflare adds the DNS record for you because the domain is in the same account.
+1. Cloudflare → **Workers & Pages** → **wesleyzjones** → **Custom domains** tab → **Set up a domain** → type `wesleyzjones.com` → **Continue** → **Activate domain**. Cloudflare adds the DNS record itself because the domain is in the same account. Do not add a CNAME by hand first; that causes a 522 error.
 2. Repeat for `www.wesleyzjones.com`.
 3. Wait until both show **Active** (usually a few minutes, up to an hour). https://wesleyzjones.com now serves the site with HTTPS.
 
@@ -46,8 +50,8 @@ GitHub repo → **Actions** → **Deploy to wesleyzjones.com** → **Run workflo
 
 | Redirect | Where | How |
 |---|---|---|
-| `www.wesleyzjones.com` → `wesleyzjones.com` | Cloudflare → the `wesleyzjones.com` domain → **Rules** → **Redirect Rules** → **Create rule** | Choose the template **Redirect from WWW to root**, keep the defaults (301, preserve path and query), **Deploy**. |
-| `http://` → `https://` | Cloudflare → the domain → **SSL/TLS** → **Edge Certificates** | Turn on **Always Use HTTPS**. |
+| `www.wesleyzjones.com` → `wesleyzjones.com` | Cloudflare → **Websites** → `wesleyzjones.com` → **Rules** → **Overview** → **Create rule** → **Redirect Rule** | If the **Templates** tab offers **Redirect from WWW to Root**, use it and **Deploy**. Otherwise fill the form: name `www to root`; **When incoming requests match**: **Wildcard pattern**, **Request URL** `https://www.*`; **Then**: **Target URL** `https://${1}`, **Status code** `301`, **Preserve query string** on; **Deploy**. |
+| `http://` → `https://` | Cloudflare → **Websites** → `wesleyzjones.com` → **SSL/TLS** → **Edge Certificates** | Turn on the **Always Use HTTPS** toggle. (It is hidden only if the encryption mode on **SSL/TLS → Overview** is **Off**; a Cloudflare-registered domain defaults to **Full**.) |
 | Old GitHub Pages links → the domain | GitHub repo → **Settings** → **Secrets and variables** → **Actions** → **Variables** → **New repository variable** | Name `PAGES_REDIRECT_TO`, value `https://wesleyzjones.com`. Then **Actions** → **Deploy to GitHub Pages** → **Run workflow**. Every old `github.io/Wesleyzjones1_Portfolio/...` link now forwards to the same path on the domain. Do this only after step 5 shows Active. |
 
 ### 7. Update the places that still point at github.io
