@@ -154,8 +154,8 @@ function Detail({ project }) {
             <Reveal className="embed">
               <div className="section-head" style={{ marginBottom: 16 }}>
                 <div>
-                  <span className="eyebrow">Try it</span>
-                  <h2 className="h3 display">Live demo</h2>
+                  <span className="eyebrow">{project.embedEyebrow || 'Try it'}</span>
+                  <h2 className="h3 display">{project.embedTitle || 'Live demo'}</h2>
                 </div>
               </div>
               <div className="embed__frame">

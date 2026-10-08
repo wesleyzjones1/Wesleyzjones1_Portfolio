@@ -17,8 +17,11 @@ export default {
   repo: null, // private repository
 
   links: [
-    { label: 'datetrails.com', url: 'https://datetrails.com', primary: true },
+    { label: 'datetrails.com', url: 'https://datetrails.com/', primary: true },
   ],
+  embed: true,
+  embedEyebrow: 'The site',
+  embedTitle: 'datetrails.com',
   storeBadges: true,
 
   metrics: [
@@ -71,7 +74,7 @@ export default {
     {
       heading: 'Status',
       body: [
-        'DateTrails is in final pre-release testing and will be available on iOS and Android shortly. The repository is private while it is being released; I am happy to walk through the code and architecture in an interview.',
+        'DateTrails is in final pre-release testing and will be available on iOS and Android shortly. The site is live at https://datetrails.com/ with the product tour, FAQ and legal pages. The repository is private while it is being released; I am happy to walk through the code and architecture in an interview.',
       ],
     },
   ],

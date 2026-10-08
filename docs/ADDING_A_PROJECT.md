@@ -33,7 +33,7 @@ Everything else is optional and can be deleted:
 | `mark` | An animated 26×26 mark component from `src/components/animations`. |
 | `repo` | `owner/repo`. The detail page pulls "last updated" and language from the public GitHub API. Leave out for private repos. |
 | `links` | Array of `{ label, url, primary }`. The primary link becomes the main button. |
-| `embed` | `true` shows the primary link inside an iframe on the detail page. Only for sites that allow embedding (GitHub Pages does). |
+| `embed` | `true` shows the primary link inside an iframe on the detail page. Only for sites that allow embedding (GitHub Pages does). `embedEyebrow` and `embedTitle` replace the default "Try it" / "Live demo" headings. |
 | `metrics` | Up to four `{ value, label }` tiles. |
 | `highlights` | Bullet list on the detail page. |
 | `sections` | Case-study sections: `{ heading, body: [paragraphs], bullets: [items] }`. |

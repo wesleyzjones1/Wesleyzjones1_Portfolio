@@ -31,7 +31,9 @@ export default {
     { label: 'Live demo', url: 'https://example.com', primary: true },
     { label: 'Source', url: 'https://github.com/wesleyzjones1/my-project' },
   ],
-  embed: false,                       // true = show the live demo inside the detail page
+  embed: false,                       // true = show the primary link inside an iframe on the detail page
+  // embedEyebrow: 'The site',        // optional; defaults to 'Try it'
+  // embedTitle: 'example.com',       // optional; defaults to 'Live demo'
 
   metrics: [                          // optional, up to four
     { value: '10', label: 'algorithms' },
