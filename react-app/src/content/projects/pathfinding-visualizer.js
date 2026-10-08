@@ -9,7 +9,7 @@ export default {
 
   status: 'live',
   featured: true,
-  year: '2025',
+  year: '2026',
   role: 'Sole developer',
   category: 'Web app',
 
@@ -26,7 +26,7 @@ export default {
 
   metrics: [
     { value: '10', label: 'algorithms' },
-    { value: '0', label: 'dependencies at runtime' },
+    { value: '4', label: 'preset generators' },
   ],
 
   highlights: [
@@ -46,8 +46,9 @@ export default {
     {
       heading: 'Engineering notes',
       bullets: [
-        'Each algorithm is written as a generator so the UI can step through the frontier at any speed without the algorithm knowing about rendering.',
+        'Each algorithm is an async function that reports every expanded cell through a step callback and checks an abort flag, so the UI controls pacing and can cancel a run without the algorithm knowing about rendering.',
         'Theta* required a line-of-sight check over the grid, which is a nice example of a small geometric primitive changing the character of the result.',
+        'Node test scripts run every algorithm against fixed grids, so a refactor cannot quietly change a path.',
         'No backend and no runtime dependencies beyond React; deployed to GitHub Pages from CI.',
       ],
     },

@@ -1,12 +1,14 @@
 import { Link } from 'react-router-dom'
 import { profile } from '../content/profile'
 import { featuredProjects, heroProject, asset } from '../lib/projects'
+import { usePageTitle } from '../hooks/usePageTitle'
 import FeatureProject from '../components/FeatureProject'
 import ProjectCard from '../components/ProjectCard'
 import Reveal from '../components/ui/Reveal'
 import { ArrowRight, Download, GitHub, LinkedIn, Mail, MapPin, interestIcons } from '../components/ui/Icons'
 
 export default function Home() {
+  usePageTitle()
   const hero = heroProject()
   const featured = featuredProjects().filter(p => p !== hero).slice(0, 3)
   const recentJobs = profile.experience.slice(0, 3)
@@ -152,7 +154,7 @@ export default function Home() {
           <Reveal className="cta">
             <div>
               <h2 className="display cta__title">Let&apos;s talk.</h2>
-              <p className="cta__body">Hiring for a senior engineer or a technical lead? I would love to hear about the problem you are solving.</p>
+              <p className="cta__body">Hiring a software engineer or a technical lead? I would love to hear about the problem you are solving.</p>
             </div>
             <div className="cta__actions">
               <Link to="/contact" className="btn btn--primary"><Mail size={15} /> Get in touch</Link>

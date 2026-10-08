@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom'
 import { profile } from '../content/profile'
 import { asset } from '../lib/projects'
+import { usePageTitle } from '../hooks/usePageTitle'
 import Reveal from '../components/ui/Reveal'
 import { Award, Download, Mail, interestIcons } from '../components/ui/Icons'
 
 export default function About() {
+  usePageTitle('About')
   return (
     <>
       <section className="page-head">

@@ -43,4 +43,11 @@ export default {
     { heading: 'Overview', body: ['Paragraph one.', 'Paragraph two.'] },
     { heading: 'What I learned', bullets: ['Bullet one.', 'Bullet two.'] },
   ],
+  comparisonsNote: 'Optional one-line note shown under the "Before and after" heading.',
+  comparisons: [                      // optional before/after image pairs (paths inside /public)
+    { title: 'Settings page', caption: 'Optional', before: 'projects/my-project/settings_old.webp', after: 'projects/my-project/settings_new.webp' },
+  ],
+  gallery: [                          // optional captioned screenshots
+    { src: 'projects/my-project/search.webp', caption: 'The search window.', alt: 'Optional alt text' },
+  ],
 }

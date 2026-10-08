@@ -6,6 +6,8 @@
  */
 
 import datetrails from './datetrails'
+import universalSwitching from './universal-switching'
+import utilityhub from './utilityhub'
 import pathfindingVisualizer from './pathfinding-visualizer'
 import graphPlotter from './graph-plotter'
 import sortingAlgorithmVisualizer from './sorting-algorithm-visualizer'
@@ -15,6 +17,8 @@ import interactiveWorldMap from './interactive-world-map'
 
 export const projects = [
   datetrails,
+  universalSwitching,
+  utilityhub,
   pathfindingVisualizer,
   graphPlotter,
   sortingAlgorithmVisualizer,

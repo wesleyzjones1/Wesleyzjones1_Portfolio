@@ -23,7 +23,7 @@ export const profile = {
   headline: 'I build software that ships, from firmware to the app store.',
   intro:
     'Software engineer with a Bachelor of Science in Software Engineering and a track record that runs from embedded firmware and network systems to full-stack web and mobile products. Currently at Universal Switching, where I lead software delivery on hardware switching platforms, and about to launch DateTrails, a mobile app I designed, built and shipped end to end.',
-  availability: 'Open to senior engineering and technical leadership roles',
+  availability: 'Open to software engineering and technical leadership roles',
 
   /** Short, verifiable facts for the hero strip. */
   facts: [
@@ -73,7 +73,7 @@ export const profile = {
     },
     {
       title: 'Games as systems',
-      body: 'Factorio is my favourite kind of game: a logistics problem that never stops growing. I wrote a blueprint generator for it because optimizing a factory by hand was too slow and, honestly, too fun to leave alone.',
+      body: 'Factorio is my favourite kind of game: a logistics problem that never stops growing. I wrote a tool that turns any image into an importable blueprint of belts, pipes or concrete, because decorating a factory by hand was too slow and, honestly, too fun to leave alone.',
       icon: 'gear',
     },
     {
@@ -96,7 +96,7 @@ export const profile = {
         'Developed and deployed 50+ custom embedded firmware solutions across multiple switching platforms, improving performance and stability and raising software update reliability by 70%.',
         'Directed 12+ projects and coordinated a team of five engineers, owning delivery timelines, technical accuracy and alignment with company objectives.',
         'Overhauled the system’s web-based control interface and shipped numerous new features, with a focus on usability and client-oriented solutions.',
-        'Lead technical support director for software-related cases: interface directly with clients to diagnose and resolve complex hardware and firmware issues.',
+        'Lead technical support for software-related cases, working directly with clients to diagnose and resolve complex hardware and firmware issues.',
         'Partnered with cross-functional teams to isolate and resolve critical hardware and software issues, improving product reliability and quality.',
       ],
       tags: ['C / C++', 'Embedded firmware', 'Web UI', 'Team lead'],

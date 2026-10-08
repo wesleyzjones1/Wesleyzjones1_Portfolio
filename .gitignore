@@ -1,3 +1,7 @@
 node_modules
 .env
 .DS_Store
+
+# Raw screenshot drops (converted copies live in react-app/public/projects)
+WorkProject/
+WorkUpdate/

@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom'
+import { usePageTitle } from '../hooks/usePageTitle'
 import { ArrowLeft } from '../components/ui/Icons'
 
 export default function NotFound() {
+  usePageTitle('Page not found')
   return (
     <section className="notfound">
       <div className="container">

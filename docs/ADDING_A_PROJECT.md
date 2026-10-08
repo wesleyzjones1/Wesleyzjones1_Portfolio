@@ -37,6 +37,8 @@ Everything else is optional and can be deleted:
 | `metrics` | Up to four `{ value, label }` tiles. |
 | `highlights` | Bullet list on the detail page. |
 | `sections` | Case-study sections: `{ heading, body: [paragraphs], bullets: [items] }`. |
+| `comparisons` | Before/after image pairs: `{ title, caption, before, after }` with paths inside `react-app/public`. Rendered side by side above the overview. `comparisonsNote` adds a one-line note under the heading. |
+| `gallery` | Captioned screenshots: `{ src, caption, alt }`. Rendered as a responsive grid after the write-up. |
 | `storeBadges` | `true` shows "coming soon" App Store and Google Play badges. |
 
 ## 2. Register it

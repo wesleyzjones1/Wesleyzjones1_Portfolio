@@ -1,6 +1,7 @@
 import { Link, useParams } from 'react-router-dom'
 import { getProject, neighbours, primaryLink, asset } from '../lib/projects'
 import { useRepository } from '../hooks/useRepository'
+import { usePageTitle } from '../hooks/usePageTitle'
 import StatusBadge from '../components/ui/StatusBadge'
 import StoreBadges from '../components/ui/StoreBadges'
 import ProjectMark from '../components/ui/ProjectMark'
@@ -21,6 +22,7 @@ export default function ProjectDetail() {
 }
 
 function Detail({ project }) {
+  usePageTitle(project.title)
   const { prev, next } = neighbours(project.slug)
   const link = primaryLink(project)
   const embedUrl = project.embed && link ? link.url : null
@@ -56,7 +58,8 @@ function Detail({ project }) {
               {repoInfo && (
                 <div className="repo-strip">
                   <span>Last updated <b>{formatDate(repoInfo.pushed_at)}</b></span>
-                  {repoInfo.language && <span>Primary language <b>{repoInfo.language}</b></span>}
+                  {/* GitHub's language guess can be skewed by committed build output; only show it when it matches the stack. */}
+                  {repoInfo.language && project.tech?.includes(repoInfo.language) && <span>Primary language <b>{repoInfo.language}</b></span>}
                   {repoInfo.stargazers_count > 0 && <span><Star size={12} style={{ display: 'inline', verticalAlign: '-1px' }} /> <b>{repoInfo.stargazers_count}</b></span>}
                 </div>
               )}
@@ -87,6 +90,30 @@ function Detail({ project }) {
             </Reveal>
           )}
 
+          {project.comparisons?.length > 0 && (
+            <Reveal className="compare-section">
+              <h2>Before and after</h2>
+              {project.comparisonsNote && <p>{project.comparisonsNote}</p>}
+              <div className="compare-list">
+                {project.comparisons.map(c => (
+                  <figure key={c.title} className="compare">
+                    <figcaption className="compare__title">{c.title}{c.caption && <span>{c.caption}</span>}</figcaption>
+                    <div className="compare__pair">
+                      <div className="compare__side">
+                        <span className="compare__label">Before</span>
+                        <img src={asset(c.before)} alt={`${c.title}, before the redesign`} loading="lazy" />
+                      </div>
+                      <div className="compare__side compare__side--after">
+                        <span className="compare__label">After</span>
+                        <img src={asset(c.after)} alt={`${c.title}, after the redesign`} loading="lazy" />
+                      </div>
+                    </div>
+                  </figure>
+                ))}
+              </div>
+            </Reveal>
+          )}
+
           <div className="detail-body">
             <Reveal className="detail-section">
               <h2>Overview</h2>
@@ -108,6 +135,20 @@ function Detail({ project }) {
               </Reveal>
             ))}
           </div>
+
+          {project.gallery?.length > 0 && (
+            <Reveal className="compare-section compare-section--after-body">
+              <h2>Screens</h2>
+              <div className="gallery">
+                {project.gallery.map(g => (
+                  <figure key={g.src}>
+                    <img src={asset(g.src)} alt={g.alt || g.caption || ''} loading="lazy" />
+                    {g.caption && <figcaption>{g.caption}</figcaption>}
+                  </figure>
+                ))}
+              </div>
+            </Reveal>
+          )}
 
           {embedUrl && (
             <Reveal className="embed">
