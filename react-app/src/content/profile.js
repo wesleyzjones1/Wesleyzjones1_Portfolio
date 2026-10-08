@@ -22,7 +22,7 @@ export const profile = {
   /* ── Hero ─────────────────────────────────────────────────────────── */
   headline: 'I build software that ships, from firmware to the app store.',
   intro:
-    'Software engineer with a Bachelor of Science in Software Engineering and a track record that runs from embedded firmware and network systems to full-stack web and mobile products. Currently at Universal Switching, where I lead software delivery on hardware switching platforms, and about to launch DateTrails, a mobile app I designed, built and shipped end to end.',
+    'Software engineer with a Bachelor of Science in Software Engineering and a track record that runs from embedded firmware and network systems to full-stack web and mobile products. Currently at Universal Switching, where I lead software delivery on hardware switching platforms and automate the busywork out of the engineering workflow, and about to launch DateTrails, a mobile app I designed, built and shipped end to end.',
   availability: 'Open to software engineering and technical leadership roles',
 
   /** Short, verifiable facts for the hero strip. */
@@ -40,6 +40,10 @@ export const profile = {
       body: 'I have shipped work at every layer: firmware on switching hardware, the web control interface on top of it, a Postgres backend with row-level security, and a Flutter client in the app stores. I am comfortable being the person who has to make the whole thing work.',
     },
     {
+      title: 'Automate the busywork',
+      body: 'In every job I have had, I found the task that was done twice by hand and built something to do it once: a production process 30% faster at a tiny-home builder, a one-button drawing and firmware-release workflow at Universal Switching, and this site, which deploys itself on every push. Continual improvement is a habit, not a project.',
+    },
+    {
       title: 'Reliability is a feature',
       body: 'At Universal Switching I raised software update reliability by 70% across the product line. DateTrails ships behind a CI gate with static analysis, a coverage floor, and a security harness that tests every database policy.',
     },
@@ -52,7 +56,7 @@ export const profile = {
   /* ── About page ───────────────────────────────────────────────────── */
   about: [
     'I came to software through building physical things. I spent close to a decade in architecture and construction, drafting plans in Revit and AutoCAD, managing residential builds, and later designing production processes for a tiny-home builder, where the automation I introduced sped up production by 30%.',
-    'That background shaped how I write software. I care about specifications that a stranger can follow, systems that fail loudly instead of silently, and finishing the last 10% that turns a prototype into a product. I finished my Bachelor of Science in Software Engineering at Western Governors University in 2024 while working full time, and moved into an engineering role at Universal Switching the same year.',
+    'That background shaped how I write software. I care about specifications that a stranger can follow, systems that fail loudly instead of silently, and finishing the last 10% that turns a prototype into a product. It also left me with a reflex for spotting the task that is done twice by hand and making it happen once. I finished my Bachelor of Science in Software Engineering at Western Governors University in 2024 while working full time, and moved into an engineering role at Universal Switching the same year.',
     'Today I split my time between embedded and web work on switching platforms at Universal Switching and DateTrails, a Flutter and Supabase social app for planning multi-stop dates. DateTrails is the largest thing I have built: product, design, client, backend, payments, moderation, CI and store release, all mine.',
   ],
 
@@ -98,8 +102,9 @@ export const profile = {
         'Overhauled the system’s web-based control interface and shipped numerous new features, with a focus on usability and client-oriented solutions.',
         'Lead technical support for software-related cases, working directly with clients to diagnose and resolve complex hardware and firmware issues.',
         'Partnered with cross-functional teams to isolate and resolve critical hardware and software issues, improving product reliability and quality.',
+        'Built EfficiencyOverload and SageQuest, internal tools that automate the assembly-drawing and firmware-release workflow for the engineering team.',
       ],
-      tags: ['C / C++', 'Embedded firmware', 'Web UI', 'Team lead'],
+      tags: ['C / C++', 'Embedded firmware', 'Web UI', 'Automation', 'Team lead'],
     },
     {
       role: 'Field Technician',
@@ -182,6 +187,6 @@ export const profile = {
     { group: 'Frameworks', items: ['React', 'Flutter', 'Spring Boot', 'Angular', 'Electron', 'Node.js'] },
     { group: 'Platforms & data', items: ['Supabase', 'PostgreSQL', 'AWS', 'Docker', 'Cloudflare Pages', 'MySQL'] },
     { group: 'Embedded & systems', items: ['Embedded firmware', 'IAR Embedded Workbench', 'Networking', 'Hardware diagnostics'] },
-    { group: 'Practices', items: ['CI/CD with GitHub Actions', 'Automated testing', 'Code review', 'Technical leadership', 'Customer escalation'] },
+    { group: 'Practices', items: ['Workflow automation', 'CI/CD with GitHub Actions', 'Automated testing', 'Code review', 'Technical leadership', 'Customer escalation'] },
   ],
 }

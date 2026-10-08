@@ -21,7 +21,7 @@ export default function Projects() {
         <div className="container">
           <span className="eyebrow">Work</span>
           <h1 className="display h1">Projects</h1>
-          <p className="lead">Professional work, shipped products, tools I built for myself, and experiments that taught me something. Each one has a short write-up.</p>
+          <p className="lead">Professional work, shipped products, tools that took the busywork out of my own jobs, and experiments that taught me something. Each one has a short write-up.</p>
         </div>
       </section>
 

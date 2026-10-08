@@ -1,5 +1,13 @@
 name: Deploy to GitHub Pages
 
+# Publishes to https://wesleyzjones1.github.io/Wesleyzjones1_Portfolio/.
+#
+# Once wesleyzjones.com is live, set the repository variable PAGES_REDIRECT_TO
+# to https://wesleyzjones.com (Settings > Secrets and variables > Actions >
+# Variables). From then on this workflow publishes a tiny redirect instead of
+# the site, so every old github.io link forwards to the same path on the new
+# domain. Clear the variable to publish the full site here again.
+
 on:
   push:
     branches:
@@ -8,6 +16,7 @@ on:
 
 env:
   PAGES_ARTIFACT_NAME: github-pages-${{ github.run_id }}-${{ github.run_attempt }}
+  REDIRECT_TO: ${{ vars.PAGES_REDIRECT_TO }}
 
 permissions:
   contents: read
@@ -26,6 +35,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup Node.js
+        if: env.REDIRECT_TO == ''
         uses: actions/setup-node@v4
         with:
           node-version: '22'
@@ -33,14 +43,49 @@ jobs:
           cache-dependency-path: react-app/package-lock.json
 
       - name: Install dependencies
+        if: env.REDIRECT_TO == ''
         run: npm ci
         working-directory: react-app
 
       - name: Build
+        if: env.REDIRECT_TO == ''
         run: npm run build
         working-directory: react-app
         env:
-          GITHUB_ACTIONS: 'true'
+          DEPLOY_TARGET: github-pages
+
+      - name: Build a redirect to ${{ env.REDIRECT_TO }}
+        if: env.REDIRECT_TO != ''
+        run: |
+          target="${REDIRECT_TO%/}"
+          base="/${GITHUB_REPOSITORY#*/}/"
+          mkdir -p react-app/dist
+          cat > react-app/dist/index.html <<'EOF'
+          <!doctype html>
+          <html lang="en">
+            <head>
+              <meta charset="utf-8" />
+              <title>Wesley Jones · moved to __TARGET__</title>
+              <meta name="robots" content="noindex" />
+              <link rel="canonical" href="__TARGET__/" />
+              <script>
+                // Forward /<repo>/some/path to __TARGET__/some/path, keeping query and hash.
+                (function () {
+                  var base = '__BASE__';
+                  var path = location.pathname.indexOf(base) === 0 ? location.pathname.slice(base.length - 1) : '/';
+                  location.replace('__TARGET__' + path + location.search + location.hash);
+                })();
+              </script>
+              <meta http-equiv="refresh" content="0; url=__TARGET__/" />
+            </head>
+            <body>
+              <p>This site has moved to <a href="__TARGET__/">__TARGET__</a>.</p>
+            </body>
+          </html>
+          EOF
+          sed -i "s#__TARGET__#${target}#g; s#__BASE__#${base}#g" react-app/dist/index.html
+          cp react-app/dist/index.html react-app/dist/404.html
+          echo "GitHub Pages will redirect to ${target} (base ${base})."
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
