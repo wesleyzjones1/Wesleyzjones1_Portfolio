@@ -3,10 +3,12 @@ import snapshot from '../content/repos.json'
 
 const API = `https://api.github.com/users/${snapshot.user}/repos?per_page=100&sort=pushed&type=owner`
 
+const hidden = new Set((snapshot.hide || []).map(n => n.toLowerCase()))
+
 function normalise(list, fallback) {
   const byName = new Map(fallback.map(r => [r.name.toLowerCase(), r]))
   return list
-    .filter(r => !r.fork && !r.archived && !r.private)
+    .filter(r => !r.fork && !r.archived && !r.private && !hidden.has(r.name.toLowerCase()))
     .map(r => ({
       name: r.name,
       description: r.description || byName.get(r.name.toLowerCase())?.description || '',
@@ -25,7 +27,7 @@ function normalise(list, fallback) {
  * the API answers. Rate limits or offline simply leave the snapshot in place.
  */
 export function useGithubRepos() {
-  const [repos, setRepos] = useState(snapshot.repos)
+  const [repos, setRepos] = useState(() => snapshot.repos.filter(r => !hidden.has(r.name.toLowerCase())))
   const [live, setLive] = useState(false)
 
   useEffect(() => {

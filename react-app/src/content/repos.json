@@ -1,15 +1,97 @@
 {
   "user": "WesleyZJones1",
+  "hide": [],
   "fetchedAt": null,
   "repos": [
-    { "name": "UtilityHub", "description": "55 browser-based tools for text, math, colour, images, code and time, in one installable site.", "language": "JavaScript", "stars": 0, "url": "https://github.com/WesleyZJones1/UtilityHub", "homepage": "https://wesleyzjones1.github.io/UtilityHub/", "pushedAt": null, "topics": [] },
-    { "name": "Pathfinding-Visualizer", "description": "Watch ten pathfinding algorithms search a live grid in real time.", "language": "JavaScript", "stars": 0, "url": "https://github.com/WesleyZJones1/Pathfinding-Visualizer", "homepage": "https://wesleyzjones1.github.io/Pathfinding-Visualizer/", "pushedAt": null, "topics": [] },
-    { "name": "Graph_Plotter", "description": "An equation plotter that parses expressions and finds their intercepts.", "language": "JavaScript", "stars": 0, "url": "https://github.com/WesleyZJones1/Graph_Plotter", "homepage": "https://wesleyzjones1.github.io/Graph_Plotter/", "pushedAt": null, "topics": [] },
-    { "name": "Sorting-Algorithm-Visualizer", "description": "Five sorting algorithms, animated step by step with live comparison and swap counts.", "language": "JavaScript", "stars": 0, "url": "https://github.com/WesleyZJones1/Sorting-Algorithm-Visualizer", "homepage": "https://wesleyzjones1.github.io/Sorting-Algorithm-Visualizer/", "pushedAt": null, "topics": [] },
-    { "name": "Factorio-blueprint-generator", "description": "Turns any image into a Factorio blueprint you can paste straight into the game.", "language": "JavaScript", "stars": 0, "url": "https://github.com/WesleyZJones1/Factorio-blueprint-generator", "homepage": "https://wesleyzjones1.github.io/Factorio-blueprint-generator/", "pushedAt": null, "topics": [] },
-    { "name": "FastCadPartReviewer", "description": "Reviews an assembly drawing's reference designators against its parts list, one keypress per part, driving FastCAD from Python.", "language": "Python", "stars": 0, "url": "https://github.com/WesleyZJones1/FastCadPartReviewer", "homepage": "", "pushedAt": null, "topics": [] },
-    { "name": "Countdown-Timer", "description": "A frameless, always-on-top desktop countdown timer built with React and Electron.", "language": "JavaScript", "stars": 0, "url": "https://github.com/WesleyZJones1/Countdown-Timer", "homepage": "", "pushedAt": null, "topics": [] },
-    { "name": "Interactive-World-Map", "description": "A clickable SVG world map backed by the World Bank API, in Angular.", "language": "TypeScript", "stars": 0, "url": "https://github.com/WesleyZJones1/Interactive-World-Map", "homepage": "", "pushedAt": null, "topics": [] },
-    { "name": "Wesleyzjones1_Portfolio", "description": "This site: React and Vite, content-driven, deploys itself to wesleyzjones.com on every push.", "language": "JavaScript", "stars": 0, "url": "https://github.com/WesleyZJones1/Wesleyzjones1_Portfolio", "homepage": "https://wesleyzjones.com", "pushedAt": null, "topics": [] }
+    {
+      "name": "UtilityHub",
+      "description": "55 browser-based tools for text, math, colour, images, code and time, in one installable site.",
+      "language": "JavaScript",
+      "stars": 0,
+      "url": "https://github.com/WesleyZJones1/UtilityHub",
+      "homepage": "https://wesleyzjones1.github.io/UtilityHub/",
+      "pushedAt": null,
+      "topics": []
+    },
+    {
+      "name": "Pathfinding-Visualizer",
+      "description": "Watch ten pathfinding algorithms search a live grid in real time.",
+      "language": "JavaScript",
+      "stars": 0,
+      "url": "https://github.com/WesleyZJones1/Pathfinding-Visualizer",
+      "homepage": "https://wesleyzjones1.github.io/Pathfinding-Visualizer/",
+      "pushedAt": null,
+      "topics": []
+    },
+    {
+      "name": "Graph_Plotter",
+      "description": "An equation plotter that parses expressions and finds their intercepts.",
+      "language": "JavaScript",
+      "stars": 0,
+      "url": "https://github.com/WesleyZJones1/Graph_Plotter",
+      "homepage": "https://wesleyzjones1.github.io/Graph_Plotter/",
+      "pushedAt": null,
+      "topics": []
+    },
+    {
+      "name": "Sorting-Algorithm-Visualizer",
+      "description": "Five sorting algorithms, animated step by step with live comparison and swap counts.",
+      "language": "JavaScript",
+      "stars": 0,
+      "url": "https://github.com/WesleyZJones1/Sorting-Algorithm-Visualizer",
+      "homepage": "https://wesleyzjones1.github.io/Sorting-Algorithm-Visualizer/",
+      "pushedAt": null,
+      "topics": []
+    },
+    {
+      "name": "Factorio-blueprint-generator",
+      "description": "Turns any image into a Factorio blueprint you can paste straight into the game.",
+      "language": "JavaScript",
+      "stars": 0,
+      "url": "https://github.com/WesleyZJones1/Factorio-blueprint-generator",
+      "homepage": "https://wesleyzjones1.github.io/Factorio-blueprint-generator/",
+      "pushedAt": null,
+      "topics": []
+    },
+    {
+      "name": "FastCadPartReviewer",
+      "description": "Reviews an assembly drawing's reference designators against its parts list, one keypress per part, driving FastCAD from Python.",
+      "language": "Python",
+      "stars": 0,
+      "url": "https://github.com/WesleyZJones1/FastCadPartReviewer",
+      "homepage": "",
+      "pushedAt": null,
+      "topics": []
+    },
+    {
+      "name": "Countdown-Timer",
+      "description": "A frameless, always-on-top desktop countdown timer built with React and Electron.",
+      "language": "JavaScript",
+      "stars": 0,
+      "url": "https://github.com/WesleyZJones1/Countdown-Timer",
+      "homepage": "",
+      "pushedAt": null,
+      "topics": []
+    },
+    {
+      "name": "Interactive-World-Map",
+      "description": "A clickable SVG world map backed by the World Bank API, in Angular.",
+      "language": "TypeScript",
+      "stars": 0,
+      "url": "https://github.com/WesleyZJones1/Interactive-World-Map",
+      "homepage": "",
+      "pushedAt": null,
+      "topics": []
+    },
+    {
+      "name": "Wesleyzjones1_Portfolio",
+      "description": "This site: React and Vite, content-driven, deploys itself to wesleyzjones.com on every push.",
+      "language": "JavaScript",
+      "stars": 0,
+      "url": "https://github.com/WesleyZJones1/Wesleyzjones1_Portfolio",
+      "homepage": "https://wesleyzjones.com",
+      "pushedAt": null,
+      "topics": []
+    }
   ]
 }

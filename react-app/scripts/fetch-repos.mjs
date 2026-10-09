@@ -10,6 +10,8 @@ import { readFileSync, writeFileSync } from 'node:fs'
 const OUT = new URL('../src/content/repos.json', import.meta.url)
 const current = JSON.parse(readFileSync(OUT, 'utf8'))
 const user = current.user
+// Repository names listed under "hide" in repos.json are never shown.
+const hidden = new Set((current.hide || []).map(n => n.toLowerCase()))
 
 const headers = { Accept: 'application/vnd.github+json', 'User-Agent': 'wesleyzjones-portfolio' }
 if (process.env.GITHUB_TOKEN) headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`
@@ -20,7 +22,7 @@ try {
   const list = await res.json()
   const byName = new Map(current.repos.map(r => [r.name.toLowerCase(), r]))
   const repos = list
-    .filter(r => !r.fork && !r.archived && !r.private)
+    .filter(r => !r.fork && !r.archived && !r.private && !hidden.has(r.name.toLowerCase()))
     .map(r => ({
       name: r.name,
       description: r.description || byName.get(r.name.toLowerCase())?.description || '',
@@ -31,7 +33,7 @@ try {
       pushedAt: r.pushed_at,
       topics: r.topics || [],
     }))
-  writeFileSync(OUT, JSON.stringify({ user, fetchedAt: new Date().toISOString(), repos }, null, 2) + '\n')
+  writeFileSync(OUT, JSON.stringify({ user, hide: current.hide || [], fetchedAt: new Date().toISOString(), repos }, null, 2) + '\n')
   console.log(`repos.json refreshed: ${repos.length} public repositories for ${user}`)
 } catch (err) {
   console.warn(`repos.json not refreshed (${err.message}); keeping the committed snapshot of ${current.repos.length} repositories.`)

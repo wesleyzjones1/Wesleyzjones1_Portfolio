@@ -77,7 +77,7 @@ npm run dev   # open http://localhost:5173/projects/<slug>
 
 ## The repositories list
 
-The "Every public repository" grid on the Work page needs no editing. `react-app/src/content/repos.json` is a snapshot that CI refreshes from the GitHub API on every deploy (`npm run sync-repos`), and the page upgrades to live data in the browser when GitHub answers. A repository that has a write-up (a project file whose `repo` matches) automatically gets a "Write-up" link.
+The "Every public repository" grid on the Work page needs no editing. `react-app/src/content/repos.json` is a snapshot that CI refreshes from the GitHub API on every deploy (`npm run sync-repos`), and the page upgrades to live data in the browser when GitHub answers. A repository that has a write-up (a project file whose `repo` matches) automatically gets a "Write-up" link. To keep a repository off the site, add its name to the `hide` list at the top of `repos.json`.
 
 ## Updating your profile, résumé or interests
 
