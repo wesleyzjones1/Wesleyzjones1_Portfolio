@@ -4,7 +4,6 @@ export const STATUS_LABELS = {
   live: 'Live',
   'coming-soon': 'Launching soon',
   'in-progress': 'In progress',
-  internal: 'Internal tool',
   archived: 'Archived',
 }
 

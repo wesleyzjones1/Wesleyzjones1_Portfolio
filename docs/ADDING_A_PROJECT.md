@@ -30,16 +30,18 @@ Everything else is optional and can be deleted:
 | `tech` | Stack chips. The card shows the first four. |
 | `cover` | Path inside `react-app/public`, e.g. `projects/my-project.webp`. 1280×800 works best. |
 | `coverFit`, `coverBg` | `coverFit: 'contain'` shows the whole cover (for artwork or logos) instead of cropping it; `coverBg` sets the colour behind it. |
-| `gallery` | Array of `{ src, kicker, caption }`. Phone screens or screenshots shown on the detail page in a grid. 600px-wide WebPs are plenty. |
+| `screens` | Array of `{ src, kicker, caption }`. Phone screens shown in a grid right after the overview (DateTrails uses this). 600px-wide WebPs are plenty. |
 | `featureImages` | `[back, front]` phone screens shown on the home-page feature card (only used by the `hero` project). |
 | `logo` | Path to a square logo (SVG or PNG) used instead of an animated mark. |
 | `mark` | An animated 26×26 mark component from `src/components/animations`. |
 | `repo` | `owner/repo`. The detail page pulls "last updated" and language from the public GitHub API. Leave out for private repos. |
 | `links` | Array of `{ label, url, primary }`. The primary link becomes the main button. |
-| `embed` | `true` shows the primary link inside an iframe on the detail page. Only for sites that allow embedding (GitHub Pages does). |
+| `embed` | `true` shows the primary link inside an iframe on the detail page. Only for sites that allow embedding (GitHub Pages does). `embedEyebrow` and `embedTitle` replace the default "Try it" / "Live demo" headings. |
 | `metrics` | Up to four `{ value, label }` tiles. |
 | `highlights` | Bullet list on the detail page. |
 | `sections` | Case-study sections: `{ heading, body: [paragraphs], bullets: [items] }`. |
+| `comparisons` | Before/after image pairs: `{ title, caption, before, after }` with paths inside `react-app/public`. Rendered side by side above the overview. `comparisonsNote` adds a one-line note under the heading. |
+| `gallery` | Captioned screenshots: `{ src, caption, alt }`. Rendered as a responsive grid after the write-up. |
 | `storeBadges` | `true` shows "coming soon" App Store and Google Play badges. |
 
 ## 2. Register it

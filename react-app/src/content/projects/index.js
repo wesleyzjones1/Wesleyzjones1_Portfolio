@@ -6,22 +6,24 @@
  */
 
 import datetrails from './datetrails'
+import universalSwitching from './universal-switching'
+import tradelab from './tradelab'
+import utilityhub from './utilityhub'
 import pathfindingVisualizer from './pathfinding-visualizer'
 import graphPlotter from './graph-plotter'
 import sortingAlgorithmVisualizer from './sorting-algorithm-visualizer'
-import universalSwitchingTools from './universal-switching-tools'
-import tradingBot from './trading-bot'
 import countdownTimer from './countdown-timer'
 import factorioBlueprintGenerator from './factorio-blueprint-generator'
 import interactiveWorldMap from './interactive-world-map'
 
 export const projects = [
   datetrails,
+  universalSwitching,
+  tradelab,
+  utilityhub,
   pathfindingVisualizer,
   graphPlotter,
   sortingAlgorithmVisualizer,
-  universalSwitchingTools,
-  tradingBot,
   countdownTimer,
   factorioBlueprintGenerator,
   interactiveWorldMap,

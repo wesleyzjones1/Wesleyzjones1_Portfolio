@@ -9,17 +9,20 @@ export default {
 
   status: 'live',
   featured: false,
-  year: '2025',
+  year: '2026',
   role: 'Sole developer',
   category: 'Desktop',
 
   tech: ['React', 'Electron', 'Vite', 'SVG'],
+  cover: 'projects/countdown-timer.webp',
   mark: ClockAnim,
   repo: 'wesleyzjones1/Countdown-Timer',
 
   links: [
-    { label: 'Source', url: 'https://github.com/wesleyzjones1/Countdown-Timer', primary: true },
+    { label: 'Web demo', url: 'https://wesleyzjones1.github.io/Countdown-Timer/', primary: true },
+    { label: 'Source', url: 'https://github.com/wesleyzjones1/Countdown-Timer' },
   ],
+  embed: true,
 
   highlights: [
     'Three-phase state machine UI: setup, running, finished, with hover-to-restart.',

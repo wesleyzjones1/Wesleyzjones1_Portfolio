@@ -15,7 +15,7 @@ export default function Footer() {
           <a href={`mailto:${profile.email}`}><Mail /> Email</a>
           <Link to="/contact">Contact</Link>
         </div>
-        <div className="footer__meta">© {new Date().getFullYear()} · Built with React &amp; Vite</div>
+        <div className="footer__meta">© {new Date().getFullYear()} · Built with React and Vite · Deploys itself on every push to main</div>
       </div>
     </footer>
   )

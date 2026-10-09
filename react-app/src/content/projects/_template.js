@@ -16,7 +16,7 @@ export default {
   tagline: 'One line that says what it is.',
   summary: 'Two or three sentences for the card. What it does, why it exists, what is interesting about it.',
 
-  status: 'live',                     // 'live' | 'coming-soon' | 'in-progress' | 'internal' | 'archived'
+  status: 'live',                     // 'live' | 'coming-soon' | 'in-progress' | 'archived'
   featured: false,                    // true = shown on the home page
   year: '2026',
   role: 'Sole developer',
@@ -26,9 +26,10 @@ export default {
   cover: 'projects/my-project.webp',  // optional; path inside /public
   // coverFit: 'contain',             // optional; 'contain' shows the whole image instead of cropping it
   // coverBg: '#fdece6',              // optional; background behind a 'contain' cover
-  // gallery: [                       // optional; phone screens or screenshots on the detail page
+  // screens: [                       // optional; phone screens shown in a grid right after the overview
   //   { src: 'projects/my-project/screen.webp', kicker: 'Discover', caption: 'What this screen does.' },
   // ],
+  // featureImages: ['projects/my-project/back.webp', 'projects/my-project/front.webp'], // hero project only
   // mark: MyAnim,                    // optional 26px animated mark, see components/animations
   repo: 'wesleyzjones1/my-project',   // optional; pulls "last updated" from GitHub
 
@@ -36,7 +37,9 @@ export default {
     { label: 'Live demo', url: 'https://example.com', primary: true },
     { label: 'Source', url: 'https://github.com/wesleyzjones1/my-project' },
   ],
-  embed: false,                       // true = show the live demo inside the detail page
+  embed: false,                       // true = show the primary link inside an iframe on the detail page
+  // embedEyebrow: 'The site',        // optional; defaults to 'Try it'
+  // embedTitle: 'example.com',       // optional; defaults to 'Live demo'
 
   metrics: [                          // optional, up to four
     { value: '10', label: 'algorithms' },
@@ -47,5 +50,12 @@ export default {
   sections: [                         // optional case-study sections
     { heading: 'Overview', body: ['Paragraph one.', 'Paragraph two.'] },
     { heading: 'What I learned', bullets: ['Bullet one.', 'Bullet two.'] },
+  ],
+  comparisonsNote: 'Optional one-line note shown under the "Before and after" heading.',
+  comparisons: [                      // optional before/after image pairs (paths inside /public)
+    { title: 'Settings page', caption: 'Optional', before: 'projects/my-project/settings_old.webp', after: 'projects/my-project/settings_new.webp' },
+  ],
+  gallery: [                          // optional captioned screenshots
+    { src: 'projects/my-project/search.webp', caption: 'The search window.', alt: 'Optional alt text' },
   ],
 }

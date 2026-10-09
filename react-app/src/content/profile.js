@@ -27,12 +27,12 @@ export const profile = {
   headlineAccent: 'to shipping firmware.',
   intro:
     'I started working at twelve on a construction crew. Today I am a software engineer at Universal Switching, specializing in embedded systems and RF testing, and I am about to launch DateTrails, a mobile app I designed and built on my own.',
-  availability: 'Open to senior engineering and technical leadership roles',
+  availability: 'Open to software engineering and technical leadership roles',
 
   /** Short list shown under the hero intro. Keep to three. */
   now: [
     'Launching DateTrails on iOS and Android',
-    'Building an automated trading bot',
+    'Building TradeLab, a rules-based trading research system',
     'Learning guitar',
   ],
 
@@ -85,6 +85,7 @@ export const profile = {
       title: 'Embedded systems and RF',
       org: 'Universal Switching',
       body: 'Firmware, PCB design, RF test systems, lead client support, and the automation tools that make the whole shop faster.',
+      link: '/projects/universal-switching',
     },
     {
       year: '2026',
@@ -100,7 +101,7 @@ export const profile = {
   strengths: [
     {
       title: 'Work smart, not just hard',
-      body: "Ten years of manual labor taught me to work hard. Engineering taught me to work smart: measure output, not hours, and automate anything done twice. At Universal Switching I built a search tool that links every project's drawings, schematics and firmware, and “Efficiency Overload”, which automates most of the drawing process including BOM creation and review.",
+      body: "Ten years of manual labor taught me to work hard. Engineering taught me to work smart: measure output, not hours, and automate anything done twice. At Universal Switching I built SageQuest, a search tool that joins the ERP’s bills of materials to every drawing, schematic and firmware file, and EfficiencyOverload, which automates most of the assembly-drawing and firmware-release workflow.",
     },
     {
       title: 'Break it down, finish one step a day',
@@ -243,7 +244,7 @@ export const profile = {
         'Troubleshoot and design RF systems, including PCB design, documentation, test plans and manuals.',
         'Develop firmware and software, including UI improvements that work within tight embedded memory constraints. 50+ custom firmware releases across multiple switching platforms, raising update reliability by 70%.',
         'Lead support for clients with system issues: walk them through complex problems step by step, verify units in-office, and have retained orders clients were ready to cancel.',
-        'Built a project search tool that links assembly drawings, schematics and firmware for instant access, and “Efficiency Overload”, which automates much of the drawing process including BOM creation and review.',
+        'Built SageQuest, a search tool that links any project to its assembly drawings, schematics and firmware for instant access, and EfficiencyOverload, which automates much of the drawing process including BOM creation and review.',
         'Directed 12+ projects and coordinated a team of five engineers.',
       ],
       tags: ['Embedded firmware', 'RF systems', 'PCB design', 'Automation', 'Client support'],

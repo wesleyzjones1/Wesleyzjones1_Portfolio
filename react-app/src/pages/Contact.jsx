@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react'
 import emailjs from '@emailjs/browser'
 import { profile } from '../content/profile'
+import { usePageTitle } from '../hooks/usePageTitle'
 import { Alert, Check, GitHub, LinkedIn, Mail, MapPin, Send } from '../components/ui/Icons'
 
 /* EmailJS public identifiers (safe to ship; the public key only allows sending
@@ -28,6 +29,7 @@ function incrementDailyCount() {
 }
 
 export default function Contact() {
+  usePageTitle('Contact')
   const formRef = useRef(null)
   const [status, setStatus] = useState('idle') // idle | sending | success | error | limited
 
@@ -76,7 +78,7 @@ export default function Contact() {
               <a href={`mailto:${profile.email}`}><span className="ico"><Mail /></span><span><b>Email</b><span>{profile.email}</span></span></a>
               <a href={profile.links.linkedin} target="_blank" rel="noopener noreferrer"><span className="ico"><LinkedIn /></span><span><b>LinkedIn</b><span>{profile.links.linkedin.replace(/^https?:\/\/(www\.)?/, '')}</span></span></a>
               <a href={profile.links.github} target="_blank" rel="noopener noreferrer"><span className="ico"><GitHub /></span><span><b>GitHub</b><span>{profile.links.github.replace(/^https?:\/\/(www\.)?/, '')}</span></span></a>
-              <a href="https://www.google.com/maps/place/Thousand+Oaks,+CA" target="_blank" rel="noopener noreferrer"><span className="ico"><MapPin /></span><span><b>Based in</b><span>{profile.location} · open to remote and relocation</span></span></a>
+              <a href={`https://www.google.com/maps/place/${encodeURIComponent(profile.location)}`} target="_blank" rel="noopener noreferrer"><span className="ico"><MapPin /></span><span><b>Based in</b><span>{profile.location} · open to remote and relocation</span></span></a>
             </div>
           </div>
 

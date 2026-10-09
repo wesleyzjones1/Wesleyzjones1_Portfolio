@@ -20,7 +20,7 @@ export default {
   /** Two phone screens for the home-page feature card: [back, front]. */
   featureImages: ['projects/datetrails/journey.webp', 'projects/datetrails/feed.webp'],
   /** Phone screens for the case study, in the order the app is used. */
-  gallery: [
+  screens: [
     { src: 'projects/datetrails/map.webp', kicker: 'Discover', caption: 'Every date near you on a map, pinned by the kind of evening it is.' },
     { src: 'projects/datetrails/feed.webp', kicker: 'Discover', caption: 'A feed of published dates with ratings, stops, hours, price and distance.' },
     { src: 'projects/datetrails/detail.webp', kicker: 'Plan', caption: 'The details at a glance, then the route.' },
@@ -31,8 +31,11 @@ export default {
   repo: null, // private repository
 
   links: [
-    { label: 'datetrails.com', url: 'https://datetrails.com', primary: true },
+    { label: 'datetrails.com', url: 'https://datetrails.com/', primary: true },
   ],
+  embed: true,
+  embedEyebrow: 'The site',
+  embedTitle: 'datetrails.com',
   storeBadges: true,
 
   metrics: [
@@ -91,7 +94,7 @@ export default {
     {
       heading: 'Status',
       body: [
-        'DateTrails is in final pre-release testing and will be free to use on iOS and Android shortly. The repository is private while it is being released; I am happy to walk through the code and architecture in an interview.',
+        'DateTrails is in final pre-release testing and will be free to use on iOS and Android shortly. The site is live at datetrails.com with the product tour, FAQ and legal pages. The repository is private while it is being released; I am happy to walk through the code and architecture in an interview.',
       ],
     },
   ],

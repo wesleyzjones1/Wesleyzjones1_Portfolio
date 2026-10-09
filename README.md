@@ -1,6 +1,6 @@
 # Wesley Jones · Portfolio
 
-Personal portfolio site: React 19 + Vite, plain CSS, no UI framework. Deployed to GitHub Pages from `main` by `.github/workflows/deploy-pages.yml`.
+Personal portfolio site: React 19 + Vite, plain CSS, no UI framework. Every push to `main` deploys it to [wesleyzjones.com](https://wesleyzjones.com) (Cloudflare Pages) and to GitHub Pages; see [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
 
 ## Run locally
 
@@ -25,9 +25,14 @@ npm run build      # outputs react-app/dist
 
 **Adding a project:** see [docs/ADDING_A_PROJECT.md](docs/ADDING_A_PROJECT.md). Copy `_template.js`, fill it in, add one import line.
 
-## Routing on GitHub Pages
+## Deployment
 
-The site uses client-side routes (`/projects/datetrails`). The Vite build copies `index.html` to `404.html` so GitHub Pages serves the app for deep links. The base path is derived from the repository name automatically in CI.
+Two workflows run on every push to `main`:
+
+- `.github/workflows/deploy-cloudflare.yml` builds with base `/` and publishes `react-app/dist` to the Cloudflare Pages project `wesleyzjones` (needs the `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` secrets; until then it finishes with a notice). Cloudflare Pages serves `index.html` for client-side routes such as `/projects/datetrails`.
+- `.github/workflows/deploy-pages.yml` builds with `DEPLOY_TARGET=github-pages` (base `/<repo>/` plus a `404.html` copy for deep links). Set the repository variable `PAGES_REDIRECT_TO` to `https://wesleyzjones.com` and it publishes a path-preserving redirect instead of the site.
+
+Setup, redirects and verification steps: [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
 
 ## Contact form
 

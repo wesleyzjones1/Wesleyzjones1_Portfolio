@@ -1,9 +1,11 @@
 import { useMemo, useState } from 'react'
 import { allProjects, categories } from '../lib/projects'
+import { usePageTitle } from '../hooks/usePageTitle'
 import ProjectCard from '../components/ProjectCard'
 import Reveal from '../components/ui/Reveal'
 
 export default function Projects() {
+  usePageTitle('Projects')
   const projects = allProjects()
   const cats = categories()
   const [active, setActive] = useState('All')
@@ -19,17 +21,17 @@ export default function Projects() {
         <div className="container">
           <span className="eyebrow">Work</span>
           <h1 className="display h1">Projects</h1>
-          <p className="lead">Shipped products, tools I built for myself, and experiments that taught me something. Each one has a short write-up.</p>
+          <p className="lead">Professional work, shipped products, tools that took the busywork out of my own jobs, and experiments that taught me something. Each one has a short write-up.</p>
         </div>
       </section>
 
       <section className="section--tight" style={{ paddingTop: 0 }}>
         <div className="container">
-          <div className="filters" role="tablist" aria-label="Filter projects by category">
+          <div className="filters" role="group" aria-label="Filter projects by category">
             {['All', ...cats].map(c => {
               const count = c === 'All' ? projects.length : projects.filter(p => p.category === c).length
               return (
-                <button key={c} type="button" role="tab" aria-selected={active === c} className={`filter${active === c ? ' is-active' : ''}`} onClick={() => setActive(c)}>
+                <button key={c} type="button" aria-pressed={active === c} className={`filter${active === c ? ' is-active' : ''}`} onClick={() => setActive(c)}>
                   {c}<span className="filter__count">{count}</span>
                 </button>
               )

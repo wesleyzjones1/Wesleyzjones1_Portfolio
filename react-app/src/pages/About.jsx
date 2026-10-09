@@ -1,11 +1,13 @@
 import { Link } from 'react-router-dom'
 import { profile } from '../content/profile'
 import { asset } from '../lib/projects'
+import { usePageTitle } from '../hooks/usePageTitle'
 import Trail from '../components/Trail'
 import Reveal from '../components/ui/Reveal'
 import { Award, Download, Mail, Quote, interestIcons } from '../components/ui/Icons'
 
 export default function About() {
+  usePageTitle('About')
   const { beliefs, drives } = profile
   return (
     <>

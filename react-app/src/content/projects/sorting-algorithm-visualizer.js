@@ -8,8 +8,8 @@ export default {
     'A zero-dependency JavaScript visualizer for bubble, insertion, selection, quick and merge sort. Generate a random array, choose an algorithm and speed, and watch the bars sort themselves while comparisons, swaps and elapsed time update live.',
 
   status: 'live',
-  featured: true,
-  year: '2025',
+  featured: false,
+  year: '2023 – 2026',
   role: 'Sole developer',
   category: 'Web app',
 
@@ -19,15 +19,15 @@ export default {
   repo: 'wesleyzjones1/Sorting-Algorithm-Visualizer',
 
   links: [
-    { label: 'Live demo', url: 'https://wesleyzjones1.github.io/Sorting-Algorithm-Visualizer-/', primary: true },
+    { label: 'Live demo', url: 'https://wesleyzjones1.github.io/Sorting-Algorithm-Visualizer/', primary: true },
     { label: 'Source', url: 'https://github.com/wesleyzjones1/Sorting-Algorithm-Visualizer' },
   ],
   embed: true,
 
   highlights: [
-    'Adjustable array size and speed, from slow step-through to instant.',
-    'Colour-coded bars highlight the elements being compared and swapped.',
-    'Each algorithm shows its best, average and worst-case complexity alongside the animation.',
-    'Second-generation interface after a full redesign of the original version.',
+    'Adjustable array size, from 5 to 500 bars, and speed from slow step-through to instant.',
+    'Colour-coded bars highlight the elements being compared and swapped while comparison, swap and elapsed-time counters update live.',
+    'Light and dark themes, with the preference remembered between visits.',
+    'Second-generation interface after a full redesign of the 2023 original.',
   ],
 }

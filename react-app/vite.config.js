@@ -3,14 +3,17 @@ import react from '@vitejs/plugin-react'
 import { copyFileSync, existsSync } from 'node:fs'
 import { resolve } from 'node:path'
 
-const repositoryName = process.env.GITHUB_REPOSITORY?.split('/')[1]
-const pagesBase = repositoryName ? `/${repositoryName}/` : '/'
-
 /**
- * GitHub Pages serves 404.html for unknown paths. Copying index.html there
- * lets deep links like /projects/datetrails load the app, which then routes
- * client-side.
+ * DEPLOY_TARGET=github-pages builds for https://<user>.github.io/<repo>/: a
+ * sub-path base plus a 404.html copy of index.html so deep links load.
+ *
+ * Anything else (Cloudflare Pages for wesleyzjones.com, local dev and preview)
+ * builds for the root of a domain with no 404.html; Cloudflare Pages then
+ * serves index.html for unknown routes, which is what a client-side router needs.
  */
+const githubPages = process.env.DEPLOY_TARGET === 'github-pages'
+const repositoryName = process.env.GITHUB_REPOSITORY?.split('/')[1]
+
 function spaFallback() {
   let outDir = ''
   return {
@@ -26,7 +29,7 @@ function spaFallback() {
 }
 
 export default defineConfig({
-  plugins: [react(), spaFallback()],
-  base: process.env.GITHUB_ACTIONS === 'true' ? pagesBase : '/',
+  plugins: [react(), ...(githubPages ? [spaFallback()] : [])],
+  base: githubPages && repositoryName ? `/${repositoryName}/` : '/',
   server: { open: false },
 })

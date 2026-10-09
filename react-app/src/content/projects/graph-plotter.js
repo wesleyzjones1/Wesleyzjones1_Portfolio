@@ -8,8 +8,8 @@ export default {
     'A browser-based plotter for exploring algebraic expressions in real time. Type an expression such as (x-2)(x-1)x(x+1)(x+2), pan and zoom the plane, click the curve to inspect points, and read computed intercepts, including repeated roots, from the toolbar.',
 
   status: 'live',
-  featured: true,
-  year: '2025',
+  featured: false,
+  year: '2026',
   role: 'Sole developer',
   category: 'Web app',
 

@@ -19,8 +19,10 @@ export default {
   repo: 'wesleyzjones1/Interactive-World-Map',
 
   links: [
-    { label: 'Source', url: 'https://github.com/wesleyzjones1/Interactive-World-Map', primary: true },
+    { label: 'Live demo', url: 'https://wesleyzjones1.github.io/Interactive-World-Map/', primary: true },
+    { label: 'Source', url: 'https://github.com/wesleyzjones1/Interactive-World-Map' },
   ],
+  embed: true,
 
   highlights: [
     'Every country is an addressable SVG region wired to a click handler.',
