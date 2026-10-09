@@ -16,7 +16,7 @@ export default {
   tagline: 'One line that says what it is.',
   summary: 'Two or three sentences for the card. What it does, why it exists, what is interesting about it.',
 
-  status: 'live',                     // 'live' | 'coming-soon' | 'in-progress' | 'archived'
+  status: 'live',                     // 'live' | 'coming-soon' | 'in-progress' | 'internal' | 'archived'
   featured: false,                    // true = shown on the home page
   year: '2026',
   role: 'Sole developer',
@@ -24,6 +24,11 @@ export default {
 
   tech: ['React', 'Vite'],            // stack chips
   cover: 'projects/my-project.webp',  // optional; path inside /public
+  // coverFit: 'contain',             // optional; 'contain' shows the whole image instead of cropping it
+  // coverBg: '#fdece6',              // optional; background behind a 'contain' cover
+  // gallery: [                       // optional; phone screens or screenshots on the detail page
+  //   { src: 'projects/my-project/screen.webp', kicker: 'Discover', caption: 'What this screen does.' },
+  // ],
   // mark: MyAnim,                    // optional 26px animated mark, see components/animations
   repo: 'wesleyzjones1/my-project',   // optional; pulls "last updated" from GitHub
 

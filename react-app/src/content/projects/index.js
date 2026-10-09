@@ -9,6 +9,8 @@ import datetrails from './datetrails'
 import pathfindingVisualizer from './pathfinding-visualizer'
 import graphPlotter from './graph-plotter'
 import sortingAlgorithmVisualizer from './sorting-algorithm-visualizer'
+import universalSwitchingTools from './universal-switching-tools'
+import tradingBot from './trading-bot'
 import countdownTimer from './countdown-timer'
 import factorioBlueprintGenerator from './factorio-blueprint-generator'
 import interactiveWorldMap from './interactive-world-map'
@@ -18,6 +20,8 @@ export const projects = [
   pathfindingVisualizer,
   graphPlotter,
   sortingAlgorithmVisualizer,
+  universalSwitchingTools,
+  tradingBot,
   countdownTimer,
   factorioBlueprintGenerator,
   interactiveWorldMap,

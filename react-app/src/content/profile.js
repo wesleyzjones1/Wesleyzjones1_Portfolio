@@ -1,85 +1,232 @@
 /**
  * profile.js — everything about *you* lives here.
  *
- * Edit this file to change the hero, about page, experience, education,
- * certifications, skills and interests. No component code needs to change.
+ * Edit this file to change the hero, the trail, the about page, experience,
+ * education, certifications, skills, interests and beliefs. No component
+ * code needs to change.
  */
 
 export const profile = {
   name: 'Wesley Jones',
   firstName: 'Wesley',
   role: 'Software Engineer',
-  company: 'Universal Switching Corporation',
+  company: 'Universal Switching',
   location: 'Thousand Oaks, CA',
   email: 'wesleyzjones1@gmail.com',
   links: {
-    github: 'https://github.com/wesleyzjones1',
+    github: 'https://github.com/WesleyZJones1',
     linkedin: 'https://www.linkedin.com/in/wesleyzjones1',
   },
   /** File in /public. Replace the PDF there when your resume changes. */
   resumeFile: 'Wesley_Jones_Resume.pdf',
+  /** Portrait in /public, 4:5. Both a .jpg and a .webp with this base name. */
+  portrait: 'profile-800',
 
   /* ── Hero ─────────────────────────────────────────────────────────── */
-  headline: 'I build software that ships, from firmware to the app store.',
+  headline: 'From digging ditches',
+  headlineAccent: 'to shipping firmware.',
   intro:
-    'Software engineer with a Bachelor of Science in Software Engineering and a track record that runs from embedded firmware and network systems to full-stack web and mobile products. Currently at Universal Switching, where I lead software delivery on hardware switching platforms, and about to launch DateTrails, a mobile app I designed, built and shipped end to end.',
+    'I started working at twelve on a construction crew. Today I am a software engineer at Universal Switching, specializing in embedded systems and RF testing, and I am about to launch DateTrails, a mobile app I designed and built on my own.',
   availability: 'Open to senior engineering and technical leadership roles',
 
-  /** Short, verifiable facts for the hero strip. */
+  /** Short list shown under the hero intro. Keep to three. */
+  now: [
+    'Launching DateTrails on iOS and Android',
+    'Building an automated trading bot',
+    'Learning guitar',
+  ],
+
+  /** Short, true, memorable. Mix work and life; that is the point. */
   facts: [
+    { value: '12', label: 'Age of my first job' },
     { value: '50+', label: 'Firmware releases shipped' },
-    { value: '12+', label: 'Projects led, team of five' },
-    { value: '5', label: 'Industry certifications' },
-    { value: 'B.S.', label: 'Software Engineering' },
+    { value: '50 mi', label: 'Longest backpacking trek' },
+    { value: '10 yrs', label: 'Piano, Certificate of Merit' },
+  ],
+
+  /* ── The trail so far ─────────────────────────────────────────────
+   * Shown as a trail of waypoints on the home page (compact) and the
+   * about page (full). Order is chronological. `highlight` marks the
+   * current destination.
+   */
+  journey: [
+    {
+      year: '2012',
+      title: 'First job, age twelve',
+      org: 'Davis Construction',
+      body: 'Digging ditches. Over ten years I worked up from outdoor labor to framing, concrete, plumbing and electrical, helped build several ADUs and remodel a full two-story house. This is where I learned toughness, discipline and the value of hard work.',
+    },
+    {
+      year: '2014',
+      title: 'Drafting intern',
+      org: 'Todd B. Spiegel Architects',
+      body: 'Built a master detail library and project templates in Revit and AutoCAD, and worked on everything from parking lots to measuring homes and designing ADUs. The first time I saw a good template save a whole office hours.',
+    },
+    {
+      year: '2022',
+      title: 'LED screens, coast to coast',
+      org: 'Insane Impact',
+      body: 'Built and installed large LED screens for high schools and colleges across the country, then grew into the IT role: programming, wiring and networking the screens, managing electricians and contractors, and working with school IT departments.',
+    },
+    {
+      year: '2023',
+      title: 'Process developer',
+      org: 'Piccola Homes',
+      body: 'At a tiny-home startup, created build templates, reproduction documentation and Excel systems tracking price and time per project. Production sped up by 30%.',
+    },
+    {
+      year: '2024',
+      title: 'B.S. Software Engineering',
+      org: 'Western Governors University',
+      body: 'Finished the degree while working full time, then joined Universal Switching as a software engineer.',
+    },
+    {
+      year: 'Now',
+      title: 'Embedded systems and RF',
+      org: 'Universal Switching',
+      body: 'Firmware, PCB design, RF test systems, lead client support, and the automation tools that make the whole shop faster.',
+    },
+    {
+      year: '2026',
+      title: 'DateTrails launches',
+      org: 'Solo project',
+      body: 'A Flutter and Supabase app for planning dates chapter by chapter. The biggest thing I have built, and the one I am proudest of.',
+      highlight: true,
+      link: '/projects/datetrails',
+    },
   ],
 
   /* ── How I work ───────────────────────────────────────────────────── */
   strengths: [
     {
-      title: 'Own the whole problem',
-      body: 'I have shipped work at every layer: firmware on switching hardware, the web control interface on top of it, a Postgres backend with row-level security, and a Flutter client in the app stores. I am comfortable being the person who has to make the whole thing work.',
+      title: 'Work smart, not just hard',
+      body: "Ten years of manual labor taught me to work hard. Engineering taught me to work smart: measure output, not hours, and automate anything done twice. At Universal Switching I built a search tool that links every project's drawings, schematics and firmware, and “Efficiency Overload”, which automates most of the drawing process including BOM creation and review.",
     },
     {
-      title: 'Reliability is a feature',
-      body: 'At Universal Switching I raised software update reliability by 70% across the product line. DateTrails ships behind a CI gate with static analysis, a coverage floor, and a security harness that tests every database policy.',
+      title: 'Break it down, finish one step a day',
+      body: 'I focus on what is most important rather than what is most pressing, break big goals into the smallest possible steps, and complete one every day. It is how I finished a degree while working full time, and how I shipped DateTrails alone.',
     },
     {
-      title: 'Lead through clarity',
-      body: 'I have directed a team of five engineers across a dozen projects and handled the hardest customer escalations myself. Clear written specs, honest status, and small reviewable changes are how I keep teams moving.',
+      title: 'Bring people together',
+      body: "I don't always feel like the smartest person in the room, but I excel at helping the smartest people work well together. As lead support for Universal Switching clients I turn frustrated, confused situations into a clear, shared path forward, and have kept orders customers were ready to cancel.",
     },
   ],
 
   /* ── About page ───────────────────────────────────────────────────── */
+  aboutTitle: 'The long way here.',
   about: [
-    'I came to software through building physical things. I spent close to a decade in architecture and construction, drafting plans in Revit and AutoCAD, managing residential builds, and later designing production processes for a tiny-home builder, where the automation I introduced sped up production by 30%.',
-    'That background shaped how I write software. I care about specifications that a stranger can follow, systems that fail loudly instead of silently, and finishing the last 10% that turns a prototype into a product. I finished my Bachelor of Science in Software Engineering at Western Governors University in 2024 while working full time, and moved into an engineering role at Universal Switching the same year.',
-    'Today I split my time between embedded and web work on switching platforms at Universal Switching and DateTrails, a Flutter and Supabase social app for planning multi-stop dates. DateTrails is the largest thing I have built: product, design, client, backend, payments, moderation, CI and store release, all mine.',
+    'I started working at twelve, digging ditches for a construction company, and spent the next decade learning how to work hard. Somewhere along the way I learned something more important: how to work smart.',
+    "For a long time I was a fearful person. I felt like I was never enough. I failed classes in college, not because I couldn't do the work, but because I believed I couldn't, so I didn't try. My biggest failures were never starting at all. The turning point was learning to stop saying “I can't” and start saying “I can, I just need to work at it and understand it.”",
+    'Now I focus on what is most important rather than what is most pressing, break big goals into the smallest possible steps, and complete one each day. That momentum finished a software engineering degree while I worked full time, took me from job sites to embedded systems and RF work at Universal Switching, and built DateTrails.',
+    'Everything I build now is shaped by one idea: shifting from earning based on the hours I work to earning based on the output I create. I am driven by freedom. The freedom to spend time with my family, to travel and see the world, and to help others realize they do not have to stay in the life they are currently living. They can change it. I know, because I did.',
   ],
 
-  /* ── Beyond the code ───────────────────────────────────────────────
-   * These are the things that tell a recruiter who you are, not just what
-   * you have done. Rewrite freely; keep each to two or three sentences.
-   */
+  drives: {
+    title: 'What drives me',
+    body: [
+      "My driving motivation is time with the people I love. Growing up, I cherished time with my family, especially my father, but he worked five or six days a week and often did not get home until 6:30. I wanted more of him. That has stayed with me. I want to be present for my own family as much as I possibly can, and I am designing a life that makes that possible.",
+      'Success is not something I chase alone. My whole joy is experiencing amazing things alongside the people I love. The long-term picture: waking up with my wife and future kids, enjoying life here in California, spending a few intentional hours a day on meaningful work, and living abroad for part of each year, starting with three months in Paris.',
+    ],
+  },
+
+  /* ── Beliefs ──────────────────────────────────────────────────────── */
+  beliefs: {
+    title: 'What I believe',
+    intro:
+      'My faith is at the center of my story. I am a Christian: I believe God is who He says He is in the Bible, and that the way to Him is through Jesus Christ. I wrote the mission statement below two years ago. It still guides my work, and DateTrails is a direct expression of the line about products that bring people closer together.',
+    mission:
+      "My mission is to embody God's love, living as an example of His love to everyone I encounter through humility, gentleness and patience. I will prioritize my family, leading them with love, hard work and selflessness in the Lord. I seek to be reliable to my family and friends, a giver who encourages and helps everyone I come in contact with, known for integrity, generosity and a pursuit of growth. In my career, I strive to create products that bring people closer together. I will be fully present, live simply, draw my strength from God, and continually grow to lead others toward His love and beauty.",
+    poemsIntro:
+      'I also write poetry. These two describe the same journey as the rest of this page: feeling lost and trapped, finding grace, and choosing to walk a new path.',
+    poems: [
+      {
+        title: 'A God so great',
+        lines: [
+          'A God so great, how can it be?',
+          'Who lived and died to set me free.',
+          'What relentless love you have for me',
+          'So sweet so great such majesty.',
+          'You came to me, a broken man.',
+          'You saw me, knew me, cleansed my hands.',
+          'I ran from you and tried to hide',
+          'For shame and guilt had blind my eyes.',
+          'You saw me, there; in pain, alone',
+          'You wanted me still, I should have known.',
+          'Amazing grace how sweet the taste',
+          'It washed me clean from all my shame',
+          'Every morning I look and see your face.',
+          'Every day I stand and know your grace.',
+          "You're the God of Gods, the Lord of Lords",
+          "You're the king who died to make me yours.",
+          "I praise and worship you for all you've done",
+          "You're good, you're great, my king has won.",
+        ],
+      },
+      {
+        title: 'Great sinners like me',
+        lines: [
+          'God cares for great sinners like me.',
+          "Men who've tried and failed to be free.",
+          "I've climbed the mountains, I went so high.",
+          'I almost even touched the sky.',
+          'But down I came, down all the way,',
+          'to darkness yearning to take the day.',
+          'In darkness I wandered, lost and ashamed,',
+          'Far from my God, by sin enchained.',
+          'It looked so sweet, to taste, to feel,',
+          'But led me bound with wounds too real.',
+          'The promise was grand, the reward was not,',
+          'The life it gave just took a lot.',
+          'I had my moments of glory and fame.',
+          "Just a child in a grown man's game.",
+          'My mother saw me in despair.',
+          'She found me broken lying there.',
+          "She said, “son, don't live this way.",
+          "Don't turn from God and drift away.",
+          "Don't dress up sin as 'loving yourself,'",
+          'That kind of love just harms your health.',
+          'True love is true and wise,',
+          'It humbles the heart, it opens the eyes.',
+          'Be a man of peace, stand on His Word,',
+          'A man of faith who follows the Lord.”',
+          'I said, “Ok!” And went my way,',
+          'determined now to serve the day.',
+        ],
+      },
+    ],
+  },
+
+  /* ── Beyond work ──────────────────────────────────────────────────── */
   interests: [
     {
-      title: 'Building with my hands',
-      body: 'Ten years around job sites and drafting tables left me with a workshop habit. I still design and build furniture and small structures, and I plan them the way I plan software: measure, draw, then cut.',
+      title: 'Piano, mostly by ear',
+      body: 'Ten years of lessons and a Certificate of Merit, with annual theory and performance exams. Now I play for my church and for fun, improvising whatever comes to mind to relax. Guitar is next.',
+      icon: 'music',
+    },
+    {
+      title: 'The Sierra on foot',
+      body: 'Avid backpacker, especially in the Sierra Nevada and Yosemite: several trips over ten miles and one fifty-mile trek across a week. Also hiking, disc golf, the beach and the occasional surf.',
+      icon: 'mountain',
+    },
+    {
+      title: 'Things you can hold',
+      body: 'Construction and woodworking never left me: small builds, furniture restoration, cutting boards, and the design side of all of it. Physical craft does not disappear when you close the page. It stays, and you can use it.',
       icon: 'hammer',
     },
     {
-      title: 'Maps and places',
-      body: 'I am fascinated by how places connect. That interest shows up in the interactive world map I built against the World Bank API and in DateTrails, which is at heart a map of good evenings out.',
-      icon: 'map',
+      title: 'Technical gaming',
+      body: 'Minecraft as a technical player: a quad witch hut, mob switches, world eaters. Terraria to relax. Factorio, the automation game, which is the same instinct that drives my work.',
+      icon: 'gamepad',
     },
     {
-      title: 'Games as systems',
-      body: 'Factorio is my favourite kind of game: a logistics problem that never stops growing. I wrote a blueprint generator for it because optimizing a factory by hand was too slow and, honestly, too fun to leave alone.',
-      icon: 'gear',
+      title: 'Audiobooks',
+      body: 'The 4-Hour Workweek, Think and Grow Rich and Essentialism reshaped how I actually live: stop chasing what is pressing and work, every single day, on what is important.',
+      icon: 'book',
     },
     {
-      title: 'Making algorithms visible',
-      body: 'I learn best when I can see a system move. Several of my side projects exist so that pathfinding, sorting and polynomial behaviour can be watched instead of just read about.',
-      icon: 'eye',
+      title: 'Living elsewhere',
+      body: 'I love seeing the world and plan to live in other countries for part of each year, starting with three months in Paris working remote, and skiing in winter both here and overseas.',
+      icon: 'globe',
     },
   ],
 
@@ -87,86 +234,86 @@ export const profile = {
   experience: [
     {
       role: 'Software Engineer',
-      company: 'Universal Switching Corporation',
+      company: 'Universal Switching',
       location: 'Burbank, CA',
-      start: 'Sep 2024',
+      start: '2024',
       end: 'Present',
-      summary: 'Embedded firmware, web control interfaces and technical leadership for RF and video switching platforms.',
+      summary: 'Embedded systems development and RF testing for hardware switching platforms.',
       bullets: [
-        'Developed and deployed 50+ custom embedded firmware solutions across multiple switching platforms, improving performance and stability and raising software update reliability by 70%.',
-        'Directed 12+ projects and coordinated a team of five engineers, owning delivery timelines, technical accuracy and alignment with company objectives.',
-        'Overhauled the system’s web-based control interface and shipped numerous new features, with a focus on usability and client-oriented solutions.',
-        'Lead technical support director for software-related cases: interface directly with clients to diagnose and resolve complex hardware and firmware issues.',
-        'Partnered with cross-functional teams to isolate and resolve critical hardware and software issues, improving product reliability and quality.',
+        'Troubleshoot and design RF systems, including PCB design, documentation, test plans and manuals.',
+        'Develop firmware and software, including UI improvements that work within tight embedded memory constraints. 50+ custom firmware releases across multiple switching platforms, raising update reliability by 70%.',
+        'Lead support for clients with system issues: walk them through complex problems step by step, verify units in-office, and have retained orders clients were ready to cancel.',
+        'Built a project search tool that links assembly drawings, schematics and firmware for instant access, and “Efficiency Overload”, which automates much of the drawing process including BOM creation and review.',
+        'Directed 12+ projects and coordinated a team of five engineers.',
       ],
-      tags: ['C / C++', 'Embedded firmware', 'Web UI', 'Team lead'],
+      tags: ['Embedded firmware', 'RF systems', 'PCB design', 'Automation', 'Client support'],
     },
     {
-      role: 'Field Technician',
+      role: 'Junior Project Manager',
       company: 'Insane Impact',
-      location: 'Remote / nationwide travel',
-      start: 'Jul 2022',
-      end: 'Sep 2024',
-      summary: 'Network diagnostics and large-format LED installations across the country.',
+      location: 'Nationwide',
+      start: '2022',
+      end: '2024',
+      summary: 'Large LED screen installations for high schools and colleges across the country.',
       bullets: [
-        'Diagnosed and resolved complex network issues, improving performance and reliability at customer sites.',
-        'Travelled nationwide to install and configure operating systems and led the programming of complex LED installations.',
-        'Delivered project milestones ahead of schedule under tight, high-pressure timelines.',
+        'Built and installed large LED screens, then grew into the IT role: programming, wiring and networking the screens.',
+        'Managed electricians and contractors and worked closely with school IT departments.',
+        'Systematic troubleshooting: break the problem into individual steps and test each one until the cause is isolated, whether a network issue or a boot failure.',
       ],
-      tags: ['Networking', 'Field engineering', 'LED systems'],
+      tags: ['Networking', 'Project management', 'LED systems'],
     },
     {
       role: 'Process Developer',
       company: 'Piccola Homes',
       location: 'Simi Valley, CA',
-      start: 'Feb 2023',
-      end: 'Aug 2023',
-      summary: 'Production process design and automation for a tiny-home builder.',
+      start: '2022',
+      end: '2023',
+      summary: 'Production process design for a tiny-home startup.',
       bullets: [
-        'Implemented automation that increased production speed by 30% and streamlined construction workflows.',
-        'Wrote comprehensive build instructions that made future builds repeatable.',
-        'Introduced methods that raised build quality and adherence to industry best practices.',
+        'Created templates that sped up production of expertly crafted tiny homes by 30%.',
+        'Wrote reproduction documentation and instructions so builds were repeatable.',
+        'Built Excel tracking systems for price and time per project.',
       ],
-      tags: ['Process automation', 'Documentation'],
+      tags: ['Process design', 'Documentation'],
     },
     {
-      role: 'Construction Technician',
-      company: 'Davis and Sons Construction',
-      location: 'Simi Valley, CA',
-      start: 'Jan 2016',
-      end: 'Jul 2022',
-      summary: 'Residential construction planning, inspection and project management.',
-      bullets: [
-        'Produced detailed construction plans for residential homes and ADUs in Revit.',
-        'Conducted site inspections against design specifications and safety standards.',
-        'Managed project timelines and budgets to on-time, on-budget completion.',
-      ],
-      tags: ['Revit', 'Project management'],
-    },
-    {
-      role: 'Drafting Technician',
+      role: 'Draftsman Intern',
       company: 'Todd B. Spiegel Architects',
       location: 'Thousand Oaks, CA',
-      start: 'Jul 2014',
-      end: 'Jul 2017',
+      start: '2014',
+      end: '2016',
       summary: 'Architectural drafting in Revit and AutoCAD.',
       bullets: [
-        'Created and maintained a master library of construction drawings.',
-        'Improved the readability and usability of architectural drawings through systematic cleanup and planning.',
+        'Created a master detail library to streamline detail implementation across projects.',
+        'Worked on parking lots, measuring homes and designing ADUs, and built templates to speed up the overall process.',
       ],
       tags: ['Revit', 'AutoCAD'],
+    },
+    {
+      role: 'Construction',
+      company: 'Davis Construction',
+      location: 'Simi Valley, CA',
+      start: '2012',
+      end: '2022',
+      summary: 'Started at twelve digging ditches.',
+      bullets: [
+        'Progressed from outdoor labor to skilled indoor work: framing, concrete, and some plumbing and electrical.',
+        'Helped build several ADUs and remodel a full two-story house.',
+      ],
+      tags: ['Framing', 'Concrete', 'Hard work'],
     },
   ],
 
   /* ── Education & certifications ───────────────────────────────────── */
   education: [
     {
-      degree: 'Bachelor of Science, Software Engineering',
+      degree: 'B.S. Software Engineering',
       school: 'Western Governors University',
-      location: 'Salt Lake City, UT',
       year: '2024',
-      details: 'Coursework in mobile application development (Android), advanced Java, advanced data management, front-end and back-end development, JavaScript and version control.',
+      details: 'Completed while working full time. Coursework in mobile development (Android), advanced Java, data management, front-end and back-end development.',
     },
+    { degree: 'General studies', school: 'Moorpark College', year: '', details: 'Several years of coursework before transferring.' },
+    { degree: 'High school', school: 'Heritage Christian Academy, Simi Valley', year: '', details: '' },
   ],
   certifications: [
     { name: 'AWS Cloud Practitioner', issuer: 'Amazon Web Services' },
@@ -178,10 +325,10 @@ export const profile = {
 
   /* ── Skills ───────────────────────────────────────────────────────── */
   skills: [
-    { group: 'Languages', items: ['JavaScript', 'Dart', 'Java', 'Python', 'C', 'C++', 'SQL', 'HTML & CSS'] },
-    { group: 'Frameworks', items: ['React', 'Flutter', 'Spring Boot', 'Angular', 'Electron', 'Node.js'] },
-    { group: 'Platforms & data', items: ['Supabase', 'PostgreSQL', 'AWS', 'Docker', 'Cloudflare Pages', 'MySQL'] },
-    { group: 'Embedded & systems', items: ['Embedded firmware', 'IAR Embedded Workbench', 'Networking', 'Hardware diagnostics'] },
-    { group: 'Practices', items: ['CI/CD with GitHub Actions', 'Automated testing', 'Code review', 'Technical leadership', 'Customer escalation'] },
+    { group: 'Languages', items: ['Dart', 'Java', 'JavaScript', 'C / C++', 'SQL', 'HTML & CSS'] },
+    { group: 'Frameworks', items: ['Flutter', 'React', 'Spring Boot', 'Node.js', 'Electron'] },
+    { group: 'Embedded & hardware', items: ['Firmware development', 'PCB design', 'RF systems & testing', 'Soldering, ICs and shorts', 'IAR Embedded Workbench'] },
+    { group: 'Platforms & data', items: ['Supabase', 'PostgreSQL', 'AWS', 'Docker', 'Git & GitHub Actions'] },
+    { group: 'Practices', items: ['Automation & tooling', 'Test plans & documentation', 'Client support', 'Technical leadership'] },
   ],
 }

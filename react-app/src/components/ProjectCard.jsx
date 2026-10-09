@@ -8,7 +8,10 @@ export default function ProjectCard({ project }) {
   const href = `/projects/${project.slug}`
   return (
     <Link to={href} className="project-card" aria-label={`${project.title}: ${project.tagline}`}>
-      <div className={`project-card__cover${project.cover ? '' : ' project-card__cover--placeholder'}`}>
+      <div
+        className={`project-card__cover${project.cover ? '' : ' project-card__cover--placeholder'}${project.coverFit === 'contain' ? ' project-card__cover--contain' : ''}`}
+        style={project.coverBg ? { background: project.coverBg } : undefined}
+      >
         {project.cover
           ? <img src={asset(project.cover)} alt="" loading="lazy" width="1280" height="800" />
           : <ProjectMark project={project} />}

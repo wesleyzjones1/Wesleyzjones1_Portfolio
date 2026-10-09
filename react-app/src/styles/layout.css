@@ -46,7 +46,7 @@
   .menu-btn { display: inline-flex; }
   .mobile-nav {
     display: flex; flex-direction: column; gap: 4px;
-    position: fixed; inset: var(--header-h) 0 auto 0;
+    position: fixed; top: var(--header-h); left: 0; right: 0; bottom: auto;
     padding: 12px var(--gutter) 20px;
     background: var(--bg);
     border-bottom: 1px solid var(--border);

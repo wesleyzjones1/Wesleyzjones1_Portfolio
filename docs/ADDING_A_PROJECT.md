@@ -29,6 +29,9 @@ Everything else is optional and can be deleted:
 | `year`, `role`, `category` | Shown in the detail sidebar. `category` also drives the filter chips on `/projects`. |
 | `tech` | Stack chips. The card shows the first four. |
 | `cover` | Path inside `react-app/public`, e.g. `projects/my-project.webp`. 1280×800 works best. |
+| `coverFit`, `coverBg` | `coverFit: 'contain'` shows the whole cover (for artwork or logos) instead of cropping it; `coverBg` sets the colour behind it. |
+| `gallery` | Array of `{ src, kicker, caption }`. Phone screens or screenshots shown on the detail page in a grid. 600px-wide WebPs are plenty. |
+| `featureImages` | `[back, front]` phone screens shown on the home-page feature card (only used by the `hero` project). |
 | `logo` | Path to a square logo (SVG or PNG) used instead of an animated mark. |
 | `mark` | An animated 26×26 mark component from `src/components/animations`. |
 | `repo` | `owner/repo`. The detail page pulls "last updated" and language from the public GitHub API. Leave out for private repos. |
@@ -72,6 +75,6 @@ npm run dev   # open http://localhost:5173/projects/<slug>
 
 ## Updating your profile, résumé or interests
 
-- **Text** (headline, bio, interests, experience, education, certifications, skills): `react-app/src/content/profile.js`.
+- **Text** (headline, story, the trail, strengths, interests, beliefs, experience, education, certifications, skills): `react-app/src/content/profile.js`. Each section is a plain array or object; delete `beliefs` to remove that section entirely.
 - **Résumé PDF**: replace `react-app/public/Wesley_Jones_Resume.pdf` (or change `resumeFile` in `profile.js`).
-- **Photo**: replace `react-app/public/profile-640.jpg` and `profile-640.webp` (640×640, square).
+- **Portrait**: replace `react-app/public/profile-800.jpg` and `profile-800.webp` (800×1000, 4:5 portrait). `profile-640.jpg` (square) is used for link previews.

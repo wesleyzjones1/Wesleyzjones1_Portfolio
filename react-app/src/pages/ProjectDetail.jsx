@@ -4,6 +4,7 @@ import { useRepository } from '../hooks/useRepository'
 import StatusBadge from '../components/ui/StatusBadge'
 import StoreBadges from '../components/ui/StoreBadges'
 import ProjectMark from '../components/ui/ProjectMark'
+import PhoneGallery from '../components/PhoneGallery'
 import Reveal from '../components/ui/Reveal'
 import NotFound from './NotFound'
 import { ArrowLeft, ArrowUpRight, GitHub, Star } from '../components/ui/Icons'
@@ -74,8 +75,8 @@ function Detail({ project }) {
       <section className="section--tight" style={{ paddingTop: 0 }}>
         <div className="container">
           {project.cover && (
-            <Reveal className="detail-cover">
-              <img src={asset(project.cover)} alt={`Screenshot of ${project.title}`} width="1280" height="800" />
+            <Reveal className={`detail-cover${project.coverFit === 'contain' ? ' detail-cover--contain' : ''}`} style={project.coverBg ? { background: project.coverBg } : undefined}>
+              <img src={asset(project.cover)} alt={`${project.title} artwork`} width="1280" height="800" />
             </Reveal>
           )}
 
@@ -92,6 +93,15 @@ function Detail({ project }) {
               <h2>Overview</h2>
               <div className="prose"><p>{project.summary}</p></div>
             </Reveal>
+          </div>
+
+          {project.gallery?.length > 0 && (
+            <Reveal className="detail-gallery">
+              <PhoneGallery items={project.gallery} />
+            </Reveal>
+          )}
+
+          <div className="detail-body">
 
             {project.highlights?.length > 0 && (
               <Reveal className="detail-section">

@@ -44,4 +44,12 @@ export const LinkedIn = ({ size = 16, ...rest }) => (
   </svg>
 )
 
-export const interestIcons = { hammer: Hammer, map: Map, gear: Gear, eye: Eye, star: Star }
+export const Music = make(<><path d="M9 18V5l12-2v13" /><circle cx="6" cy="18" r="3" /><circle cx="18" cy="16" r="3" /></>)
+export const Mountain = make(<><path d="m3 20 6-11 4 6 3-4 5 9Z" /><path d="M8 9 9.5 6.5 11 9" /></>)
+export const Gamepad = make(<><rect x="2" y="7" width="20" height="11" rx="5" /><path d="M7 11v3" /><path d="M5.5 12.5h3" /><path d="M16 13h.01" /><path d="M18.5 11h.01" /></>)
+export const Book = make(<><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" /><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z" /></>)
+export const Globe = make(<><circle cx="12" cy="12" r="10" /><path d="M2 12h20" /><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10Z" /></>)
+export const Heart = make(<path d="M19.5 12.6 12 20l-7.5-7.4a4.6 4.6 0 0 1 6.5-6.5l1 1 1-1a4.6 4.6 0 0 1 6.5 6.5Z" />)
+export const Quote = make(<><path d="M10 11H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v6a4 4 0 0 1-4 4" /><path d="M20 11h-4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v6a4 4 0 0 1-4 4" /></>, { strokeWidth: 1.6 })
+
+export const interestIcons = { hammer: Hammer, map: Map, gear: Gear, eye: Eye, star: Star, music: Music, mountain: Mountain, gamepad: Gamepad, book: Book, globe: Globe }

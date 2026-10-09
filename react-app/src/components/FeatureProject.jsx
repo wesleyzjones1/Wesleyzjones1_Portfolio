@@ -7,6 +7,7 @@ import { ArrowRight, ArrowUpRight } from './ui/Icons'
 /** Full-width feature card used for the headline project on the home page. */
 export default function FeatureProject({ project }) {
   const link = primaryLink(project)
+  const [back, front] = project.featureImages || []
   return (
     <article className="feature">
       <div className="feature__body">
@@ -27,7 +28,7 @@ export default function FeatureProject({ project }) {
         )}
 
         <div className="chips">
-          {project.tech.slice(0, 7).map(t => <span key={t} className="chip">{t}</span>)}
+          {project.tech.slice(0, 6).map(t => <span key={t} className="chip">{t}</span>)}
         </div>
 
         <div className="feature__actions">
@@ -42,7 +43,14 @@ export default function FeatureProject({ project }) {
           <path d="M-20 330 C 80 300, 90 180, 180 200 S 300 120, 420 40" />
           <path d="M-20 120 C 60 140, 120 60, 200 90 S 330 260, 420 300" />
         </svg>
-        {project.logo && <img className="feature__logo" src={asset(project.logo)} alt="" />}
+        {back && front ? (
+          <div className="feature__phones">
+            <img className="feature__phone feature__phone--back" src={asset(back)} alt="" width="600" height="1042" />
+            <img className="feature__phone feature__phone--front" src={asset(front)} alt="" width="600" height="1042" />
+          </div>
+        ) : project.logo ? (
+          <img className="feature__logo" src={asset(project.logo)} alt="" />
+        ) : null}
       </div>
     </article>
   )

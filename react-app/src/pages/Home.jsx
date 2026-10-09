@@ -3,13 +3,13 @@ import { profile } from '../content/profile'
 import { featuredProjects, heroProject, asset } from '../lib/projects'
 import FeatureProject from '../components/FeatureProject'
 import ProjectCard from '../components/ProjectCard'
+import Trail from '../components/Trail'
 import Reveal from '../components/ui/Reveal'
 import { ArrowRight, Download, GitHub, LinkedIn, Mail, MapPin, interestIcons } from '../components/ui/Icons'
 
 export default function Home() {
   const hero = heroProject()
   const featured = featuredProjects().filter(p => p !== hero).slice(0, 3)
-  const recentJobs = profile.experience.slice(0, 3)
 
   return (
     <>
@@ -19,8 +19,18 @@ export default function Home() {
           <div className="hero__grid">
             <div>
               <div className="hero__eyebrow eyebrow"><span className="dot" aria-hidden="true" /> {profile.availability}</div>
-              <h1 className="display h1 hero__title"><Headline text={profile.headline} /></h1>
+              <h1 className="display h1 hero__title">
+                {profile.headline} <em>{profile.headlineAccent}</em>
+              </h1>
               <p className="lead hero__intro">{profile.intro}</p>
+
+              {profile.now?.length > 0 && (
+                <ul className="now" aria-label="Currently">
+                  <li className="now__label">Currently</li>
+                  {profile.now.map(n => <li key={n}>{n}</li>)}
+                </ul>
+              )}
+
               <div className="hero__cta">
                 <Link to="/projects" className="btn btn--primary">See my work <ArrowRight size={15} /></Link>
                 <a className="btn" href={asset(profile.resumeFile)} target="_blank" rel="noopener noreferrer"><Download size={15} /> Résumé</a>
@@ -35,8 +45,8 @@ export default function Home() {
             <figure className="hero__figure">
               <span className="hero__photo-frame" aria-hidden="true" />
               <picture>
-                <source srcSet={asset('profile-640.webp')} type="image/webp" />
-                <img className="hero__photo" src={asset('profile-640.jpg')} alt={`Portrait of ${profile.name}`} width="640" height="640" fetchPriority="high" />
+                <source srcSet={asset(`${profile.portrait}.webp`)} type="image/webp" />
+                <img className="hero__photo" src={asset(`${profile.portrait}.jpg`)} alt={`Portrait of ${profile.name}`} width="800" height="1000" fetchPriority="high" />
               </picture>
               <figcaption className="hero__caption">
                 <strong>{profile.role} · {profile.company}</strong>
@@ -49,6 +59,22 @@ export default function Home() {
             {profile.facts.map(f => (
               <div key={f.label} className="fact"><div className="fact__value">{f.value}</div><div className="fact__label">{f.label}</div></div>
             ))}
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ── The trail so far ─────────────────────────────────────── */}
+      <section className="section section--sunk">
+        <div className="container">
+          <Reveal className="section-head">
+            <div>
+              <span className="eyebrow">The trail so far</span>
+              <h2 className="display h2">Every stop taught me something.</h2>
+            </div>
+            <Link to="/about" className="section-head__link">The full story <ArrowRight size={15} /></Link>
+          </Reveal>
+          <Reveal>
+            <Trail items={profile.journey} compact />
           </Reveal>
         </div>
       </section>
@@ -80,7 +106,7 @@ export default function Home() {
           <Reveal className="section-head">
             <div>
               <span className="eyebrow">How I work</span>
-              <h2 className="display h2">What you get when you hire me</h2>
+              <h2 className="display h2">Hard work got me here. Working smart keeps me moving.</h2>
             </div>
           </Reveal>
           <Reveal className="pillars">
@@ -95,47 +121,21 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Experience (condensed) ───────────────────────────────── */}
+      {/* ── Beyond work ──────────────────────────────────────────── */}
       <section className="section">
         <div className="container">
           <Reveal className="section-head">
             <div>
-              <span className="eyebrow">Experience</span>
-              <h2 className="display h2">Where I have worked</h2>
+              <span className="eyebrow">Beyond work</span>
+              <h2 className="display h2">What I do when the laptop is closed</h2>
             </div>
-            <Link to="/about" className="section-head__link">Full background <ArrowRight size={15} /></Link>
+            <Link to="/about" className="section-head__link">More about me <ArrowRight size={15} /></Link>
           </Reveal>
-          <Reveal className="timeline">
-            {recentJobs.map(job => (
-              <div key={`${job.company}-${job.role}`} className="job">
-                <div className="job__when"><strong>{job.start} – {job.end}</strong>{job.location}</div>
-                <div>
-                  <div className="job__role">{job.role}</div>
-                  <div className="job__company">{job.company}</div>
-                  <p className="job__summary">{job.summary}</p>
-                  <div className="chips job__tags">{job.tags?.map(t => <span key={t} className="chip chip--outline">{t}</span>)}</div>
-                </div>
-              </div>
-            ))}
-          </Reveal>
-        </div>
-      </section>
-
-      {/* ── Beyond the code ──────────────────────────────────────── */}
-      <section className="section section--sunk">
-        <div className="container">
-          <Reveal className="section-head">
-            <div>
-              <span className="eyebrow">Beyond the code</span>
-              <h2 className="display h2">What I am into</h2>
-              <p className="lead">The interests that shape how I think about problems, on and off the clock.</p>
-            </div>
-          </Reveal>
-          <div className="grid grid--4">
+          <div className="grid grid--3">
             {profile.interests.map((it, i) => {
               const Icon = interestIcons[it.icon] || interestIcons.star
               return (
-                <Reveal key={it.title} delay={i * 70} className="card interest">
+                <Reveal key={it.title} delay={Math.min(i, 5) * 60} className="card interest">
                   <span className="interest__icon"><Icon /></span>
                   <h3 className="interest__title">{it.title}</h3>
                   <p className="interest__body">{it.body}</p>
@@ -152,7 +152,7 @@ export default function Home() {
           <Reveal className="cta">
             <div>
               <h2 className="display cta__title">Let&apos;s talk.</h2>
-              <p className="cta__body">Hiring for a senior engineer or a technical lead? I would love to hear about the problem you are solving.</p>
+              <p className="cta__body">Hiring for a senior engineer or a technical lead, or building something that needs both hardware and software sense? I would love to hear about it.</p>
             </div>
             <div className="cta__actions">
               <Link to="/contact" className="btn btn--primary"><Mail size={15} /> Get in touch</Link>
@@ -163,11 +163,4 @@ export default function Home() {
       </section>
     </>
   )
-}
-
-/** Italicises the final clause of the headline for a little typographic lift. */
-function Headline({ text }) {
-  const idx = text.lastIndexOf(', ')
-  if (idx === -1) return text
-  return <>{text.slice(0, idx + 2)}<em>{text.slice(idx + 2)}</em></>
 }
