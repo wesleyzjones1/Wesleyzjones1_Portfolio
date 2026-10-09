@@ -12,6 +12,7 @@ export default function Home() {
   usePageTitle()
   const hero = heroProject()
   const featured = featuredProjects().filter(p => p !== hero).slice(0, 3)
+  const { brief, lookingFor } = profile
 
   return (
     <>
@@ -65,21 +66,32 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── The trail so far ─────────────────────────────────────── */}
-      <section className="section section--sunk">
-        <div className="container">
-          <Reveal className="section-head">
-            <div>
-              <span className="eyebrow">The trail so far</span>
-              <h2 className="display h2">Every stop taught me something.</h2>
+      {/* ── The case for hiring me ───────────────────────────────── */}
+      {brief && (
+        <section className="section section--sunk" id="why">
+          <div className="container">
+            <Reveal className="section-head">
+              <div>
+                <span className="eyebrow">{brief.eyebrow}</span>
+                <h2 className="display h2">{brief.title}</h2>
+                {brief.intro && <p className="lead">{brief.intro}</p>}
+              </div>
+            </Reveal>
+            <div className="grid grid--3">
+              {brief.items.map((item, i) => (
+                <Reveal key={item.title} delay={Math.min(i, 5) * 60} className="card claim">
+                  <span className="claim__num">0{i + 1}</span>
+                  <h3 className="claim__title">{item.title}</h3>
+                  <p className="claim__body">{item.body}</p>
+                  {item.link && (
+                    <Link to={item.link} className="claim__proof">Proof: {item.proof} <ArrowRight size={13} /></Link>
+                  )}
+                </Reveal>
+              ))}
             </div>
-            <Link to="/about" className="section-head__link">The full story <ArrowRight size={15} /></Link>
-          </Reveal>
-          <Reveal>
-            <Trail items={profile.journey} compact />
-          </Reveal>
-        </div>
-      </section>
+          </div>
+        </section>
+      )}
 
       {/* ── Featured work ────────────────────────────────────────── */}
       <section className="section" id="work">
@@ -89,7 +101,7 @@ export default function Home() {
               <span className="eyebrow">Selected work</span>
               <h2 className="display h2">Things I have built</h2>
             </div>
-            <Link to="/projects" className="section-head__link">All projects <ArrowRight size={15} /></Link>
+            <Link to="/projects" className="section-head__link">All projects and repositories <ArrowRight size={15} /></Link>
           </Reveal>
 
           {hero && <Reveal><FeatureProject project={hero} /></Reveal>}
@@ -102,12 +114,47 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── How I work ───────────────────────────────────────────── */}
+      {/* ── What I'm looking for ─────────────────────────────────── */}
+      {lookingFor && (
+        <section className="section--tight">
+          <div className="container">
+            <Reveal className="looking">
+              <div>
+                <span className="eyebrow">Next role</span>
+                <h2 className="display h3">{lookingFor.title}</h2>
+              </div>
+              <p className="looking__body">{lookingFor.body}</p>
+              <div className="looking__actions">
+                <Link to="/contact" className="btn btn--primary"><Mail size={15} /> Get in touch</Link>
+                <a className="btn" href={asset(profile.resumeFile)} target="_blank" rel="noopener noreferrer"><Download size={15} /> Résumé</a>
+              </div>
+            </Reveal>
+          </div>
+        </section>
+      )}
+
+      {/* ── The trail so far ─────────────────────────────────────── */}
       <section className="section section--sunk">
         <div className="container">
           <Reveal className="section-head">
             <div>
-              <span className="eyebrow">How I work</span>
+              <span className="eyebrow">The trail so far</span>
+              <h2 className="display h2">How I got here</h2>
+            </div>
+            <Link to="/about" className="section-head__link">The full story <ArrowRight size={15} /></Link>
+          </Reveal>
+          <Reveal>
+            <Trail items={profile.journey} compact />
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ── How I work ───────────────────────────────────────────── */}
+      <section className="section">
+        <div className="container">
+          <Reveal className="section-head">
+            <div>
+              <span className="eyebrow">How I work and lead</span>
               <h2 className="display h2">Hard work got me here. Working smart keeps me moving.</h2>
             </div>
           </Reveal>
@@ -124,7 +171,7 @@ export default function Home() {
       </section>
 
       {/* ── Beyond work ──────────────────────────────────────────── */}
-      <section className="section">
+      <section className="section section--sunk">
         <div className="container">
           <Reveal className="section-head">
             <div>
@@ -137,8 +184,10 @@ export default function Home() {
             {profile.interests.map((it, i) => {
               const Icon = interestIcons[it.icon] || interestIcons.star
               return (
-                <Reveal key={it.title} delay={Math.min(i, 5) * 60} className="card interest">
-                  <span className="interest__icon"><Icon /></span>
+                <Reveal key={it.title} delay={Math.min(i, 5) * 60} className={`card interest${it.image ? ' interest--photo' : ''}`}>
+                  {it.image
+                    ? <img className="interest__image" src={asset(it.image)} alt="" loading="lazy" />
+                    : <span className="interest__icon"><Icon /></span>}
                   <h3 className="interest__title">{it.title}</h3>
                   <p className="interest__body">{it.body}</p>
                 </Reveal>

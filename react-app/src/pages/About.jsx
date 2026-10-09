@@ -77,8 +77,10 @@ export default function About() {
             {profile.interests.map((it, i) => {
               const Icon = interestIcons[it.icon] || interestIcons.star
               return (
-                <Reveal key={it.title} delay={Math.min(i, 5) * 60} className="card interest">
-                  <span className="interest__icon"><Icon /></span>
+                <Reveal key={it.title} delay={Math.min(i, 5) * 60} className={`card interest${it.image ? ' interest--photo' : ''}`}>
+                  {it.image
+                    ? <img className="interest__image" src={asset(it.image)} alt="" loading="lazy" />
+                    : <span className="interest__icon"><Icon /></span>}
                   <h3 className="interest__title">{it.title}</h3>
                   <p className="interest__body">{it.body}</p>
                 </Reveal>
@@ -154,7 +156,7 @@ export default function About() {
       </section>
 
       {/* ── Skills ───────────────────────────────────────────────── */}
-      <section className="section">
+      <section className="section" id="skills">
         <div className="container">
           <Reveal className="section-head">
             <div>

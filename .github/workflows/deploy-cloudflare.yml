@@ -63,6 +63,14 @@ jobs:
 
       # No DEPLOY_TARGET: base path "/" and no 404.html, so Cloudflare Pages
       # serves index.html for client-side routes like /projects/utilityhub.
+      # Pulls the public repository list so the Work page is current on every deploy.
+      - name: Refresh the repository list
+        if: steps.secrets.outputs.ready == 'true'
+        run: npm run sync-repos
+        working-directory: react-app
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Build
         if: steps.secrets.outputs.ready == 'true'
         run: npm run build

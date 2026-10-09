@@ -1,9 +1,9 @@
 /**
  * profile.js — everything about *you* lives here.
  *
- * Edit this file to change the hero, the trail, the about page, experience,
- * education, certifications, skills, interests and beliefs. No component
- * code needs to change.
+ * Edit this file to change the hero, the case for hiring you, the trail,
+ * the about page, education, certifications, skills, interests and beliefs.
+ * No component code needs to change.
  */
 
 export const profile = {
@@ -23,26 +23,79 @@ export const profile = {
   portrait: 'profile-800',
 
   /* ── Hero ─────────────────────────────────────────────────────────── */
-  headline: 'From digging ditches',
-  headlineAccent: 'to shipping firmware.',
+  headline: 'I build software that ships,',
+  headlineAccent: 'from firmware on the bench to apps in the store.',
   intro:
-    'I started working at twelve on a construction crew. Today I am a software engineer at Universal Switching, specializing in embedded systems and RF testing, and I am about to launch DateTrails, a mobile app I designed and built on my own.',
-  availability: 'Open to software engineering and technical leadership roles',
+    "I'm Wesley. I'm a software engineer at Universal Switching, where I own the firmware and the embedded web interface on a line of RF and video switching systems, coordinate a team of five engineers, and take the hardest customer escalations myself. On my own time I built DateTrails, a Flutter and Supabase app launching soon on iOS and Android, and TradeLab, a trading research system with 900+ tests. I like problems that cross hardware and software, I automate anything I have to do twice, and I'm good at getting a room to agree on what the problem actually is.",
+  availability: 'Open to senior software engineering and technical leadership roles',
 
   /** Short list shown under the hero intro. Keep to three. */
   now: [
     'Launching DateTrails on iOS and Android',
-    'Building TradeLab, a rules-based trading research system',
+    'Running TradeLab in paper mode, once a trading day',
     'Learning guitar',
   ],
 
-  /** Short, true, memorable. Mix work and life; that is the point. */
+  /** Short, true, memorable. The numbers a recruiter will repeat. */
   facts: [
-    { value: '12', label: 'Age of my first job' },
     { value: '50+', label: 'Firmware releases shipped' },
-    { value: '50 mi', label: 'Longest backpacking trek' },
-    { value: '10 yrs', label: 'Piano, Certificate of Merit' },
+    { value: '70%', label: 'Better update reliability' },
+    { value: '5,700+', label: 'Automated tests across my projects' },
+    { value: '5', label: 'Engineers coordinated, 12+ projects' },
   ],
+
+  /* ── What I'm looking for ─────────────────────────────────────────── */
+  lookingFor: {
+    title: "What I'm looking for",
+    body: 'A senior software engineer or technical lead role on a team that ships real products: embedded or full-stack, mobile or web. Remote or hybrid from Thousand Oaks, California. If you want proof before a full hire, give me a two-week project.',
+  },
+
+  /* ── The case for hiring me ───────────────────────────────────────
+   * Each claim comes with a place to check it. Keep every line true.
+   */
+  brief: {
+    eyebrow: 'The case for hiring me',
+    title: 'What you get, and where to check it.',
+    intro: "You should not have to guess what a candidate can do. Here is what I do well, with the proof one click away.",
+    items: [
+      {
+        title: 'I ship whole products',
+        body: 'DateTrails is product, design, Flutter client, Postgres schema with row-level security, edge functions, payments, moderation, CI and store release, all mine. 85k lines of Dart behind 4,800 automated tests.',
+        proof: 'DateTrails case study',
+        link: '/projects/datetrails',
+      },
+      {
+        title: 'I make hardware reliable',
+        body: '50+ firmware releases across Universal Switching platforms, raising update reliability by 70%, and a ground-up redesign of the control interface each unit serves from its own controller.',
+        proof: 'Universal Switching write-up',
+        link: '/projects/universal-switching',
+      },
+      {
+        title: 'I lead, and I keep customers',
+        body: 'I coordinate five engineers across 12+ projects and take the hardest support cases myself, walking customers through problems step by step. Orders that were about to be cancelled were not.',
+        proof: 'How I work and lead',
+        link: '/about',
+      },
+      {
+        title: 'I automate the busywork',
+        body: 'EfficiencyOverload turned a dozen-step drawing and firmware-release workflow into re-runnable buttons, backed by ten FastCAD plug-ins in C++. SageQuest is the search tool colleagues run every day. This site deploys itself.',
+        proof: 'The automation suite',
+        link: '/projects/universal-switching',
+      },
+      {
+        title: 'I test like it matters',
+        body: 'TradeLab runs 900+ hermetic tests, strict typing and golden decision traces so a refactor cannot quietly move a trade. UtilityHub has a test beside every one of its 55 tools. I would rather find it in CI than in production.',
+        proof: 'TradeLab',
+        link: '/projects/tradelab',
+      },
+      {
+        title: 'I see both sides of the problem',
+        body: 'PCB design, RF test plans, soldering and diagnosing shorts on one side; React, Flutter, Postgres and CI on the other. When the bug lives in the gap between hardware and software, I am the one who finds it.',
+        proof: 'Skills',
+        link: '/about#skills',
+      },
+    ],
+  },
 
   /* ── The trail so far ─────────────────────────────────────────────
    * Shown as a trail of waypoints on the home page (compact) and the
@@ -52,74 +105,76 @@ export const profile = {
   journey: [
     {
       year: '2012',
-      title: 'First job, age twelve',
-      org: 'Davis Construction',
-      body: 'Digging ditches. Over ten years I worked up from outdoor labor to framing, concrete, plumbing and electrical, helped build several ADUs and remodel a full two-story house. This is where I learned toughness, discipline and the value of hard work.',
-    },
-    {
-      year: '2014',
-      title: 'Drafting intern',
-      org: 'Todd B. Spiegel Architects',
-      body: 'Built a master detail library and project templates in Revit and AutoCAD, and worked on everything from parking lots to measuring homes and designing ADUs. The first time I saw a good template save a whole office hours.',
+      title: 'Started working at twelve',
+      org: 'Construction, drafting, process design',
+      body: 'Ten years on job sites, then Revit drafting at an architecture firm and process design at a tiny-home builder, where my templates sped production up by 30%. It taught me to work hard, document everything, and build the template instead of repeating the task.',
     },
     {
       year: '2022',
-      title: 'LED screens, coast to coast',
-      org: 'Insane Impact',
-      body: 'Built and installed large LED screens for high schools and colleges across the country, then grew into the IT role: programming, wiring and networking the screens, managing electricians and contractors, and working with school IT departments.',
-    },
-    {
-      year: '2023',
-      title: 'Process developer',
-      org: 'Piccola Homes',
-      body: 'At a tiny-home startup, created build templates, reproduction documentation and Excel systems tracking price and time per project. Production sped up by 30%.',
+      title: 'Networking and LED systems',
+      org: 'Insane Impact, nationwide',
+      body: 'Installed, wired and networked large LED screens for schools across the country and managed the electricians and contractors around them. Systematic troubleshooting: isolate one step at a time until the cause is found.',
     },
     {
       year: '2024',
       title: 'B.S. Software Engineering',
       org: 'Western Governors University',
-      body: 'Finished the degree while working full time, then joined Universal Switching as a software engineer.',
+      body: 'Finished while working full time, alongside CompTIA A+, Network+ and Security+, ITIL 4 Foundation and AWS Cloud Practitioner.',
     },
     {
-      year: 'Now',
-      title: 'Embedded systems and RF',
+      year: '2024',
+      title: 'Software Engineer',
       org: 'Universal Switching',
-      body: 'Firmware, PCB design, RF test systems, lead client support, and the automation tools that make the whole shop faster.',
+      body: 'Firmware and the embedded web interface on RF and video switching systems, RF test plans and PCB design, lead customer support, and a team of five engineers to coordinate across 12+ projects.',
+      link: '/projects/universal-switching',
+    },
+    {
+      year: '2025',
+      title: 'The automation suite',
+      org: 'Universal Switching',
+      body: 'EfficiencyOverload, SageQuest and the FastCAD Component Reviewer: about 30,000 lines of Python and ten C++ plug-ins that took the repetition out of how the engineering team produces drawings and releases firmware.',
       link: '/projects/universal-switching',
     },
     {
       year: '2026',
+      title: 'TradeLab and UtilityHub',
+      org: 'Side projects',
+      body: 'A rules-based trading research system with 900+ hermetic tests, and a 55-tool progressive web app with a test beside every tool.',
+      link: '/projects/tradelab',
+    },
+    {
+      year: '2026',
       title: 'DateTrails launches',
-      org: 'Solo project',
-      body: 'A Flutter and Supabase app for planning dates chapter by chapter. The biggest thing I have built, and the one I am proudest of.',
+      org: 'Solo product',
+      body: 'A Flutter and Supabase social app for planning dates chapter by chapter. The biggest thing I have built, and the one I am proudest of.',
       highlight: true,
       link: '/projects/datetrails',
     },
   ],
 
-  /* ── How I work ───────────────────────────────────────────────────── */
+  /* ── How I work and lead ──────────────────────────────────────────── */
   strengths: [
     {
-      title: 'Work smart, not just hard',
-      body: "Ten years of manual labor taught me to work hard. Engineering taught me to work smart: measure output, not hours, and automate anything done twice. At Universal Switching I built SageQuest, a search tool that joins the ERP’s bills of materials to every drawing, schematic and firmware file, and EfficiencyOverload, which automates most of the assembly-drawing and firmware-release workflow.",
+      title: 'Clarity before code',
+      body: "I don't always feel like the smartest person in the room, but I excel at helping the smartest people work well together: creating clarity and unity around a problem so a group accomplishes far more than its members could alone. It is the same skill that turns a frustrated customer call into a shared plan.",
     },
     {
       title: 'Break it down, finish one step a day',
       body: 'I focus on what is most important rather than what is most pressing, break big goals into the smallest possible steps, and complete one every day. It is how I finished a degree while working full time, and how I shipped DateTrails alone.',
     },
     {
-      title: 'Bring people together',
-      body: "I don't always feel like the smartest person in the room, but I excel at helping the smartest people work well together. As lead support for Universal Switching clients I turn frustrated, confused situations into a clear, shared path forward, and have kept orders customers were ready to cancel.",
+      title: 'Automate anything done twice',
+      body: 'Ten years of manual labor taught me to work hard. Engineering taught me to measure output, not hours. If a task is done twice by hand, I build the thing that does it once: SageQuest, EfficiencyOverload, and a site that deploys itself on every push.',
     },
   ],
 
   /* ── About page ───────────────────────────────────────────────────── */
-  aboutTitle: 'The long way here.',
+  aboutTitle: 'A software engineer who came up through hardware.',
   about: [
-    'I started working at twelve, digging ditches for a construction company, and spent the next decade learning how to work hard. Somewhere along the way I learned something more important: how to work smart.',
-    "For a long time I was a fearful person. I felt like I was never enough. I failed classes in college, not because I couldn't do the work, but because I believed I couldn't, so I didn't try. My biggest failures were never starting at all. The turning point was learning to stop saying “I can't” and start saying “I can, I just need to work at it and understand it.”",
-    'Now I focus on what is most important rather than what is most pressing, break big goals into the smallest possible steps, and complete one each day. That momentum finished a software engineering degree while I worked full time, took me from job sites to embedded systems and RF work at Universal Switching, and built DateTrails.',
-    'Everything I build now is shaped by one idea: shifting from earning based on the hours I work to earning based on the output I create. I am driven by freedom. The freedom to spend time with my family, to travel and see the world, and to help others realize they do not have to stay in the life they are currently living. They can change it. I know, because I did.',
+    "At Universal Switching I own the firmware and the embedded web interface on RF and video switching systems, write the RF test plans, design the occasional board, and get the call when a customer's unit is doing something strange. Before that I spent a decade building things with my hands, which is where the work ethic comes from. Software is where I found the leverage.",
+    "For a long time I was a fearful person. I failed classes in college, not because I couldn't do the work, but because I believed I couldn't, so I didn't try. My biggest failures were never starting at all. The turning point was learning to stop saying “I can't” and start saying “I can, I just need to work at it and understand it.”",
+    'Now I focus on what is most important rather than what is most pressing, break big goals into the smallest possible steps, and complete one each day. That momentum finished a software engineering degree while I worked full time, built the automation suite my team uses every day, and shipped DateTrails on my own.',
+    'Everything I build is shaped by one idea: earn from the output I create, not the hours I sit. I am driven by freedom. The freedom to spend time with my family, to travel and see the world, and to help others realize they do not have to stay in the life they are currently living. They can change it. I know, because I did.',
   ],
 
   drives: {
@@ -197,7 +252,10 @@ export const profile = {
     ],
   },
 
-  /* ── Beyond work ──────────────────────────────────────────────────── */
+  /* ── Beyond work ──────────────────────────────────────────────────
+   * Optional `image` (path inside /public, e.g. 'interests/sierra.webp')
+   * replaces the icon with a photo on the card.
+   */
   interests: [
     {
       title: 'Piano, mostly by ear',
@@ -211,7 +269,7 @@ export const profile = {
     },
     {
       title: 'Things you can hold',
-      body: 'Construction and woodworking never left me: small builds, furniture restoration, cutting boards, and the design side of all of it. Physical craft does not disappear when you close the page. It stays, and you can use it.',
+      body: 'Woodworking never left me: small builds, furniture restoration, cutting boards, and the design side of all of it. Physical craft does not disappear when you close the page. It stays, and you can use it.',
       icon: 'hammer',
     },
     {
@@ -228,80 +286,6 @@ export const profile = {
       title: 'Living elsewhere',
       body: 'I love seeing the world and plan to live in other countries for part of each year, starting with three months in Paris working remote, and skiing in winter both here and overseas.',
       icon: 'globe',
-    },
-  ],
-
-  /* ── Experience ───────────────────────────────────────────────────── */
-  experience: [
-    {
-      role: 'Software Engineer',
-      company: 'Universal Switching',
-      location: 'Burbank, CA',
-      start: '2024',
-      end: 'Present',
-      summary: 'Embedded systems development and RF testing for hardware switching platforms.',
-      bullets: [
-        'Troubleshoot and design RF systems, including PCB design, documentation, test plans and manuals.',
-        'Develop firmware and software, including UI improvements that work within tight embedded memory constraints. 50+ custom firmware releases across multiple switching platforms, raising update reliability by 70%.',
-        'Lead support for clients with system issues: walk them through complex problems step by step, verify units in-office, and have retained orders clients were ready to cancel.',
-        'Built SageQuest, a search tool that links any project to its assembly drawings, schematics and firmware for instant access, and EfficiencyOverload, which automates much of the drawing process including BOM creation and review.',
-        'Directed 12+ projects and coordinated a team of five engineers.',
-      ],
-      tags: ['Embedded firmware', 'RF systems', 'PCB design', 'Automation', 'Client support'],
-    },
-    {
-      role: 'Junior Project Manager',
-      company: 'Insane Impact',
-      location: 'Nationwide',
-      start: '2022',
-      end: '2024',
-      summary: 'Large LED screen installations for high schools and colleges across the country.',
-      bullets: [
-        'Built and installed large LED screens, then grew into the IT role: programming, wiring and networking the screens.',
-        'Managed electricians and contractors and worked closely with school IT departments.',
-        'Systematic troubleshooting: break the problem into individual steps and test each one until the cause is isolated, whether a network issue or a boot failure.',
-      ],
-      tags: ['Networking', 'Project management', 'LED systems'],
-    },
-    {
-      role: 'Process Developer',
-      company: 'Piccola Homes',
-      location: 'Simi Valley, CA',
-      start: '2022',
-      end: '2023',
-      summary: 'Production process design for a tiny-home startup.',
-      bullets: [
-        'Created templates that sped up production of expertly crafted tiny homes by 30%.',
-        'Wrote reproduction documentation and instructions so builds were repeatable.',
-        'Built Excel tracking systems for price and time per project.',
-      ],
-      tags: ['Process design', 'Documentation'],
-    },
-    {
-      role: 'Draftsman Intern',
-      company: 'Todd B. Spiegel Architects',
-      location: 'Thousand Oaks, CA',
-      start: '2014',
-      end: '2016',
-      summary: 'Architectural drafting in Revit and AutoCAD.',
-      bullets: [
-        'Created a master detail library to streamline detail implementation across projects.',
-        'Worked on parking lots, measuring homes and designing ADUs, and built templates to speed up the overall process.',
-      ],
-      tags: ['Revit', 'AutoCAD'],
-    },
-    {
-      role: 'Construction',
-      company: 'Davis Construction',
-      location: 'Simi Valley, CA',
-      start: '2012',
-      end: '2022',
-      summary: 'Started at twelve digging ditches.',
-      bullets: [
-        'Progressed from outdoor labor to skilled indoor work: framing, concrete, and some plumbing and electrical.',
-        'Helped build several ADUs and remodel a full two-story house.',
-      ],
-      tags: ['Framing', 'Concrete', 'Hard work'],
     },
   ],
 
@@ -326,10 +310,11 @@ export const profile = {
 
   /* ── Skills ───────────────────────────────────────────────────────── */
   skills: [
-    { group: 'Languages', items: ['Dart', 'Java', 'JavaScript', 'C / C++', 'SQL', 'HTML & CSS'] },
-    { group: 'Frameworks', items: ['Flutter', 'React', 'Spring Boot', 'Node.js', 'Electron'] },
-    { group: 'Embedded & hardware', items: ['Firmware development', 'PCB design', 'RF systems & testing', 'Soldering, ICs and shorts', 'IAR Embedded Workbench'] },
-    { group: 'Platforms & data', items: ['Supabase', 'PostgreSQL', 'AWS', 'Docker', 'Git & GitHub Actions'] },
-    { group: 'Practices', items: ['Automation & tooling', 'Test plans & documentation', 'Client support', 'Technical leadership'] },
+    { group: 'Languages', items: ['Dart', 'Python', 'JavaScript', 'TypeScript', 'Java', 'C / C++', 'SQL', 'HTML & CSS'] },
+    { group: 'Frameworks', items: ['Flutter', 'React', 'FastAPI', 'Spring Boot', 'Node.js', 'Electron'] },
+    { group: 'Platforms & data', items: ['Supabase', 'PostgreSQL', 'SQLAlchemy', 'AWS', 'Docker', 'Cloudflare Pages', 'GitHub Actions'] },
+    { group: 'Embedded & hardware', items: ['Firmware development', 'PCB design', 'RF systems & test plans', 'Soldering, ICs and shorts', 'IAR Embedded Workbench'] },
+    { group: 'Leadership & delivery', items: ['Coordinating a team of five', '12+ projects delivered', 'Customer escalation', 'Test plans & documentation', 'Vendor & contractor management'] },
+    { group: 'Practices', items: ['Automated testing & CI', 'Workflow automation', 'Code review', 'Written specs a stranger can follow'] },
   ],
 }

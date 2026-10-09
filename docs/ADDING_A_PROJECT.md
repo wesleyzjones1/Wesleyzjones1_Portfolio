@@ -75,8 +75,13 @@ npm run build
 npm run dev   # open http://localhost:5173/projects/<slug>
 ```
 
+## The repositories list
+
+The "Every public repository" grid on the Work page needs no editing. `react-app/src/content/repos.json` is a snapshot that CI refreshes from the GitHub API on every deploy (`npm run sync-repos`), and the page upgrades to live data in the browser when GitHub answers. A repository that has a write-up (a project file whose `repo` matches) automatically gets a "Write-up" link.
+
 ## Updating your profile, résumé or interests
 
-- **Text** (headline, story, the trail, strengths, interests, beliefs, experience, education, certifications, skills): `react-app/src/content/profile.js`. Each section is a plain array or object; delete `beliefs` to remove that section entirely.
+- **Text** (headline, the case for hiring you, what you're looking for, the trail, strengths, story, interests, beliefs, education, certifications, skills): `react-app/src/content/profile.js`. Each section is a plain array or object; delete `beliefs` or `lookingFor` to remove that section entirely.
+- **Interest photos**: add `image: 'interests/<name>.webp'` to an entry in `interests` and drop the file in `react-app/public/interests/`. The card shows the photo instead of the icon.
 - **Résumé PDF**: replace `react-app/public/Wesley_Jones_Resume.pdf` (or change `resumeFile` in `profile.js`).
 - **Portrait**: replace `react-app/public/profile-800.jpg` and `profile-800.webp` (800×1000, 4:5 portrait). `profile-640.jpg` (square) is used for link previews.

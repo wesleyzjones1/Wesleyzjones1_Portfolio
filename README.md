@@ -18,6 +18,7 @@ npm run build      # outputs react-app/dist
 |---|---|
 | Your name, bio, experience, education, skills, interests | `react-app/src/content/profile.js` |
 | Projects (one file each) | `react-app/src/content/projects/` |
+| Public repositories (auto-refreshed in CI) | `react-app/src/content/repos.json`, `react-app/scripts/fetch-repos.mjs` |
 | Project order and registration | `react-app/src/content/projects/index.js` |
 | Résumé PDF, photo, project covers | `react-app/public/` |
 | Pages (Home, Projects, Project detail, About, Contact) | `react-app/src/pages/` |

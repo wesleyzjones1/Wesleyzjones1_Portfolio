@@ -47,6 +47,14 @@ jobs:
         run: npm ci
         working-directory: react-app
 
+      # Pulls the public repository list so the Work page is current on every deploy.
+      - name: Refresh the repository list
+        if: env.REDIRECT_TO == ''
+        run: npm run sync-repos
+        working-directory: react-app
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Build
         if: env.REDIRECT_TO == ''
         run: npm run build
