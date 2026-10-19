@@ -11,10 +11,6 @@ export function allProjects() {
   return projects
 }
 
-export function featuredProjects() {
-  return projects.filter(p => p.featured)
-}
-
 export function heroProject() {
   return projects.find(p => p.hero) || null
 }
@@ -31,15 +27,6 @@ export function categories() {
 export function primaryLink(project) {
   if (!project.links?.length) return null
   return project.links.find(l => l.primary) || project.links[0]
-}
-
-export function neighbours(slug) {
-  const i = projects.findIndex(p => p.slug === slug)
-  if (i === -1) return { prev: null, next: null }
-  return {
-    prev: i > 0 ? projects[i - 1] : null,
-    next: i < projects.length - 1 ? projects[i + 1] : null,
-  }
 }
 
 /** Prefix a /public asset path with the Vite base so it works on GitHub Pages. */

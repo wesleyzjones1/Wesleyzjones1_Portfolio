@@ -6,7 +6,6 @@ export default {
     'A React single-page app that collects 55 everyday utilities (formatters, converters, calculators, image tools, a regex tester, a video-to-GIF converter) behind one search box. Everything runs client-side, the site installs as a progressive web app and works offline, and the interface is translated into six languages.',
 
   status: 'live',
-  featured: true,
   year: '2026',
   role: 'Sole developer',
   category: 'Web app',

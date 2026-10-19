@@ -28,7 +28,6 @@
   --shadow-sm: 0 1px 2px rgba(23, 24, 30, 0.06), 0 1px 1px rgba(23, 24, 30, 0.04);
   --shadow-md: 0 8px 24px -12px rgba(23, 24, 30, 0.22), 0 2px 6px rgba(23, 24, 30, 0.06);
   --shadow-lg: 0 24px 48px -20px rgba(23, 24, 30, 0.28);
-  --header-bg: rgba(247, 246, 242, 0.82);
 
   --radius-sm: 6px;
   --radius: 12px;
@@ -63,7 +62,6 @@
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
   --shadow-md: 0 8px 24px -12px rgba(0, 0, 0, 0.7), 0 2px 6px rgba(0, 0, 0, 0.3);
   --shadow-lg: 0 24px 48px -20px rgba(0, 0, 0, 0.8);
-  --header-bg: rgba(15, 17, 21, 0.80);
   color-scheme: dark;
 }
 
@@ -125,18 +123,21 @@ ul, ol { padding: 0; list-style: none; }
   border: 1px solid var(--border-strong);
   background: var(--bg-elev);
   color: var(--text);
-  transition: transform .18s var(--ease), background .18s, border-color .18s, color .18s, box-shadow .18s;
+  /* The 1px hover lift is instant on purpose: animated, the text and the border
+     would snap to pixels at different moments. */
+  position: relative; top: 0;
+  transition: background .18s, border-color .18s, color .18s, box-shadow .18s;
   white-space: nowrap;
 }
-.btn:hover { transform: translateY(-1px); border-color: var(--text-3); box-shadow: var(--shadow-sm); }
-.btn:active { transform: translateY(0); }
+.btn:hover { top: -1px; border-color: var(--text-3); box-shadow: var(--shadow-sm); }
+.btn:active { top: 0; }
 .btn--primary { background: var(--text); color: var(--bg); border-color: var(--text); }
 .btn--primary:hover { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
 .btn--ghost { background: transparent; border-color: transparent; }
 .btn--ghost:hover { background: var(--accent-soft); border-color: transparent; box-shadow: none; }
 .btn--sm { height: 36px; padding: 0 14px; font-size: 14px; }
 .btn--icon { width: 40px; height: 40px; padding: 0; justify-content: center; border-radius: 50%; }
-.btn[disabled] { opacity: .6; cursor: default; transform: none; }
+.btn[disabled] { opacity: .6; cursor: default; top: 0; }
 
 /* Chips & badges */
 .chip {
@@ -165,23 +166,44 @@ ul, ol { padding: 0; list-style: none; }
 /* Section scaffolding */
 .section { padding: clamp(56px, 9vw, 112px) 0; }
 .section--tight { padding: clamp(40px, 6vw, 72px) 0; }
-.section--sunk { background: var(--bg-sunk); }
+.section--sunk { background: var(--bg-sunk); --curtain: var(--bg-sunk); }
+/* In-page links (like "See my work") land below the sticky header, not under it. */
+section[id] { scroll-margin-top: var(--header-h); }
 .section-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: clamp(28px, 4vw, 44px); }
 .section-head .eyebrow { display: block; margin-bottom: 10px; }
 .section-head .lead { margin-top: 12px; }
 .section-head__link { flex-shrink: 0; display: inline-flex; align-items: center; gap: 6px; min-height: 40px; color: var(--text-2); font-weight: 500; font-size: 15px; }
 .section-head__link:hover { color: var(--accent); }
-.section-head__link svg { transition: transform .2s var(--ease); }
-.section-head__link:hover svg { transform: translateX(3px); }
 @media (max-width: 640px) { .section-head { flex-direction: column; align-items: flex-start; gap: 12px; } }
 
-/* Reveal on scroll */
-.reveal { opacity: 0; transform: translateY(12px); transition: opacity .45s var(--ease), transform .45s var(--ease); }
-.reveal.is-visible { opacity: 1; transform: none; }
+/* Fade-ins use a cover: a layer in the background colour fades away above the
+   content, instead of fading the content itself. Fading or moving text puts it on
+   a compositor layer, where Windows draws it without ClearType until the animation
+   ends, so it visibly sharpens at the end (see .lift). The cover holds no text.
+   --curtain is the colour of the section behind the content. */
+@keyframes curtain-out { to { opacity: 0; visibility: hidden; } }
+
+/* Reveal on scroll (Reveal sets --reveal-delay to stagger a row). */
+.reveal { position: relative; }
+.reveal::after {
+  content: ''; position: absolute; inset: -16px; z-index: 1; pointer-events: none;
+  background: var(--curtain, var(--bg));
+  transition: opacity .6s var(--ease) var(--reveal-delay, 0s), visibility 0s linear calc(var(--reveal-delay, 0s) + .6s);
+}
+.reveal.is-visible::after { opacity: 0; visibility: hidden; }
+
+/* Each page fades in on navigation (main is keyed by route in Layout); the cover sits under the header. */
+.page::before {
+  content: ''; position: fixed; inset: 0; z-index: 40; pointer-events: none;
+  background: var(--bg); animation: curtain-out .35s ease forwards;
+}
+
+/* Reduced motion means less movement, not none: content still fades in and
+   hover feedback stays, but nothing slides into place and nothing loops.
+   (Windows turns this on whenever "Animation effects" is off.) */
 @media (prefers-reduced-motion: reduce) {
-  .reveal { opacity: 1; transform: none; transition: none; }
-  *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
   html { scroll-behavior: auto; }
+  .badge--coming-soon::before, .nav-anim, .nav-anim * { animation: none !important; }
 }
 
 /* Cards */
@@ -191,6 +213,23 @@ ul, ol { padding: 0; list-style: none; }
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
 }
+
+/* Hover lift. Each card lives on its own compositor layer for good (will-change),
+   so the lift moves card and text together as one image and nothing repaints.
+   - Not `top`: that repaints every frame, and text and box edges snap to whole
+     pixels at different moments, so they drift against each other.
+   - Not a transform without will-change: the layer would only exist during the
+     animation, and Windows switches the text's antialiasing as it starts and ends,
+     so text looks soft and then "clears up".
+   - Translate only, never scale: a scaled layer is stretched and soft.
+   The bigger shadow fades in on a pseudo-element, so it doesn't repaint either. */
+.lift { position: relative; will-change: transform; transition: transform .35s var(--ease); }
+.lift::after {
+  content: ''; position: absolute; inset: -1px; border-radius: inherit; pointer-events: none;
+  box-shadow: var(--shadow-lg); opacity: 0; transition: opacity .35s var(--ease);
+}
+.lift:hover, .lift:focus-visible { transform: translateY(-6px); }
+.lift:hover::after, .lift:focus-visible::after { opacity: 1; }
 
 /* Grid helpers */
 .grid { display: grid; gap: 20px; }

@@ -1,6 +1,15 @@
 {
   "user": "WesleyZJones1",
-  "hide": [],
+  "hide": [
+    "GroomsmenAssemble",
+    "Cumputeria-Inventory-Management",
+    "d288-Back-End-Programming",
+    "Vacation-Planner",
+    "Multi-Threaded-Application",
+    "Paradigm-Pet-Professionals",
+    "Tanitian-Tourism",
+    "Golden-State-Cities"
+  ],
   "fetchedAt": null,
   "repos": [
     {

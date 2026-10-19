@@ -8,7 +8,6 @@ export default {
     'A browser tool that converts a picture into a Factorio blueprint string. Load an image, tune the resolution, black-and-white threshold and noise reduction, choose transport belts, pipes or concrete as the "pixels", and copy the encoded blueprint to the clipboard. The preview is drawn over a real map tile so you can judge the result at in-game scale before you build it.',
 
   status: 'live',
-  featured: false,
   year: '2026',
   role: 'Sole developer',
   category: 'Tooling',

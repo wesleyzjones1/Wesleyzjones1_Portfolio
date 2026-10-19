@@ -2,15 +2,15 @@ import { useEffect, useRef, useState } from 'react'
 
 function shouldSkipAnimation() {
   if (typeof window === 'undefined') return true
-  if (typeof IntersectionObserver === 'undefined') return true
-  return Boolean(window.matchMedia?.('(prefers-reduced-motion: reduce)').matches)
+  return typeof IntersectionObserver === 'undefined'
 }
 
 /**
- * Fades children up as they scroll into view. Renders immediately when the
- * browser prefers reduced motion or IntersectionObserver is unavailable.
+ * Fades children in as they scroll into view, by fading a cover away above them
+ * rather than fading the children themselves (see .reveal in global.css).
+ * Renders immediately when IntersectionObserver is unavailable.
  */
-export default function Reveal({ className = '', delay = 0, children, ...rest }) {
+export default function Reveal({ className = '', delay = 0, style, children, ...rest }) {
   const ref = useRef(null)
   const [visible, setVisible] = useState(shouldSkipAnimation)
 
@@ -25,7 +25,7 @@ export default function Reveal({ className = '', delay = 0, children, ...rest })
   }, [visible])
 
   return (
-    <div ref={ref} className={`reveal${visible ? ' is-visible' : ''} ${className}`.trim()} style={delay ? { transitionDelay: `${delay}ms` } : undefined} {...rest}>
+    <div ref={ref} className={`reveal${visible ? ' is-visible' : ''} ${className}`.trim()} style={delay ? { ...style, '--reveal-delay': `${delay}ms` } : style} {...rest}>
       {children}
     </div>
   )

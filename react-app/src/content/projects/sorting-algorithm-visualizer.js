@@ -8,7 +8,6 @@ export default {
     'A zero-dependency JavaScript visualizer for bubble, insertion, selection, quick and merge sort. Generate a random array, choose an algorithm and speed, and watch the bars sort themselves while comparisons, swaps and elapsed time update live.',
 
   status: 'live',
-  featured: false,
   year: '2023 – 2026',
   role: 'Sole developer',
   category: 'Web app',

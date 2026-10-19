@@ -6,7 +6,6 @@ export default {
     'A mobile app for building multi-stop date itineraries on a map. Think of an adventure book, but for a specific place: each date is a trail of chapters (dinner, a walk, dessert) that other people can rate and go on. Designed, built and shipped solo with Flutter and Supabase.',
 
   status: 'coming-soon',
-  featured: true,
   hero: true,
   year: '2025 – 2026',
   role: 'Founder, designer and sole engineer',
@@ -34,15 +33,16 @@ export default {
     { label: 'datetrails.com', url: 'https://datetrails.com/', primary: true },
   ],
   embed: true,
+  embedPosition: 'end', // a marketing site, not a demo, so it follows the write-up
   embedEyebrow: 'The site',
   embedTitle: 'datetrails.com',
   storeBadges: true,
 
   metrics: [
-    { value: '85k+', label: 'lines of Dart' },
-    { value: '4,800+', label: 'automated tests' },
+    { value: '90k+', label: 'lines of Dart' },
+    { value: '5,600+', label: 'automated tests' },
     { value: '20', label: 'screens' },
-    { value: '7', label: 'edge functions' },
+    { value: '10', label: 'edge functions' },
   ],
 
   highlights: [
@@ -88,7 +88,7 @@ export default {
     {
       heading: 'Quality and delivery',
       body: [
-        'Every push runs static analysis, the full test suite with a coverage floor, and the database security harness. The suite is roughly 4,800 test cases across about 430 files, including integration tests. Releases go out through the same pipeline that builds the signed Android bundle.',
+        'Every push runs static analysis, the full test suite with a coverage floor, and the database security harness. The suite is roughly 5,600 test cases across about 400 files, including integration tests. Releases go out through the same pipeline that builds the signed Android bundle.',
       ],
     },
     {

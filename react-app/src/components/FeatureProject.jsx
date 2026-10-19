@@ -9,7 +9,7 @@ export default function FeatureProject({ project }) {
   const link = primaryLink(project)
   const [back, front] = project.featureImages || []
   return (
-    <article className="feature">
+    <article className="feature lift">
       <div className="feature__body">
         <div className="feature__top">
           <span className="eyebrow">Featured project</span>

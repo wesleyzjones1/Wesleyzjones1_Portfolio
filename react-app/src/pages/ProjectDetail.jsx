@@ -1,5 +1,6 @@
+import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { getProject, neighbours, primaryLink, asset } from '../lib/projects'
+import { getProject, primaryLink, asset } from '../lib/projects'
 import { useRepository } from '../hooks/useRepository'
 import { usePageTitle } from '../hooks/usePageTitle'
 import StatusBadge from '../components/ui/StatusBadge'
@@ -24,9 +25,9 @@ export default function ProjectDetail() {
 
 function Detail({ project }) {
   usePageTitle(project.title)
-  const { prev, next } = neighbours(project.slug)
   const link = primaryLink(project)
   const embedUrl = project.embed && link ? link.url : null
+  const demoFirst = embedUrl && project.embedPosition !== 'end'
   const [owner, repo] = (project.repo || '').split('/')
   const { data: repoInfo } = useRepository(owner, repo)
 
@@ -77,7 +78,10 @@ function Detail({ project }) {
 
       <section className="section--tight" style={{ paddingTop: 0 }}>
         <div className="container">
-          {project.cover && (
+          {demoFirst && <LiveDemo project={project} url={embedUrl} lead />}
+
+          {/* The cover would repeat the live demo right above it, so demo-first pages skip it. */}
+          {project.cover && !demoFirst && (
             <Reveal className={`detail-cover${project.coverFit === 'contain' ? ' detail-cover--contain' : ''}`} style={project.coverBg ? { background: project.coverBg } : undefined}>
               <img src={asset(project.cover)} alt={`${project.title} artwork`} width="1280" height="800" />
             </Reveal>
@@ -160,35 +164,47 @@ function Detail({ project }) {
             </Reveal>
           )}
 
-          {embedUrl && (
-            <Reveal className="embed">
-              <div className="section-head" style={{ marginBottom: 16 }}>
-                <div>
-                  <span className="eyebrow">{project.embedEyebrow || 'Try it'}</span>
-                  <h2 className="h3 display">{project.embedTitle || 'Live demo'}</h2>
-                </div>
-              </div>
-              <div className="embed__frame">
-                <div className="embed__bar">
-                  <span className="dots" aria-hidden="true"><i /><i /><i /></span>
-                  <span className="embed__url">{embedUrl.replace(/^https?:\/\//, '')}</span>
-                  <a href={embedUrl} target="_blank" rel="noopener noreferrer">Open in new tab <ArrowUpRight size={13} /></a>
-                </div>
-                <iframe src={embedUrl} title={`${project.title} live demo`} loading="lazy" sandbox="allow-scripts allow-same-origin allow-forms allow-popups" />
-                <div className="embed__mobile">
-                  <p>This demo is built for a larger screen. Open it full-size in a new tab.</p>
-                  <a className="btn btn--primary" href={embedUrl} target="_blank" rel="noopener noreferrer">Open live demo <ArrowUpRight size={14} /></a>
-                </div>
-              </div>
-            </Reveal>
-          )}
-
-          <nav className="pager" aria-label="More projects">
-            {prev && <Link to={`/projects/${prev.slug}`} className="prev"><small>Previous</small><strong>{prev.title}</strong></Link>}
-            {next && <Link to={`/projects/${next.slug}`} className="next"><small>Next</small><strong>{next.title}</strong></Link>}
-          </nav>
+          {embedUrl && !demoFirst && <LiveDemo project={project} url={embedUrl} />}
         </div>
       </section>
     </article>
+  )
+}
+
+/**
+ * The project's primary link in a browser-style frame. As the `lead` it opens
+ * the page, wider than the text column and without a heading; otherwise it
+ * closes the page under its own heading.
+ */
+function LiveDemo({ project, url, lead = false }) {
+  // The lead demo is already on screen, so it arrives with the page instead of on scroll.
+  const Wrapper = lead ? 'div' : Reveal
+  const [loaded, setLoaded] = useState(false)
+  return (
+    <Wrapper className={`embed${lead ? ' embed--lead' : ''}`}>
+      {!lead && (
+        <div className="section-head" style={{ marginBottom: 16 }}>
+          <div>
+            <span className="eyebrow">{project.embedEyebrow || 'Try it'}</span>
+            <h2 className="h3 display">{project.embedTitle || 'Live demo'}</h2>
+          </div>
+        </div>
+      )}
+      <div className="embed__frame">
+        <div className="embed__bar">
+          <span className="dots" aria-hidden="true"><i /><i /><i /></span>
+          <span className="embed__url">{url.replace(/^https?:\/\//, '')}</span>
+          <a href={url} target="_blank" rel="noopener noreferrer">Open in new tab <ArrowUpRight size={13} /></a>
+        </div>
+        <div className="embed__viewport">
+          <iframe src={url} title={`${project.title} live demo`} loading={lead ? 'eager' : 'lazy'} sandbox="allow-scripts allow-same-origin allow-forms allow-popups" onLoad={() => setLoaded(true)} />
+          {!loaded && <div className="embed__loading" aria-hidden="true">Loading {lead ? 'demo' : 'site'}…</div>}
+        </div>
+        <div className="embed__mobile">
+          <p>This demo is built for a larger screen. Open it full-size in a new tab.</p>
+          <a className="btn btn--primary" href={url} target="_blank" rel="noopener noreferrer">Open live demo <ArrowUpRight size={14} /></a>
+        </div>
+      </div>
+    </Wrapper>
   )
 }

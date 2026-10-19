@@ -8,7 +8,6 @@ export default {
     'An Angular application with an interactive SVG map of the world. Click any country to fetch and display its capital, region, income level and coordinates from the World Bank API.',
 
   status: 'live',
-  featured: false,
   year: '2024',
   role: 'Sole developer',
   category: 'Web app',

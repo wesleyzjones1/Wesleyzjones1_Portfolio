@@ -7,10 +7,9 @@ export default {
   title: 'Universal Switching',
   tagline: 'Firmware, the embedded web interface and the engineering automation behind a line of RF and video switching systems.',
   summary:
-    'Universal Switching Corporation builds RF, video and data switching matrices that customers run unattended in racks. Since 2024 I have owned the software side of those platforms: 50+ custom firmware releases, a ground-up redesign of the web interface each unit serves from its own controller, and a set of internal tools (EfficiencyOverload, SageQuest and the FastCAD Component Reviewer) that automate how the engineering team produces assembly drawings and releases firmware. This page collects that work in one place.',
+    'Universal Switching Corporation builds RF, video and data switching matrices that customers run unattended in racks. Since 2024 I have worked on and improved the software side of those platforms: 50+ custom firmware releases, a ground-up redesign of the web interface each unit serves from its own controller, and a set of internal tools (EfficiencyOverload, SageQuest and the FastCAD Component Reviewer) that automate how the engineering team produces assembly drawings and releases firmware. This page collects that work in one place.',
 
   status: 'live',
-  featured: true,
   year: '2024 – Present',
   role: 'Software Engineer, coordinating a team of five engineers',
   category: 'Professional',

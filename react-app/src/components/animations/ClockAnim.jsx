@@ -3,13 +3,14 @@ import { useEffect, useState } from 'react'
 const CX = 15
 const CY = 15
 
-export default function ClockAnim() {
-  const [time, setTime] = useState(new Date())
+export default function ClockAnim({ active = true }) {
+  const [time, setTime] = useState(() => new Date())
 
   useEffect(() => {
+    if (!active) return undefined
     const id = setInterval(() => setTime(new Date()), 1000)
     return () => clearInterval(id)
-  }, [])
+  }, [active])
 
   const sec = time.getSeconds()
   const min = time.getMinutes()

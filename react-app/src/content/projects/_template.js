@@ -17,7 +17,6 @@ export default {
   summary: 'Two or three sentences for the card. What it does, why it exists, what is interesting about it.',
 
   status: 'live',                     // 'live' | 'coming-soon' | 'in-progress' | 'archived'
-  featured: false,                    // true = shown on the home page
   year: '2026',
   role: 'Sole developer',
   category: 'Web app',                // used for the filter chips on /projects
@@ -37,9 +36,10 @@ export default {
     { label: 'Live demo', url: 'https://example.com', primary: true },
     { label: 'Source', url: 'https://github.com/wesleyzjones1/my-project' },
   ],
-  embed: false,                       // true = show the primary link inside an iframe on the detail page
-  // embedEyebrow: 'The site',        // optional; defaults to 'Try it'
-  // embedTitle: 'example.com',       // optional; defaults to 'Live demo'
+  embed: false,                       // true = show the primary link inside an iframe at the top of the detail page
+  // embedPosition: 'end',            // optional; move the iframe below the write-up instead
+  // embedEyebrow: 'The site',        // optional, 'end' only; defaults to 'Try it'
+  // embedTitle: 'example.com',       // optional, 'end' only; defaults to 'Live demo'
 
   metrics: [                          // optional, up to four
     { value: '10', label: 'algorithms' },

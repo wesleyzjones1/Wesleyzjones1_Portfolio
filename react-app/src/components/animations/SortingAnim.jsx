@@ -3,8 +3,10 @@ import { useEffect, useState } from 'react'
 const INITIAL = [22, 10, 18, 8, 20, 12, 16, 6]
 const TICK = 600
 const POST_COMPARE_MS = 50
+/** Bars are drawn full height and scaled down, so a height change never triggers layout. Values stay at or under 22. */
+const HEIGHT = 24
 
-export default function SortingAnim() {
+export default function SortingAnim({ active = true }) {
   const [state, setState] = useState({
     bars: INITIAL,
     i: 0,
@@ -17,6 +19,7 @@ export default function SortingAnim() {
   })
 
   useEffect(() => {
+    if (!active) return undefined
     const id = setInterval(() => {
       setState((prev) => {
         const { bars: b, i, j, phase, postCompareWait, randomIndex, waitUntil } = prev
@@ -64,7 +67,7 @@ export default function SortingAnim() {
       })
     }, TICK)
     return () => clearInterval(id)
-  }, [])
+  }, [active])
 
   const { bars, j, phase, comparing, postCompareWait } = state
   const min = Math.min(...bars), max = Math.max(...bars)
@@ -76,15 +79,15 @@ export default function SortingAnim() {
     <>
       <style>{`
         .nav-anim-sort { position: relative; display: inline-block; }
-        .nav-anim-sort span { position: absolute; bottom: 0; width: ${BAR_WIDTH}px; transition: height 200ms ease, background-color 400ms ease; }
+        .nav-anim-sort span { position: absolute; bottom: 0; width: ${BAR_WIDTH}px; height: ${HEIGHT}px; transform-origin: bottom; transition: transform 200ms ease, background-color 400ms ease; }
         .nav-anim-sort span.active { background: #b04c4c !important; }
       `}</style>
-      <span className="nav-anim nav-anim-sort" aria-hidden="true" style={{ width: `${bars.length * STEP}px`, height: `${Math.max(max, 24)}px` }}>
+      <span className="nav-anim nav-anim-sort" aria-hidden="true" style={{ width: `${bars.length * STEP}px`, height: `${HEIGHT}px` }}>
         {bars.map((h, idx) => (
           <span
             key={idx}
             className={phase === 'sorting' && (idx === j || idx === j + 1) && (comparing || postCompareWait) ? 'active' : ''}
-            style={{ left: `${idx * STEP}px`, height: `${h}px`, background: barColor(h) }}
+            style={{ left: `${idx * STEP}px`, transform: `scaleY(${h / HEIGHT})`, background: barColor(h) }}
           />
         ))}
       </span>

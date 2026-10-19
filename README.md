@@ -16,7 +16,7 @@ npm run build      # outputs react-app/dist
 
 | What | Where |
 |---|---|
-| Your name, bio, experience, education, skills, interests | `react-app/src/content/profile.js` |
+| Your name, bio, beliefs, how you can help, interests | `react-app/src/content/profile.js` |
 | Projects (one file each) | `react-app/src/content/projects/` |
 | Public repositories (auto-refreshed in CI) | `react-app/src/content/repos.json`, `react-app/scripts/fetch-repos.mjs` |
 | Project order and registration | `react-app/src/content/projects/index.js` |

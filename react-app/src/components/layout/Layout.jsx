@@ -12,11 +12,13 @@ function ScrollToTop() {
 
 export default function Layout() {
   const { theme, toggle } = useTheme()
+  const { pathname } = useLocation()
   return (
     <>
       <ScrollToTop />
       <Header theme={theme} onToggleTheme={toggle} />
-      <main>
+      {/* Keyed by route so each page fades in on navigation. */}
+      <main key={pathname} className="page">
         <Outlet />
       </main>
       <Footer />

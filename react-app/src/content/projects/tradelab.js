@@ -6,7 +6,6 @@ export default {
     'A personal trading engine written in Python. Once a trading day it scans a broad market universe, ranks candidates with a written reason for each, and waits for a human to approve a name before it may ever be traded. From there it decides buy, hold, sell or avoid from explicit technical and fundamental rules under hard risk limits, records the full rule trace behind every call, and reports on itself. It runs on a simulated budget with paper trades; the live path exists but is off behind three independent switches.',
 
   status: 'in-progress',
-  featured: true,
   year: '2026',
   role: 'Sole developer',
   category: 'Automation',

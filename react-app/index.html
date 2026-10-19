@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>Wesley Jones · Software Engineer</title>
-    <meta name="description" content="Wesley Jones started working at twelve on a construction crew. Today he is a software engineer specializing in embedded systems and RF testing, and the creator of DateTrails." />
+    <meta name="description" content="Wesley Jones, software engineer in Thousand Oaks, CA. Firmware, web and mobile apps, and the automation that ties them together. Creator of DateTrails." />
     <meta name="author" content="Wesley Jones" />
     <meta name="theme-color" content="#f7f6f2" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#0f1115" media="(prefers-color-scheme: dark)" />
@@ -12,16 +12,34 @@
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Wesley Jones" />
     <meta property="og:title" content="Wesley Jones · Software Engineer" />
-    <meta property="og:description" content="From digging ditches to shipping firmware. Software engineer, embedded systems and RF, creator of DateTrails." />
-    <meta property="og:image" content="https://wesleyzjones.com/profile-640.jpg" />
-    <meta property="og:image:width" content="640" />
-    <meta property="og:image:height" content="640" />
-    <meta property="og:image:alt" content="Portrait of Wesley Jones" />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:description" content="I build firmware, web and mobile apps, and the automation that ties them together. Creator of DateTrails." />
+    <meta property="og:url" content="https://wesleyzjones.com/" />
+    <!-- og-image.jpg is a 1200x630 card (name, role, portrait) so shared links get a wide preview. -->
+    <meta property="og:image" content="https://wesleyzjones.com/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Wesley Jones, Software Engineer" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Wesley Jones · Software Engineer" />
-    <meta name="twitter:description" content="From digging ditches to shipping firmware. Software engineer, embedded systems and RF, creator of DateTrails." />
-    <meta name="twitter:image" content="https://wesleyzjones.com/profile-640.jpg" />
+    <meta name="twitter:description" content="I build firmware, web and mobile apps, and the automation that ties them together. Creator of DateTrails." />
+    <meta name="twitter:image" content="https://wesleyzjones.com/og-image.jpg" />
+    <!-- Structured data so search engines can show a richer result for the name. -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Wesley Jones",
+        "jobTitle": "Software Engineer",
+        "url": "https://wesleyzjones.com/",
+        "image": "https://wesleyzjones.com/profile-640.jpg",
+        "address": { "@type": "PostalAddress", "addressLocality": "Thousand Oaks", "addressRegion": "CA", "addressCountry": "US" },
+        "sameAs": ["https://github.com/WesleyZJones1", "https://www.linkedin.com/in/wesleyzjones1"]
+      }
+    </script>
+    <!-- Favicon "Prompt W": the .ico (16, 32, 48 px) for every browser, the SVG for sharp scaling, and a 180 px home-screen icon. -->
+    <link rel="icon" href="%BASE_URL%favicon.ico" sizes="48x48" />
     <link rel="icon" href="%BASE_URL%favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="%BASE_URL%apple-touch-icon.png" />
     <script>
       // Apply the saved (or system) theme before first paint to avoid a flash.
       (function () {

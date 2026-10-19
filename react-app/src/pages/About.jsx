@@ -2,13 +2,14 @@ import { Link } from 'react-router-dom'
 import { profile } from '../content/profile'
 import { asset } from '../lib/projects'
 import { usePageTitle } from '../hooks/usePageTitle'
-import Trail from '../components/Trail'
+import InterestGrid from '../components/InterestGrid'
+import HelpBox from '../components/HelpBox'
 import Reveal from '../components/ui/Reveal'
-import { Award, Download, Mail, Quote, interestIcons } from '../components/ui/Icons'
+import { Download, Mail, Quote } from '../components/ui/Icons'
 
 export default function About() {
   usePageTitle('About')
-  const { beliefs, drives } = profile
+  const { beliefs } = profile
   return (
     <>
       {/* ── Story ────────────────────────────────────────────────── */}
@@ -34,36 +35,6 @@ export default function About() {
         </div>
       </section>
 
-      {/* ── What drives me ───────────────────────────────────────── */}
-      <section className="section section--sunk">
-        <div className="container">
-          <Reveal className="two-col">
-            <div>
-              <span className="eyebrow">Why</span>
-              <h2 className="display h2">{drives.title}</h2>
-            </div>
-            <div className="prose">
-              {drives.body.map((p, i) => <p key={i}>{p}</p>)}
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* ── The trail ────────────────────────────────────────────── */}
-      <section className="section">
-        <div className="container">
-          <Reveal className="section-head">
-            <div>
-              <span className="eyebrow">The trail</span>
-              <h2 className="display h2">Where I have worked, in order</h2>
-            </div>
-          </Reveal>
-          <Reveal>
-            <Trail items={profile.journey} />
-          </Reveal>
-        </div>
-      </section>
-
       {/* ── Beyond work ──────────────────────────────────────────── */}
       <section className="section section--sunk">
         <div className="container">
@@ -73,20 +44,7 @@ export default function About() {
               <h2 className="display h2">What I do when the laptop is closed</h2>
             </div>
           </Reveal>
-          <div className="grid grid--3">
-            {profile.interests.map((it, i) => {
-              const Icon = interestIcons[it.icon] || interestIcons.star
-              return (
-                <Reveal key={it.title} delay={Math.min(i, 5) * 60} className={`card interest${it.image ? ' interest--photo' : ''}`}>
-                  {it.image
-                    ? <img className="interest__image" src={asset(it.image)} alt="" loading="lazy" />
-                    : <span className="interest__icon"><Icon /></span>}
-                  <h3 className="interest__title">{it.title}</h3>
-                  <p className="interest__body">{it.body}</p>
-                </Reveal>
-              )
-            })}
-          </div>
+          <InterestGrid items={profile.interests} />
         </div>
       </section>
 
@@ -100,81 +58,17 @@ export default function About() {
                 <h2 className="display h2">{beliefs.title}</h2>
                 <p className="prose" style={{ marginTop: 16 }}>{beliefs.intro}</p>
               </div>
-              <div>
-                <blockquote className="mission">
-                  <Quote size={22} className="mission__mark" />
-                  <p>{beliefs.mission}</p>
-                  <footer>My mission statement</footer>
-                </blockquote>
-                {beliefs.poems?.length > 0 && (
-                  <details className="poems">
-                    <summary>Two poems</summary>
-                    <p className="prose" style={{ marginTop: 12 }}>{beliefs.poemsIntro}</p>
-                    {beliefs.poems.map(poem => (
-                      <div key={poem.title} className="poem">
-                        <h3 className="poem__title display">{poem.title}</h3>
-                        <p className="poem__lines">{poem.lines.map((l, i) => <span key={i}>{l}<br /></span>)}</p>
-                      </div>
-                    ))}
-                  </details>
-                )}
-              </div>
+              <blockquote className="mission">
+                <Quote size={22} className="mission__mark" />
+                <p>{beliefs.mission}</p>
+                <footer>My mission statement</footer>
+              </blockquote>
             </Reveal>
           </div>
         </section>
       )}
 
-      {/* ── Education & certifications ───────────────────────────── */}
-      <section className="section section--sunk">
-        <div className="container">
-          <div className="grid grid--2" style={{ gap: 40 }}>
-            <Reveal>
-              <span className="eyebrow" style={{ display: 'block', marginBottom: 14 }}>Education</span>
-              <div className="edu-list">
-                {profile.education.map(e => (
-                  <div key={`${e.degree}-${e.school}`} className="card edu">
-                    <div className="edu__degree">{e.degree}</div>
-                    <div className="edu__school">{e.school}{e.year ? ` · ${e.year}` : ''}</div>
-                    {e.details && <p className="edu__details">{e.details}</p>}
-                  </div>
-                ))}
-              </div>
-            </Reveal>
-            <Reveal delay={80}>
-              <span className="eyebrow" style={{ display: 'block', marginBottom: 14 }}>Certifications</span>
-              <div className="cert-list">
-                {profile.certifications.map(c => (
-                  <div key={c.name} className="cert">
-                    <span className="cert__icon"><Award /></span>
-                    <div><div className="cert__name">{c.name}</div><div className="cert__issuer">{c.issuer}</div></div>
-                  </div>
-                ))}
-              </div>
-            </Reveal>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Skills ───────────────────────────────────────────────── */}
-      <section className="section" id="skills">
-        <div className="container">
-          <Reveal className="section-head">
-            <div>
-              <span className="eyebrow">Skills</span>
-              <h2 className="display h2">Both sides of the problem</h2>
-              <p className="lead">I see the hardware and the software dimensions of a problem, and keep sight of the goal instead of getting lost in the details.</p>
-            </div>
-          </Reveal>
-          <Reveal className="skills">
-            {profile.skills.map(g => (
-              <div key={g.group} className="skill-group">
-                <div className="skill-group__name">{g.group}</div>
-                <div className="chips">{g.items.map(s => <span key={s} className="chip">{s}</span>)}</div>
-              </div>
-            ))}
-          </Reveal>
-        </div>
-      </section>
+      <HelpBox />
     </>
   )
 }

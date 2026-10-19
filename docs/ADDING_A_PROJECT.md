@@ -24,8 +24,7 @@ Everything else is optional and can be deleted:
 | Field | Notes |
 |---|---|
 | `status` | `'live'`, `'coming-soon'`, `'in-progress'` or `'archived'`. Controls the badge. |
-| `featured` | `true` shows it on the home page (up to three, in list order). |
-| `hero` | `true` makes it the large feature card on the home page. Only one project should have this. |
+| `hero` | `true` makes it the large feature card on the home page. Only one project should have this; every other project is shown in the grid below it, in list order. |
 | `year`, `role`, `category` | Shown in the detail sidebar. `category` also drives the filter chips on `/projects`. |
 | `tech` | Stack chips. The card shows the first four. |
 | `cover` | Path inside `react-app/public`, e.g. `projects/my-project.webp`. 1280×800 works best. |
@@ -36,7 +35,7 @@ Everything else is optional and can be deleted:
 | `mark` | An animated 26×26 mark component from `src/components/animations`. |
 | `repo` | `owner/repo`. The detail page pulls "last updated" and language from the public GitHub API. Leave out for private repos. |
 | `links` | Array of `{ label, url, primary }`. The primary link becomes the main button. |
-| `embed` | `true` shows the primary link inside an iframe on the detail page. Only for sites that allow embedding (GitHub Pages does). `embedEyebrow` and `embedTitle` replace the default "Try it" / "Live demo" headings. |
+| `embed` | `true` shows the primary link inside an iframe at the top of the detail page, 75% of the window wide, with the cover and screenshots below it. Only for sites that allow embedding (GitHub Pages does). `embedPosition: 'end'` moves it below the write-up instead, where `embedEyebrow` and `embedTitle` replace the default "Try it" / "Live demo" headings. |
 | `metrics` | Up to four `{ value, label }` tiles. |
 | `highlights` | Bullet list on the detail page. |
 | `sections` | Case-study sections: `{ heading, body: [paragraphs], bullets: [items] }`. |
@@ -81,7 +80,7 @@ The "Every public repository" grid on the Work page needs no editing. `react-app
 
 ## Updating your profile, résumé or interests
 
-- **Text** (headline, the case for hiring you, what you're looking for, the trail, strengths, story, interests, beliefs, education, certifications, skills): `react-app/src/content/profile.js`. Each section is a plain array or object; delete `beliefs` or `lookingFor` to remove that section entirely.
+- **Text** (hero bio, beliefs, how I can help, story, interests, faith): `react-app/src/content/profile.js`. Each section is a plain array or object; delete `principles`, `help` or `beliefs` to remove that section entirely.
 - **Interest photos**: add `image: 'interests/<name>.webp'` to an entry in `interests` and drop the file in `react-app/public/interests/`. The card shows the photo instead of the icon.
 - **Résumé PDF**: replace `react-app/public/Wesley_Jones_Resume.pdf` (or change `resumeFile` in `profile.js`).
-- **Portrait**: replace `react-app/public/profile-800.jpg` and `profile-800.webp` (800×1000, 4:5 portrait). `profile-640.jpg` (square) is used for link previews.
+- **Portrait**: replace `react-app/public/profile-800.jpg` and `profile-800.webp` (800×1000, 4:5 portrait). `profile-160.jpg` (square) is the navbar avatar. `og-image.jpg` (1200×630: name, role and portrait) is the preview shown when the link is shared; regenerate it if any of those change.

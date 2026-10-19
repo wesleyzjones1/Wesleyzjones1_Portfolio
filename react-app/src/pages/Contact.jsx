@@ -67,7 +67,7 @@ export default function Contact() {
         <div className="container">
           <span className="eyebrow">Contact</span>
           <h1 className="display h1">Let&apos;s talk.</h1>
-          <p className="lead">Recruiting, a role you think I would fit, or a technical problem you want a second opinion on. I read everything and reply within a couple of days.</p>
+          <p className="lead">Recruiting, a role you think I would fit, or a technical problem you want a second opinion on.</p>
         </div>
       </section>
 

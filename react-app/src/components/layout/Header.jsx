@@ -22,13 +22,11 @@ export default function Header({ theme, onToggleTheme }) {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  const initials = profile.name.split(' ').map(w => w[0]).join('').slice(0, 2)
-
   return (
     <header className={`header${scrolled ? ' is-scrolled' : ''}`}>
       <div className="container header__inner">
         <Link to="/" className="brand" aria-label={`${profile.name} – home`}>
-          <span className="brand__mark" aria-hidden="true">{initials}</span>
+          <span className="brand__avatar" aria-hidden="true"><img src={asset(profile.avatar)} alt="" width="160" height="160" /></span>
           <span>{profile.name}</span>
         </Link>
 

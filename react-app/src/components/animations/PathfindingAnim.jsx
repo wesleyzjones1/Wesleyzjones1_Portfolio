@@ -70,7 +70,7 @@ function buildScenario() {
   }
 }
 
-export default function PathfindingAnim() {
+export default function PathfindingAnim({ active = true }) {
   const [sim, setSim] = useState(() => ({
     ...buildScenario(),
     phase: 'search',
@@ -81,6 +81,7 @@ export default function PathfindingAnim() {
   }))
 
   useEffect(() => {
+    if (!active) return undefined
     const timer = setInterval(() => {
       setSim((prev) => {
         if (prev.phase === 'search') {
@@ -120,7 +121,7 @@ export default function PathfindingAnim() {
     }, 420)
 
     return () => clearInterval(timer)
-  }, [])
+  }, [active])
 
   const shownSearch = new Set(sim.searchOrder.slice(0, sim.searchStep))
   const shownRoute = new Set(sim.routeOrder.slice(0, sim.routeStep))

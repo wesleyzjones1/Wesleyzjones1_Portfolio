@@ -23,7 +23,6 @@ export const Close = make(<><path d="M18 6 6 18" /><path d="m6 6 12 12" /></>)
 export const Check = make(<path d="m20 6-11 11-5-5" />)
 export const Alert = make(<><circle cx="12" cy="12" r="10" /><path d="M12 8v4" /><path d="M12 16h.01" /></>)
 export const Send = make(<><path d="m22 2-7 20-4-9-9-4Z" /><path d="M22 2 11 13" /></>)
-export const Award = make(<><circle cx="12" cy="8" r="6" /><path d="M15.5 13 17 22l-5-3-5 3 1.5-9" /></>)
 export const Hammer = make(<><path d="m15 12-8.5 8.5a2.1 2.1 0 1 1-3-3L12 9" /><path d="M17.6 3.4 21 6.8l-2.4 2.4a1 1 0 0 1-1.4 0L14 6a1 1 0 0 1 0-1.4l2.2-2.2a1 1 0 0 1 1.4 0Z" /><path d="m14 6-2 2" /></>)
 export const Map = make(<><path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3Z" /><path d="M9 3v15" /><path d="M15 6v15" /></>)
 export const Gear = make(<><circle cx="12" cy="12" r="3" /><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z" /></>)
@@ -51,4 +50,4 @@ export const Globe = make(<><circle cx="12" cy="12" r="10" /><path d="M2 12h20" 
 export const Heart = make(<path d="M19.5 12.6 12 20l-7.5-7.4a4.6 4.6 0 0 1 6.5-6.5l1 1 1-1a4.6 4.6 0 0 1 6.5 6.5Z" />)
 export const Quote = make(<><path d="M10 11H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v6a4 4 0 0 1-4 4" /><path d="M20 11h-4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v6a4 4 0 0 1-4 4" /></>, { strokeWidth: 1.6 })
 
-export const interestIcons = { hammer: Hammer, map: Map, gear: Gear, eye: Eye, star: Star, music: Music, mountain: Mountain, gamepad: Gamepad, book: Book, globe: Globe }
+export const interestIcons = { hammer: Hammer, map: Map, gear: Gear, eye: Eye, star: Star, music: Music, mountain: Mountain, gamepad: Gamepad, book: Book, globe: Globe, heart: Heart }

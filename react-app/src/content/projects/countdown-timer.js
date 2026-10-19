@@ -8,7 +8,6 @@ export default {
     'A minimal desktop countdown widget. Set minutes and seconds, click to start, and watch an animated progress ring shift from green to red as time runs out. Frameless, draggable, glassmorphic, and packaged as a Windows executable with no console window.',
 
   status: 'live',
-  featured: false,
   year: '2026',
   role: 'Sole developer',
   category: 'Desktop',
