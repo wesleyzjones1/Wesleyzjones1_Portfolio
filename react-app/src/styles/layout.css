@@ -12,7 +12,8 @@
 .header.is-scrolled { border-bottom-color: var(--border); }
 .header__inner { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 
-.brand { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; font-weight: 600; letter-spacing: -0.01em; }
+/* A pill, so the card light (as the mouse comes near) has a shape to fill; the negative margin keeps the avatar in line with the page. */
+.brand { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 16px 0 5px; margin-left: -5px; border-radius: 999px; font-weight: 600; letter-spacing: -0.01em; }
 .brand__avatar {
   width: 34px; height: 34px; border-radius: 50%; overflow: hidden; flex-shrink: 0;
   box-shadow: 0 0 0 2px var(--bg), 0 0 0 3px var(--border-strong);
@@ -21,6 +22,10 @@
 /* The source is a head-and-shoulders crop; zoom in so the face reads at 34px. */
 .brand__avatar img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.6); transform-origin: 50% 38%; }
 .brand:hover .brand__avatar { box-shadow: 0 0 0 2px var(--bg), 0 0 0 3px var(--accent); }
+/* With a mouse the lit pill fills behind the avatar, so the gap in its ring takes the pill's colour. */
+@media (hover: hover) and (pointer: fine) {
+  .brand:hover .brand__avatar { box-shadow: 0 0 0 2px var(--bg-elev), 0 0 0 3px var(--accent); }
+}
 
 .nav { display: flex; align-items: center; gap: 4px; }
 .nav__link {

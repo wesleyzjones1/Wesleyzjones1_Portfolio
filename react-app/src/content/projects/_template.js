@@ -28,7 +28,9 @@ export default {
   // screens: [                       // optional; phone screens shown in a grid right after the overview
   //   { src: 'projects/my-project/screen.webp', kicker: 'Discover', caption: 'What this screen does.' },
   // ],
-  // featureImages: ['projects/my-project/back.webp', 'projects/my-project/front.webp'], // hero project only
+  // featurePhoto: { srcSet: [['projects/my-project/banner-1040.webp', 1040], ['projects/my-project/banner.webp', 2080]], width: 2080, height: 892, alt: '' }, // hero project only
+  // appIcon: 'projects/my-project/app-icon.webp', // hero project only; square
+  // screensStyle: 'store',            // optional; set when `screens` are app-store screenshots
   // mark: MyAnim,                    // optional 26px animated mark, see components/animations
   repo: 'wesleyzjones1/my-project',   // optional; pulls "last updated" from GitHub
 

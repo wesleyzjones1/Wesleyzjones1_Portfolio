@@ -82,8 +82,14 @@ function Detail({ project }) {
 
           {/* The cover would repeat the live demo right above it, so demo-first pages skip it. */}
           {project.cover && !demoFirst && (
-            <Reveal className={`detail-cover${project.coverFit === 'contain' ? ' detail-cover--contain' : ''}`} style={project.coverBg ? { background: project.coverBg } : undefined}>
-              <img src={asset(project.cover)} alt={`${project.title} artwork`} width="1280" height="800" />
+            <Reveal className={`detail-cover${project.coverFit ? ` detail-cover--${project.coverFit}` : ''}`} style={project.coverBg ? { background: project.coverBg } : undefined}>
+              <img
+                src={asset(project.cover)}
+                srcSet={project.coverSrcSet?.map(([path, w]) => `${asset(path)} ${w}w`).join(', ')}
+                sizes={project.coverSrcSet ? '(max-width: 1120px) 100vw, 1040px' : undefined}
+                alt={`${project.title} artwork`}
+                width={project.coverSize?.[0] ?? 1280} height={project.coverSize?.[1] ?? 800}
+              />
             </Reveal>
           )}
 
@@ -128,7 +134,7 @@ function Detail({ project }) {
 
           {project.screens?.length > 0 && (
             <Reveal className="detail-gallery">
-              <PhoneGallery items={project.screens} />
+              <PhoneGallery items={project.screens} variant={project.screensStyle} />
             </Reveal>
           )}
 

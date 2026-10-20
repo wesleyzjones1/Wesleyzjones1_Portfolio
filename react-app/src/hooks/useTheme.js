@@ -11,9 +11,9 @@ function readStored() {
 }
 
 /**
- * Light/dark theme. Follows the system until the visitor picks one; the
- * choice persists in localStorage. index.html applies the same rule before
- * React loads so there is no flash.
+ * Light/dark theme. Follows the computer's own mode until the visitor picks one
+ * with the toggle; that choice persists in localStorage, across reloads and
+ * visits. index.html applies the same rule before React loads so there is no flash.
  */
 export function useTheme() {
   const [theme, setTheme] = useState(() => readStored() || systemTheme())

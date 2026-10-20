@@ -28,9 +28,10 @@ Everything else is optional and can be deleted:
 | `year`, `role`, `category` | Shown in the detail sidebar. `category` also drives the filter chips on `/projects`. |
 | `tech` | Stack chips. The card shows the first four. |
 | `cover` | Path inside `react-app/public`, e.g. `projects/my-project.webp`. 1280×800 works best. |
-| `coverFit`, `coverBg` | `coverFit: 'contain'` shows the whole cover (for artwork or logos) instead of cropping it; `coverBg` sets the colour behind it. |
+| `coverFit`, `coverBg` | `coverFit: 'contain'` shows the whole cover (for artwork or logos) instead of cropping it; `coverBg` sets the colour behind it. `coverFit: 'natural'` shows a banner at its own shape on the detail page; give it `coverSize: [width, height]` and optionally `coverSrcSet: [[path, width], …]`, smallest first. |
 | `screens` | Array of `{ src, kicker, caption }`. Phone screens shown in a grid right after the overview (DateTrails uses this). 600px-wide WebPs are plenty. |
-| `featureImages` | `[back, front]` phone screens shown on the home-page feature card (only used by the `hero` project). |
+| `featurePhoto`, `appIcon` | Home-page feature card only (the `hero` project). `featurePhoto` is `{ srcSet: [[path, width], …], width, height, alt }`, a wide banner across the top of the card, smallest file first. `appIcon` is a square image shown beside the title. |
+| `screensStyle` | `'store'` when `screens` are app-store screenshots (full-bleed artwork with a headline): shown as rounded rectangles in rows of five. Leave it out for plain phone screens. |
 | `logo` | Path to a square logo (SVG or PNG) used instead of an animated mark. |
 | `mark` | An animated 26×26 mark component from `src/components/animations`. |
 | `repo` | `owner/repo`. The detail page pulls "last updated" and language from the public GitHub API. Leave out for private repos. |

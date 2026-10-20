@@ -41,13 +41,13 @@
     <link rel="icon" href="%BASE_URL%favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="%BASE_URL%apple-touch-icon.png" />
     <script>
-      // Apply the saved (or system) theme before first paint to avoid a flash.
+      // Apply the theme before first paint to avoid a flash: the one picked with the
+      // toggle, or else the computer's own mode (see useTheme).
       (function () {
-        try {
-          var t = localStorage.getItem('theme');
-          if (!t) t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-          document.documentElement.setAttribute('data-theme', t);
-        } catch (e) { /* ignore */ }
+        var t = null;
+        try { t = localStorage.getItem('theme'); } catch (e) { /* private mode */ }
+        if (!t) t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', t);
       })();
     </script>
   </head>

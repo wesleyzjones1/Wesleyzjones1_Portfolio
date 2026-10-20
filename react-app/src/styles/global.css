@@ -28,6 +28,8 @@
   --shadow-sm: 0 1px 2px rgba(23, 24, 30, 0.06), 0 1px 1px rgba(23, 24, 30, 0.04);
   --shadow-md: 0 8px 24px -12px rgba(23, 24, 30, 0.22), 0 2px 6px rgba(23, 24, 30, 0.06);
   --shadow-lg: 0 24px 48px -20px rgba(23, 24, 30, 0.28);
+  --card-glow: rgba(179, 81, 11, 0.07);
+  --card-edge: rgba(179, 81, 11, 0.6);
 
   --radius-sm: 6px;
   --radius: 12px;
@@ -62,6 +64,8 @@
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
   --shadow-md: 0 8px 24px -12px rgba(0, 0, 0, 0.7), 0 2px 6px rgba(0, 0, 0, 0.3);
   --shadow-lg: 0 24px 48px -20px rgba(0, 0, 0, 0.8);
+  --card-glow: rgba(240, 160, 75, 0.07);
+  --card-edge: rgba(240, 160, 75, 0.65);
   color-scheme: dark;
 }
 
@@ -230,6 +234,31 @@ section[id] { scroll-margin-top: var(--header-h); }
 }
 .lift:hover, .lift:focus-visible { transform: translateY(-6px); }
 .lift:hover::after, .lift:focus-visible::after { opacity: 1; }
+
+/* Card light: with a mouse, a glow inside and along the edge, centred on the
+   pointer (useCardLight sets --mx/--my).
+   - .lift cards light up while the mouse is on them.
+   - .near-light (the name in the header) lights up as the mouse comes near,
+     brighter the closer it is (--light, 0–1), so its edge glow reaches further.
+     It needs position and a stacking context, which the class gives it.
+   It is one layer under the content, so the text never moves. Three backgrounds:
+   the edge glow fills the whole box, the card colour covers it inside the border,
+   and the soft inner glow sits on top. */
+.near-light { position: relative; isolation: isolate; }
+@media (hover: hover) and (pointer: fine) {
+  .lift::before, .near-light::before {
+    content: ''; position: absolute; inset: -1px; z-index: -1; pointer-events: none;
+    border: 1px solid transparent; border-radius: inherit;
+    --edge-size: 220px;
+    background:
+      radial-gradient(280px circle at var(--mx, 50%) var(--my, 50%), var(--card-glow), transparent 70%) padding-box,
+      linear-gradient(var(--bg-elev), var(--bg-elev)) padding-box,
+      radial-gradient(var(--edge-size) circle at var(--mx, 50%) var(--my, 50%), var(--card-edge), transparent 70%) border-box;
+    opacity: 0; transition: opacity .3s ease;
+  }
+  .lift:hover::before { opacity: 1; }
+  .near-light::before { --edge-size: 320px; opacity: var(--light, 0); transition-duration: .2s; }
+}
 
 /* Grid helpers */
 .grid { display: grid; gap: 20px; }
